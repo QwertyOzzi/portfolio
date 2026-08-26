@@ -140,6 +140,24 @@ body {
   justify-content: space-between;
 }
 
+.nav-logo-wrap {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.nav-dyn-logo {
+  width: 22px;
+  height: 22px;
+  animation: logoSpin 12s linear infinite;
+  filter: drop-shadow(0 0 6px rgba(41, 151, 255, 0.6));
+}
+
+@keyframes logoSpin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
 .nav-logo {
   font-weight: 600;
   font-size: 18px;
