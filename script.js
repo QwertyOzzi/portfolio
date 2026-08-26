@@ -20,7 +20,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   });
 
-  // 2. Часы в навигации (Локальное время)
+  // 2. Часы в навигации
   function updateClock() {
     const clockEl = document.getElementById("devClock");
     if (clockEl) {
@@ -31,7 +31,7 @@ document.addEventListener("DOMContentLoaded", () => {
   updateClock();
   setInterval(updateClock, 1000);
 
-  // 3. Копирование контактов + Изумрудный Toast
+  // 3. Тост уведомление
   const toast = document.getElementById("toast");
   const toastText = document.getElementById("toastText");
   let toastTimer = null;
@@ -43,30 +43,39 @@ document.addEventListener("DOMContentLoaded", () => {
     clearTimeout(toastTimer);
     toastTimer = setTimeout(() => {
       toast.classList.remove("show");
-    }, 2200);
+    }, 2000);
   }
 
+  // 4. Обработка кликов по контактам (ЛКМ / ПКМ)
   document.querySelectorAll(".copy-action").forEach(btn => {
-    btn.addEventListener("click", () => {
-      const textToCopy = btn.getAttribute("data-copy");
-      const directLink = btn.getAttribute("data-link");
+    const textToCopy = btn.getAttribute("data-copy");
+    const directLink = btn.getAttribute("data-link");
 
-      if (textToCopy) {
+    // Левый клик (ЛКМ)
+    btn.addEventListener("click", () => {
+      if (directLink && directLink.trim() !== "") {
+        window.open(directLink, "_blank");
+      } else if (textToCopy) {
         navigator.clipboard.writeText(textToCopy).then(() => {
           triggerToast(`Скопировано: ${textToCopy}`);
-          if (directLink) {
-            setTimeout(() => {
-              window.open(directLink, "_blank");
-            }, 600);
-          }
+        });
+      }
+    });
+
+    // Правый клик (ПКМ) - перехват и копирование без меню браузера
+    btn.addEventListener("contextmenu", (e) => {
+      e.preventDefault(); // Блокировка стандартного контекстного меню браузера
+      if (textToCopy) {
+        navigator.clipboard.writeText(textToCopy).then(() => {
+          triggerToast(`Скопировано в буфер: ${textToCopy}`);
         }).catch(() => {
-          if (directLink) window.open(directLink, "_blank");
+          triggerToast("Не удалось скопировать");
         });
       }
     });
   });
 
-  // 4. 3D Tilt эффект карточек
+  // 5. 3D Tilt эффект карточек
   const tiltCards = document.querySelectorAll(".tilt-card");
   tiltCards.forEach(card => {
     card.addEventListener("mousemove", (e) => {
@@ -87,7 +96,7 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   });
 
-  // 5. Физические фоновые частицы звездного неба
+  // 6. Интерактивные физические частицы звездного неба
   const pCanvas = document.getElementById("particles-canvas");
   if (pCanvas) {
     const pCtx = pCanvas.getContext("2d");
@@ -171,7 +180,7 @@ document.addEventListener("DOMContentLoaded", () => {
     animateParticles();
   }
 
-  // 6. Динамический Favicon со звездой
+  // 7. Динамический Favicon
   const favicon = document.getElementById("dynamic-favicon");
   const canvas = document.createElement("canvas");
   canvas.width = 32;
@@ -229,7 +238,7 @@ document.addEventListener("DOMContentLoaded", () => {
   }
   renderDynamicFavicon();
 
-  // 7. Появление элементов при скролле
+  // 8. Появление элементов при скролле
   const animatedElements = document.querySelectorAll(".fade-in");
   const observer = new IntersectionObserver((entries, obs) => {
     entries.forEach(entry => {
@@ -241,7 +250,7 @@ document.addEventListener("DOMContentLoaded", () => {
   }, { threshold: 0.1 });
   animatedElements.forEach(el => observer.observe(el));
 
-  // 8. Админ-панель
+  // 9. Админ-панель
   const editables = document.querySelectorAll("[data-key]");
   editables.forEach(el => {
     const key = el.getAttribute("data-key");
@@ -280,7 +289,7 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
-  // 9. Lightbox Модалка + 3 сек Hover
+  // 10. Lightbox Модалка + 3 сек Hover
   const modal = document.getElementById("imageModal");
   const modalImg = document.getElementById("modalImg");
   const modalClose = document.getElementById("modalClose");
