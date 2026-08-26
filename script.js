@@ -8,16 +8,9 @@ window.scrollDrum = function(drumId, direction) {
   }
 };
 
-// Функция открытия ссылки или копирования
-window.handleContactClick = function(e, url) {
-  if (url) {
-    window.open(url, "_blank");
-  }
-};
-
 document.addEventListener("DOMContentLoaded", () => {
 
-  // 1. Динамический заголовок при смене вкладки (Page Visibility API)
+  // 1. Динамический заголовок вкладки (Page Visibility API)
   const originalTitle = document.title;
   document.addEventListener("visibilitychange", () => {
     if (document.hidden) {
@@ -27,31 +20,25 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   });
 
-  // 2. Отображение локального времени разработчика (UTC+3)
-  function updateDevClock() {
+  // 2. Часы в навигации (Локальное время)
+  function updateClock() {
     const clockEl = document.getElementById("devClock");
     if (clockEl) {
       const now = new Date();
-      const options = {
-        timeZone: "Europe/Kyiv", // или "Europe/Moscow" (UTC+3)
-        hour: "2-digit",
-        minute: "2-digit",
-        second: "2-digit",
-        hour12: false
-      };
-      clockEl.textContent = new Intl.DateTimeFormat("ru-RU", options).format(now);
+      clockEl.textContent = now.toLocaleTimeString("ru-RU", { hour12: false });
     }
   }
-  updateDevClock();
-  setInterval(updateDevClock, 1000);
+  updateClock();
+  setInterval(updateClock, 1000);
 
-  // 3. Копирование в буфер обмена по клику (Clipboard API) + Toast уведомление
+  // 3. Копирование контактов + Изумрудный Toast
   const toast = document.getElementById("toast");
+  const toastText = document.getElementById("toastText");
   let toastTimer = null;
 
-  function showToast(text) {
-    if (!toast) return;
-    toast.innerText = text;
+  function triggerToast(msg) {
+    if (!toast || !toastText) return;
+    toastText.innerText = msg;
     toast.classList.add("show");
     clearTimeout(toastTimer);
     toastTimer = setTimeout(() => {
@@ -59,34 +46,40 @@ document.addEventListener("DOMContentLoaded", () => {
     }, 2200);
   }
 
-  document.querySelectorAll(".copyable").forEach(btn => {
-    btn.addEventListener("click", (e) => {
+  document.querySelectorAll(".copy-action").forEach(btn => {
+    btn.addEventListener("click", () => {
       const textToCopy = btn.getAttribute("data-copy");
+      const directLink = btn.getAttribute("data-link");
+
       if (textToCopy) {
         navigator.clipboard.writeText(textToCopy).then(() => {
-          showToast(`Скопировано: ${textToCopy}`);
+          triggerToast(`Скопировано: ${textToCopy}`);
+          if (directLink) {
+            setTimeout(() => {
+              window.open(directLink, "_blank");
+            }, 600);
+          }
         }).catch(() => {
-          showToast("Не удалось скопировать");
+          if (directLink) window.open(directLink, "_blank");
         });
       }
     });
   });
 
-  // 4. 3D Tilt-эффект карточек за курсором мыши
-  const tiltElements = document.querySelectorAll(".tilt-element");
-  tiltElements.forEach(card => {
+  // 4. 3D Tilt эффект карточек
+  const tiltCards = document.querySelectorAll(".tilt-card");
+  tiltCards.forEach(card => {
     card.addEventListener("mousemove", (e) => {
       const rect = card.getBoundingClientRect();
       const x = e.clientX - rect.left;
       const y = e.clientY - rect.top;
-
       const centerX = rect.width / 2;
       const centerY = rect.height / 2;
 
-      const rotateX = ((y - centerY) / centerY) * -7;
-      const rotateY = ((x - centerX) / centerX) * 7;
+      const rotX = ((y - centerY) / centerY) * -9;
+      const rotY = ((x - centerX) / centerX) * 9;
 
-      card.style.transform = `perspective(1000px) rotateX(${rotateX.toFixed(2)}deg) rotateY(${rotateY.toFixed(2)}deg) scale3d(1.02, 1.02, 1.02)`;
+      card.style.transform = `perspective(1000px) rotateX(${rotX.toFixed(2)}deg) rotateY(${rotY.toFixed(2)}deg) scale3d(1.025, 1.025, 1.025)`;
     });
 
     card.addEventListener("mouseleave", () => {
@@ -94,7 +87,7 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   });
 
-  // 5. Интерактивные физические частицы звездного неба на Canvas
+  // 5. Физические фоновые частицы звездного неба
   const pCanvas = document.getElementById("particles-canvas");
   if (pCanvas) {
     const pCtx = pCanvas.getContext("2d");
@@ -143,7 +136,6 @@ document.addEventListener("DOMContentLoaded", () => {
         if (p.y < 0) p.y = height;
         if (p.y > height) p.y = 0;
 
-        // Физическое отталкивание от курсора
         if (mouse.x !== null) {
           const dx = mouse.x - p.x;
           const dy = mouse.y - p.y;
@@ -155,13 +147,11 @@ document.addEventListener("DOMContentLoaded", () => {
           }
         }
 
-        // Отрисовка звезды
         pCtx.beginPath();
         pCtx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
         pCtx.fillStyle = `rgba(168, 195, 255, ${p.baseAlpha})`;
         pCtx.fill();
 
-        // Соединение линий между близкими частицами
         for (let j = index + 1; j < particles.length; j++) {
           const p2 = particles[j];
           const distNodes = Math.hypot(p.x - p2.x, p.y - p2.y);
@@ -181,7 +171,7 @@ document.addEventListener("DOMContentLoaded", () => {
     animateParticles();
   }
 
-  // 6. Отрисовка динамического Favicon
+  // 6. Динамический Favicon со звездой
   const favicon = document.getElementById("dynamic-favicon");
   const canvas = document.createElement("canvas");
   canvas.width = 32;
@@ -251,7 +241,7 @@ document.addEventListener("DOMContentLoaded", () => {
   }, { threshold: 0.1 });
   animatedElements.forEach(el => observer.observe(el));
 
-  // 8. Режим администратора (localStorage)
+  // 8. Админ-панель
   const editables = document.querySelectorAll("[data-key]");
   editables.forEach(el => {
     const key = el.getAttribute("data-key");
@@ -290,7 +280,7 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
-  // 9. Модальное окно и таймер 3 сек.
+  // 9. Lightbox Модалка + 3 сек Hover
   const modal = document.getElementById("imageModal");
   const modalImg = document.getElementById("modalImg");
   const modalClose = document.getElementById("modalClose");
