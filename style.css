@@ -29,6 +29,17 @@ body {
   position: relative;
 }
 
+/* Канвас интерактивных частиц */
+#particles-canvas {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: -1;
+  pointer-events: none;
+}
+
 .bg-grid {
   position: fixed;
   top: 0;
@@ -47,7 +58,7 @@ body {
   position: fixed;
   border-radius: 50%;
   filter: blur(120px);
-  z-index: -1;
+  z-index: -2;
   pointer-events: none;
   opacity: 0.35;
 }
@@ -80,6 +91,32 @@ body {
   max-width: 1100px;
   margin: 0 auto;
   padding: 0 24px;
+}
+
+/* Всплывающее уведомление (Toast) */
+.toast {
+  position: fixed;
+  bottom: 30px;
+  left: 50%;
+  transform: translateX(-50%) translateY(100px);
+  background: rgba(18, 20, 26, 0.95);
+  border: 1px solid var(--accent-blue);
+  color: #fff;
+  padding: 10px 24px;
+  border-radius: 980px;
+  font-size: 13.5px;
+  font-weight: 500;
+  backdrop-filter: blur(16px);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.6), 0 0 15px rgba(41, 151, 255, 0.4);
+  z-index: 9999;
+  opacity: 0;
+  pointer-events: none;
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.3s ease;
+}
+
+.toast.show {
+  transform: translateX(-50%) translateY(0);
+  opacity: 1;
 }
 
 .admin-panel {
@@ -117,7 +154,6 @@ body {
   border-radius: 4px;
 }
 
-/* Навигация и динамический логотип звёзд */
 .nav {
   position: fixed;
   top: 0;
@@ -164,7 +200,6 @@ body {
   animation: smallStarTwinkle 3.2s ease-in-out infinite;
 }
 
-/* Плавное мерцание, вращение и пульсация малой звезды */
 @keyframes smallStarTwinkle {
   0% {
     transform: scale(0.6) rotate(0deg) translate(0, 0);
@@ -201,6 +236,44 @@ body {
   font-weight: 600;
   font-size: 18px;
   letter-spacing: -0.02em;
+}
+
+/* Виджет локального времени */
+.dev-time-widget {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid var(--card-border);
+  padding: 4px 12px;
+  border-radius: 980px;
+  font-size: 12px;
+  color: var(--text-secondary);
+}
+
+.status-indicator {
+  width: 7px;
+  height: 7px;
+  background-color: #30d158;
+  border-radius: 50%;
+  box-shadow: 0 0 8px #30d158;
+  animation: pulseGreen 2s infinite;
+}
+
+@keyframes pulseGreen {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.5; transform: scale(0.85); }
+}
+
+#devClock {
+  color: #fff;
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+}
+
+.time-tz {
+  font-size: 10px;
+  color: var(--text-secondary);
 }
 
 .nav-links a {
@@ -310,6 +383,13 @@ body {
   font-size: 16px;
 }
 
+/* 3D Tilt Карточки */
+.tilt-element {
+  transform-style: preserve-3d;
+  transition: transform 0.15s ease-out, border-color 0.3s ease, box-shadow 0.3s ease;
+  will-change: transform;
+}
+
 .bento-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
@@ -323,12 +403,10 @@ body {
   padding: 32px;
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
-  transition: border-color 0.3s ease, transform 0.3s ease;
 }
 
 .bento-card:hover {
   border-color: var(--card-hover-border);
-  transform: translateY(-3px);
 }
 
 .card-tag {
@@ -369,13 +447,11 @@ body {
   backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
-  transition: border-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
   min-width: 0;
 }
 
 .project-card:hover {
   border-color: var(--card-hover-border);
-  transform: translateY(-4px);
   box-shadow: 0 16px 40px rgba(0, 0, 0, 0.6);
 }
 
@@ -563,15 +639,16 @@ body {
   border: 1px solid var(--card-border);
   padding: 14px 24px;
   border-radius: 16px;
-  text-decoration: none;
   display: flex;
   flex-direction: column;
   align-items: center;
   min-width: 180px;
   transition: all 0.25s ease;
+  cursor: pointer;
+  user-select: none;
 }
 
-.contact-btn:hover:not(.non-clickable) {
+.contact-btn:hover {
   border-color: var(--accent-blue);
   background: rgba(41, 151, 255, 0.12);
   transform: translateY(-2px);
@@ -589,10 +666,6 @@ body {
   color: #fff;
   font-size: 15px;
   font-weight: 500;
-}
-
-.non-clickable {
-  cursor: default;
 }
 
 .footer {
