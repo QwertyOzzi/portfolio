@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Portfolio | Developer</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=SF+Pro+Display:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+  <!-- Навигация -->
+  <nav class="nav">
+    <div class="nav-content">
+      <span class="nav-logo">Portfolio</span>
+      <div class="nav-links">
+        <a href="#about">Обо мне</a>
+        <a href="#skills">Стек</a>
+        <a href="#projects">Проекты</a>
+        <a href="#contact">Контакты</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Главный экран -->
+  <header class="hero">
+    <div class="hero-content fade-in">
+      <p class="hero-label">Software & Script Developer</p>
+      <h1 class="hero-title">Проектирую функционал.<br>Создаю интерфейсы.</h1>
+      <p class="hero-subtitle">Разработка ПО, кастомных скриптов, UI-модулей и системных решений.</p>
+      <div class="hero-actions">
+        <a href="#projects" class="btn btn-primary">Смотреть проекты</a>
+        <a href="#contact" class="btn btn-secondary">Связаться</a>
+      </div>
+    </div>
+  </header>
+
+  <!-- Секция: Обо мне -->
+  <section id="about" class="section">
+    <div class="container">
+      <div class="section-header fade-in">
+        <h2 class="section-title">Подход</h2>
+        <p class="section-desc">Чистый код, внимание к деталям и упор на производительность.</p>
+      </div>
+      <div class="bento-grid">
+        <div class="bento-card bento-large fade-in">
+          <h3>Архитектура и логика</h3>
+          <p>Создание отказоустойчивых решений, работа с API, парсинг данных и автоматизация рутинных процессов.</p>
+        </div>
+        <div class="bento-card fade-in">
+          <h3>Интерфейсы</h3>
+          <p>Интерактивные UI с кастомным рендером и оптимизированным FPS.</p>
+        </div>
+        <div class="bento-card fade-in">
+          <h3>Оптимизация</h3>
+          <p>Минимизация задержек, управление памятью и профилирование.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Секция: Стек технологий -->
+  <section id="skills" class="section">
+    <div class="container">
+      <div class="section-header fade-in">
+        <h2 class="section-title">Стек технологий</h2>
+      </div>
+      <div class="skills-grid">
+        <div class="skill-pill fade-in">Lua / mimgui</div>
+        <div class="skill-pill fade-in">Python</div>
+        <div class="skill-pill fade-in">C++ / Arduino</div>
+        <div class="skill-pill fade-in">HTML5 / CSS3 / JS</div>
+        <div class="skill-pill fade-in">Swift</div>
+        <div class="skill-pill fade-in">Git / GitHub</div>
+        <div class="skill-pill fade-in">REST API / JSON</div>
+        <div class="skill-pill fade-in">3D Modeling (Blender)</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Секция: Проекты -->
+  <section id="projects" class="section">
+    <div class="container">
+      <div class="section-header fade-in">
+        <h2 class="section-title">Избранные проекты</h2>
+      </div>
+      <div class="projects-grid">
+        <article class="project-card fade-in">
+          <div class="project-meta">Software / Automation</div>
+          <h3 class="project-title">Custom Core Engine</h3>
+          <p class="project-desc">Комплексный инструмент автоматизации интерфейса с модульной архитектурой и динамической подгрузкой данных.</p>
+          <div class="project-tags">
+            <span>Lua</span>
+            <span>mimgui</span>
+            <span>JSON</span>
+          </div>
+        </article>
+
+        <article class="project-card fade-in">
+          <div class="project-meta">Web Application</div>
+          <h3 class="project-title">Data Tracker & Analyzer</h3>
+          <p class="project-desc">Интерактивный веб-сервис для мониторинга событий в реальном времени с синхронизацией через облачную базу данных.</p>
+          <div class="project-tags">
+            <span>JavaScript</span>
+            <span>Firebase</span>
+            <span>REST API</span>
+          </div>
+        </article>
+
+        <article class="project-card fade-in">
+          <div class="project-meta">Hardware & Embedded</div>
+          <h3 class="project-title">Microcontroller Controller Unit</h3>
+          <p class="project-desc">Прошивка и аппаратная настройка блока управления периферией с обработкой сигналов через ШИМ и энкодеры.</p>
+          <div class="project-tags">
+            <span>C++</span>
+            <span>Arduino</span>
+            <span>Hardware</span>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- Секция: Контакты -->
+  <section id="contact" class="section">
+    <div class="container">
+      <div class="contact-card fade-in">
+        <h2 class="contact-title">Готовы обсудить проект?</h2>
+        <p class="contact-desc">Открыт к разработке сложных систем, веб-приложений и совместным проектам.</p>
+        <div class="contact-links">
+          <a href="https://github.com" target="_blank" class="btn btn-primary">GitHub Profile</a>
+          <a href="https://t.me" target="_blank" class="btn btn-secondary">Telegram</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <p>© 2026 Developer Portfolio. All rights reserved.</p>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
