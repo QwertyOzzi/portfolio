@@ -1,12 +1,12 @@
 :root {
-  --bg-color: #0b0c10;
-  --card-bg: rgba(22, 24, 30, 0.7);
-  --card-border: rgba(255, 255, 255, 0.14);
-  --card-hover-border: rgba(64, 156, 255, 0.5);
+  --bg-color: #0d0f14;
+  --card-bg: rgba(23, 26, 35, 0.75);
+  --card-border: rgba(255, 255, 255, 0.12);
+  --card-hover-border: rgba(64, 156, 255, 0.55);
   --text-primary: #ffffff;
-  --text-secondary: #a0a5b5;
+  --text-secondary: #9da3b4;
   --accent-blue: #2997ff;
-  --nav-bg: rgba(11, 12, 16, 0.75);
+  --nav-bg: rgba(13, 15, 20, 0.8);
 }
 
 * {
@@ -29,22 +29,21 @@ body {
   position: relative;
 }
 
-/* Фоновая сетка */
+/* Сетка и световые сферы */
 .bg-grid {
   position: fixed;
   top: 0;
   left: 0;
   width: 100vw;
   height: 100vh;
-  background-size: 50px 50px;
+  background-size: 45px 45px;
   background-image: 
-    linear-gradient(to right, rgba(255, 255, 255, 0.03) 1px, transparent 1px),
-    linear-gradient(to bottom, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+    linear-gradient(to right, rgba(255, 255, 255, 0.035) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(255, 255, 255, 0.035) 1px, transparent 1px);
   z-index: -2;
   pointer-events: none;
 }
 
-/* Световые сферы */
 .glow-orb {
   position: fixed;
   border-radius: 50%;
@@ -55,31 +54,31 @@ body {
 }
 
 .orb-1 {
-  width: 500px;
-  height: 500px;
+  width: 550px;
+  height: 550px;
   background: radial-gradient(circle, #0071e3 0%, rgba(0, 113, 227, 0) 70%);
-  top: 10%;
-  left: -100px;
+  top: 5%;
+  left: -120px;
 }
 
 .orb-2 {
-  width: 600px;
-  height: 600px;
+  width: 650px;
+  height: 650px;
   background: radial-gradient(circle, #6e40c9 0%, rgba(110, 64, 201, 0) 70%);
-  top: 45%;
+  top: 40%;
   right: -150px;
 }
 
 .orb-3 {
-  width: 450px;
-  height: 450px;
+  width: 500px;
+  height: 500px;
   background: radial-gradient(circle, #0098ff 0%, rgba(0, 152, 255, 0) 70%);
   bottom: 5%;
-  left: 20%;
+  left: 25%;
 }
 
 .container {
-  max-width: 1080px;
+  max-width: 1100px;
   margin: 0 auto;
   padding: 0 24px;
 }
@@ -89,27 +88,29 @@ body {
   position: fixed;
   bottom: 20px;
   right: 20px;
-  background: rgba(18, 20, 26, 0.9);
+  background: rgba(18, 20, 26, 0.95);
   border: 1px solid var(--card-border);
-  padding: 8px 14px;
+  padding: 8px 16px;
   border-radius: 30px;
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: 12px;
   font-size: 12px;
   color: var(--text-secondary);
   z-index: 2000;
-  backdrop-filter: blur(10px);
+  backdrop-filter: blur(12px);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
 }
 
 .btn-small {
   background: var(--accent-blue);
   color: #fff;
   border: none;
-  padding: 4px 10px;
+  padding: 5px 12px;
   border-radius: 20px;
   cursor: pointer;
   font-size: 11px;
+  font-weight: 500;
 }
 
 [contenteditable="true"] {
@@ -124,7 +125,7 @@ body {
   top: 0;
   left: 0;
   width: 100%;
-  height: 54px;
+  height: 56px;
   background: var(--nav-bg);
   backdrop-filter: blur(25px);
   -webkit-backdrop-filter: blur(25px);
@@ -133,7 +134,7 @@ body {
 }
 
 .nav-content {
-  max-width: 1080px;
+  max-width: 1100px;
   height: 100%;
   margin: 0 auto;
   padding: 0 24px;
@@ -160,14 +161,14 @@ body {
   color: var(--text-primary);
 }
 
-/* Hero */
+/* Главный экран (Hero) */
 .hero {
   min-height: 85vh;
   display: flex;
   align-items: center;
   justify-content: center;
   text-align: center;
-  padding: 120px 24px 60px;
+  padding: 130px 24px 70px;
 }
 
 .hero-label {
@@ -180,9 +181,9 @@ body {
 }
 
 .hero-title {
-  font-size: clamp(40px, 7vw, 76px);
+  font-size: clamp(38px, 6.5vw, 72px);
   font-weight: 700;
-  line-height: 1.05;
+  line-height: 1.08;
   letter-spacing: -0.03em;
   background: linear-gradient(180deg, #ffffff 0%, #cbd2e1 100%);
   -webkit-background-clip: text;
@@ -191,9 +192,9 @@ body {
 }
 
 .hero-subtitle {
-  font-size: clamp(17px, 2.5vw, 21px);
+  font-size: clamp(16px, 2.2vw, 20px);
   color: var(--text-secondary);
-  max-width: 620px;
+  max-width: 650px;
   margin: 0 auto 36px;
   font-weight: 400;
 }
@@ -207,7 +208,7 @@ body {
 /* Кнопки */
 .btn {
   display: inline-block;
-  padding: 12px 26px;
+  padding: 12px 28px;
   border-radius: 980px;
   font-size: 14px;
   font-weight: 500;
@@ -237,9 +238,9 @@ body {
   transform: scale(1.02);
 }
 
-/* Секции */
+/* Общие стили секций */
 .section {
-  padding: 90px 0;
+  padding: 85px 0;
 }
 
 .section-header {
@@ -247,7 +248,7 @@ body {
 }
 
 .section-title {
-  font-size: clamp(28px, 4vw, 42px);
+  font-size: clamp(28px, 4vw, 40px);
   font-weight: 600;
   letter-spacing: -0.02em;
   margin-bottom: 8px;
@@ -255,10 +256,10 @@ body {
 
 .section-desc {
   color: var(--text-secondary);
-  font-size: 17px;
+  font-size: 16px;
 }
 
-/* Bento Grid */
+/* Секция: Направления разработки (Bento Grid) */
 .bento-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
@@ -269,16 +270,24 @@ body {
   background: var(--card-bg);
   border: 1px solid var(--card-border);
   border-radius: 20px;
-  padding: 34px;
+  padding: 32px;
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
-  transition: border-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+  transition: border-color 0.3s ease, transform 0.3s ease;
 }
 
 .bento-card:hover {
   border-color: var(--card-hover-border);
   transform: translateY(-3px);
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+}
+
+.card-tag {
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+  color: var(--accent-blue);
+  letter-spacing: 0.08em;
+  margin-bottom: 12px;
 }
 
 .bento-card h3 {
@@ -289,14 +298,163 @@ body {
 
 .bento-card p {
   color: var(--text-secondary);
-  font-size: 15px;
+  font-size: 14px;
+  line-height: 1.6;
 }
 
-.bento-large {
-  grid-column: 1 / -1;
+/* Секция: Примеры работ (Projects Grid) */
+.projects-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 24px;
+  width: 100%;
 }
 
-/* Skills */
+.project-card {
+  background: var(--card-bg);
+  border: 1px solid var(--card-border);
+  border-radius: 24px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+  transition: border-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+  min-width: 0;
+}
+
+.project-card:hover {
+  border-color: var(--card-hover-border);
+  transform: translateY(-4px);
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.6);
+}
+
+/* Вертикальный барабан картинок */
+.v-drum-container {
+  position: relative;
+  width: 100%;
+  height: 230px;
+  background: #090a0d;
+  overflow: hidden;
+  border-bottom: 1px solid var(--card-border);
+}
+
+.v-drum {
+  width: 100%;
+  height: 100%;
+  overflow-y: scroll;
+  scroll-snap-type: y mandatory;
+  scroll-behavior: smooth;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+  display: flex;
+  flex-direction: column;
+}
+
+.v-drum::-webkit-scrollbar {
+  display: none;
+}
+
+.v-drum-slide {
+  width: 100%;
+  height: 230px;
+  min-height: 230px;
+  max-height: 230px;
+  scroll-snap-align: start;
+  scroll-snap-stop: always;
+  flex-shrink: 0;
+  position: relative;
+  overflow: hidden;
+  background: #090a0d;
+}
+
+.drum-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  display: block;
+  user-select: none;
+  pointer-events: none;
+}
+
+/* Кнопки переключения барабана */
+.drum-controls {
+  position: absolute;
+  right: 14px;
+  top: 50%;
+  transform: translateY(-50%);
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  z-index: 10;
+  background: rgba(0, 0, 0, 0.4);
+  padding: 4px;
+  border-radius: 30px;
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.drum-btn {
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  color: rgba(255, 255, 255, 0.85);
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  padding: 0;
+}
+
+.drum-btn:hover {
+  background: var(--accent-blue);
+  color: #ffffff;
+  border-color: var(--accent-blue);
+  transform: scale(1.08);
+}
+
+.drum-btn:active {
+  transform: scale(0.95);
+}
+
+/* Описание внутри карточки проекта */
+.project-info {
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+}
+
+.project-meta {
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--accent-blue);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  margin-bottom: 8px;
+}
+
+.project-title {
+  font-size: 19px;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  margin-bottom: 10px;
+  color: var(--text-primary);
+}
+
+.project-desc {
+  color: var(--text-secondary);
+  font-size: 13.5px;
+  line-height: 1.55;
+}
+
+/* Секция: Стек технологий */
 .skills-grid {
   display: flex;
   flex-wrap: wrap;
@@ -311,107 +469,85 @@ body {
   font-size: 14px;
   color: var(--text-primary);
   backdrop-filter: blur(10px);
-  transition: background-color 0.2s ease, border-color 0.2s ease, transform 0.2s ease;
+  -webkit-backdrop-filter: blur(10px);
+  transition: background-color 0.2s ease, border-color 0.2s ease;
 }
 
 .skill-pill:hover {
-  background-color: rgba(255, 255, 255, 0.12);
+  background-color: rgba(255, 255, 255, 0.1);
   border-color: var(--card-hover-border);
-  transform: translateY(-2px);
 }
 
-/* Projects */
-.projects-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-  gap: 24px;
-}
-
-.project-card {
-  background: var(--card-bg);
-  border: 1px solid var(--card-border);
-  border-radius: 22px;
-  padding: 32px;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
-  transition: all 0.3s ease;
-}
-
-.project-card:hover {
-  border-color: var(--card-hover-border);
-  transform: translateY(-4px);
-  box-shadow: 0 12px 36px rgba(0, 0, 0, 0.6);
-}
-
-.project-meta {
-  font-size: 12px;
-  font-weight: 600;
-  text-transform: uppercase;
-  color: var(--accent-blue);
-  letter-spacing: 0.05em;
-  margin-bottom: 12px;
-}
-
-.project-title {
-  font-size: 22px;
-  font-weight: 600;
-  letter-spacing: -0.01em;
-  margin-bottom: 12px;
-}
-
-.project-desc {
-  color: var(--text-secondary);
-  font-size: 14px;
-  margin-bottom: 24px;
-  line-height: 1.6;
-}
-
-.project-tags {
-  display: flex;
-  gap: 8px;
-  flex-wrap: wrap;
-}
-
-.project-tags span {
-  font-size: 12px;
-  background: rgba(255, 255, 255, 0.08);
-  padding: 5px 12px;
-  border-radius: 6px;
-  color: var(--text-primary);
-  border: 1px solid rgba(255, 255, 255, 0.05);
-}
-
-/* Contact & Footer */
+/* Секция: Контакты */
 .contact-card {
-  background: radial-gradient(circle at 50% 0%, rgba(41, 151, 255, 0.18) 0%, rgba(22, 24, 30, 0.7) 70%);
+  background: radial-gradient(circle at 50% 0%, rgba(41, 151, 255, 0.16) 0%, rgba(23, 26, 35, 0.8) 70%);
   border: 1px solid var(--card-border);
   border-radius: 28px;
-  padding: 64px 24px;
+  padding: 56px 24px;
   text-align: center;
   backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
 }
 
 .contact-title {
-  font-size: clamp(28px, 4vw, 42px);
+  font-size: clamp(26px, 3.5vw, 38px);
   font-weight: 600;
-  margin-bottom: 12px;
+  margin-bottom: 10px;
 }
 
 .contact-desc {
   color: var(--text-secondary);
-  font-size: 16px;
+  font-size: 15px;
   margin-bottom: 32px;
 }
 
-.contact-links {
+.contact-grid {
   display: flex;
+  flex-wrap: wrap;
   justify-content: center;
   gap: 16px;
+  max-width: 800px;
+  margin: 0 auto;
 }
 
+.contact-btn {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid var(--card-border);
+  padding: 14px 24px;
+  border-radius: 16px;
+  text-decoration: none;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-width: 180px;
+  transition: all 0.25s ease;
+}
+
+.contact-btn:hover:not(.non-clickable) {
+  border-color: var(--accent-blue);
+  background: rgba(41, 151, 255, 0.12);
+  transform: translateY(-2px);
+}
+
+.contact-type {
+  font-size: 12px;
+  color: var(--text-secondary);
+  margin-bottom: 4px;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.contact-val {
+  color: #fff;
+  font-size: 15px;
+  font-weight: 500;
+}
+
+.non-clickable {
+  cursor: default;
+}
+
+/* Футер */
 .footer {
   text-align: center;
   padding: 40px 24px;
@@ -420,7 +556,7 @@ body {
   font-size: 12px;
 }
 
-/* Анимации появления */
+/* Анимация плавного появления */
 .fade-in {
   opacity: 0;
   transform: translateY(20px);
@@ -430,80 +566,4 @@ body {
 .fade-in.visible {
   opacity: 1;
   transform: translateY(0);
-}
-/* Вертикальный барабан изображений */
-.v-drum-container {
-  position: relative;
-  width: 100%;
-  height: 240px;
-  background: #0f1117;
-  overflow: hidden;
-  border-bottom: 1px solid var(--card-border);
-}
-
-.v-drum {
-  width: 100%;
-  height: 100%;
-  overflow-y: scroll;
-  scroll-snap-type: y mandatory;
-  scroll-behavior: smooth;
-  -webkit-overflow-scrolling: touch;
-  scrollbar-width: none;
-}
-
-.v-drum::-webkit-scrollbar {
-  display: none;
-}
-
-.v-drum-slide {
-  width: 100%;
-  height: 100%;
-  scroll-snap-align: start;
-  scroll-snap-stop: always;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-shrink: 0;
-}
-
-.drum-img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  display: block;
-  user-select: none;
-}
-
-/* Кнопки перелистывания */
-.drum-controls {
-  position: absolute;
-  right: 12px;
-  top: 50%;
-  transform: translateY(-50%);
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-  z-index: 10;
-}
-
-.drum-btn {
-  background: rgba(15, 17, 23, 0.7);
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  color: #fff;
-  width: 28px;
-  height: 28px;
-  border-radius: 50%;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 10px;
-  backdrop-filter: blur(8px);
-  transition: all 0.2s ease;
-}
-
-.drum-btn:hover {
-  background: var(--accent-blue);
-  border-color: var(--accent-blue);
-  transform: scale(1.1);
 }
