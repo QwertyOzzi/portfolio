@@ -29,7 +29,7 @@ window.switchAdminTab = function(tabName) {
 
 document.addEventListener("DOMContentLoaded", () => {
 
-  const ADMIN_PASS = "1234";
+  const ADMIN_PASS = "eff31a14-f8b5-4b34-828b-4d47d565de29";
   const adminModal = document.getElementById("adminModal");
   const adminCloseBtn = document.getElementById("adminCloseBtn");
   const secretLogo = document.getElementById("secretLogoTrigger");
