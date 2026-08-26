@@ -1,4 +1,15 @@
+// Глобальная функция скролла барабана для вызова из onclick
+window.scrollDrum = function(drumId, direction) {
+  const drum = document.getElementById(drumId);
+  if (drum) {
+    const slide = drum.querySelector(".v-drum-slide");
+    const height = slide ? slide.offsetHeight : drum.clientHeight;
+    drum.scrollBy({ top: direction * height, behavior: "smooth" });
+  }
+};
+
 document.addEventListener("DOMContentLoaded", () => {
+  // 1. Анимация появления блоков при скролле
   const animatedElements = document.querySelectorAll(".fade-in");
   const observer = new IntersectionObserver((entries, obs) => {
     entries.forEach(entry => {
@@ -11,6 +22,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   animatedElements.forEach(el => observer.observe(el));
 
+  // 2. Загрузка сохраненного контента (Режим администратора)
   const editables = document.querySelectorAll("[data-key]");
   editables.forEach(el => {
     const key = el.getAttribute("data-key");
@@ -29,7 +41,7 @@ document.addEventListener("DOMContentLoaded", () => {
         const pass = prompt("Введите PIN для редактирования:");
         if (pass === ADMIN_PASS) {
           isEditing = true;
-          adminStatus.innerText = "Режим правки включен";
+          adminStatus.innerText = "Режим правки";
           adminBtn.innerText = "Сохранить";
           editables.forEach(el => el.setAttribute("contenteditable", "true"));
         } else if (pass !== null) {
@@ -49,38 +61,46 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
+  // 3. Логика модального окна и Hover-таймера на 3 секунды
   const modal = document.getElementById("imageModal");
   const modalImg = document.getElementById("modalImg");
   const modalClose = document.getElementById("modalClose");
-  const zoomableImages = document.querySelectorAll(".zoomable");
+  const zoomableImages = document.querySelectorAll(".drum-img");
 
   let hoverTimer = null;
 
-  function openImage(src) {
+  function openModal(src) {
+    if (!modal || !modalImg) return;
     clearTimeout(hoverTimer);
     modalImg.src = src;
     modal.classList.add("active");
   }
 
-  function closeImage() {
+  function closeModal() {
+    if (!modal || !modalImg) return;
     modal.classList.remove("active");
     setTimeout(() => { modalImg.src = ""; }, 350);
   }
 
   zoomableImages.forEach(img => {
-    img.addEventListener("click", () => openImage(img.src));
+    // Открытие кликом
+    img.addEventListener("click", (e) => {
+      e.stopPropagation();
+      openModal(img.src);
+    });
 
+    // Открытие удержанием курсора без движения 3 секунды
     img.addEventListener("mouseenter", () => {
       clearTimeout(hoverTimer);
       hoverTimer = setTimeout(() => {
-        openImage(img.src);
+        openModal(img.src);
       }, 3000);
     });
 
     img.addEventListener("mousemove", () => {
       clearTimeout(hoverTimer);
       hoverTimer = setTimeout(() => {
-        openImage(img.src);
+        openModal(img.src);
       }, 3000);
     });
 
@@ -89,24 +109,21 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   });
 
-  if (modalClose) modalClose.addEventListener("click", closeImage);
+  if (modalClose) {
+    modalClose.addEventListener("click", closeModal);
+  }
+
   if (modal) {
     modal.addEventListener("click", (e) => {
-      if (e.target === modal) closeImage();
+      if (e.target === modal) {
+        closeModal();
+      }
     });
   }
 
   document.addEventListener("keydown", (e) => {
-    if (e.key === "Escape" && modal.classList.contains("active")) {
-      closeImage();
+    if (e.key === "Escape" && modal && modal.classList.contains("active")) {
+      closeModal();
     }
   });
 });
-
-function scrollDrum(drumId, direction) {
-  const drum = document.getElementById(drumId);
-  if (drum) {
-    const height = drum.clientHeight;
-    drum.scrollBy({ top: direction * height, behavior: "smooth" });
-  }
-}
