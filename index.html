@@ -76,58 +76,81 @@
     </div>
   </section>
 
-  <!-- Секция: Примеры работ с превью -->
+  <!-- Секция: Примеры работ с вертикальным барабаном -->
   <section id="portfolio" class="section">
     <div class="container">
       <div class="section-header fade-in">
         <h2 class="section-title" data-key="port_title">Примеры работ</h2>
-        <p class="section-desc" data-key="port_desc">Скриншоты и описание готовых проектов.</p>
+        <p class="section-desc" data-key="port_desc">Используйте колесико мыши или стрелки для перелистывания скриншотов.</p>
       </div>
       <div class="projects-grid">
         
-        <!-- Карточка 1 -->
+        <!-- Карточка 1: Скрипты -->
         <article class="project-card fade-in">
-          <div class="project-img-wrap">
-            <!-- Ссылку в src можно заменить на путь к файлу в репозитории (например "img/script-preview.png") или на прямой URL -->
-            <img src="https://images.unsplash.com/photo-1555066931-4365d14bab8c?w=800&q=80" alt="Превью скрипта" class="project-img">
+          <div class="v-drum-container">
+            <div class="v-drum" id="drum-lua">
+              <div class="v-drum-slide">
+                <img src="lua1.jpg" alt="Lua Скрипт 1" class="drum-img">
+              </div>
+              <div class="v-drum-slide">
+                <img src="lua2.jpg" alt="Lua Скрипт 2" class="drum-img">
+              </div>
+            </div>
+            <div class="drum-controls">
+              <button class="drum-btn" onclick="scrollDrum('drum-lua', -1)">▲</button>
+              <button class="drum-btn" onclick="scrollDrum('drum-lua', 1)">▼</button>
+            </div>
           </div>
           <div class="project-info">
             <div class="project-meta" data-key="p1_cat">Скрипты / Lua & mimgui</div>
             <h3 class="project-title" data-key="p1_name">Мультифункциональный UI-Хелпер</h3>
             <p class="project-desc" data-key="p1_txt">Кастомный графический интерфейс с гибкой настройкой рендера, обработкой пакетов и синхронизацией данных.</p>
-            <div class="project-actions">
-              <a href="https://images.unsplash.com/photo-1555066931-4365d14bab8c?w=1600&q=90" target="_blank" class="btn-link">Смотреть скриншот ↗</a>
-            </div>
           </div>
         </article>
 
-        <!-- Карточка 2 -->
+        <!-- Карточка 2: 3D Модели -->
         <article class="project-card fade-in">
-          <div class="project-img-wrap">
-            <img src="https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?w=800&q=80" alt="Превью 3D модели" class="project-img">
+          <div class="v-drum-container">
+            <div class="v-drum" id="drum-3d">
+              <div class="v-drum-slide">
+                <img src="3d1.jpg" alt="3D Модель 1" class="drum-img">
+              </div>
+              <div class="v-drum-slide">
+                <img src="3d2.jpg" alt="3D Модель 2" class="drum-img">
+              </div>
+            </div>
+            <div class="drum-controls">
+              <button class="drum-btn" onclick="scrollDrum('drum-3d', -1)">▲</button>
+              <button class="drum-btn" onclick="scrollDrum('drum-3d', 1)">▼</button>
+            </div>
           </div>
           <div class="project-info">
             <div class="project-meta" data-key="p2_cat">3D Модели / Blender</div>
             <h3 class="project-title" data-key="p2_name">Кастомный пак заменок</h3>
             <p class="project-desc" data-key="p2_txt">Высокополигональные модели с оптимизацией геометрии и авторскими текстурами высокой четкости.</p>
-            <div class="project-actions">
-              <a href="https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?w=1600&q=90" target="_blank" class="btn-link">Смотреть скриншот ↗</a>
-            </div>
           </div>
         </article>
 
-        <!-- Карточка 3 -->
+        <!-- Карточка 3: Сборки -->
         <article class="project-card fade-in">
-          <div class="project-img-wrap">
-            <img src="https://images.unsplash.com/photo-1542751371-adc38448a05e?w=800&q=80" alt="Превью сборки" class="project-img">
+          <div class="v-drum-container">
+            <div class="v-drum" id="drum-sborka">
+              <div class="v-drum-slide">
+                <img src="sborka.jpg" alt="Сборка 1" class="drum-img">
+              </div>
+              <div class="v-drum-slide">
+                <img src="sborka1.jpg" alt="Сборка 2" class="drum-img">
+              </div>
+            </div>
+            <div class="drum-controls">
+              <button class="drum-btn" onclick="scrollDrum('drum-sborka', -1)">▲</button>
+              <button class="drum-btn" onclick="scrollDrum('drum-sborka', 1)">▼</button>
+            </div>
           </div>
           <div class="project-info">
             <div class="project-meta" data-key="p3_cat">Клиентские сборки</div>
             <h3 class="project-title" data-key="p3_name">Оптимизированная сборка</h3>
             <p class="project-desc" data-key="p3_txt">Чистый клиент с пакетом стабильности, кастомными анимациями, графическими модами и фиксом просадок кадров.</p>
-            <div class="project-actions">
-              <a href="https://images.unsplash.com/photo-1542751371-adc38448a05e?w=1600&q=90" target="_blank" class="btn-link">Смотреть скриншот ↗</a>
-            </div>
           </div>
         </article>
 
