@@ -19,23 +19,20 @@
   <div class="glow-orb orb-2"></div>
   <div class="glow-orb orb-3"></div>
 
-  <!-- Всплывающий изумрудно-зеленый тост Apple Glass -->
+  <!-- Уведомление Apple Glass -->
   <div class="toast" id="toast">
     <svg class="toast-icon" viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" stroke-width="2.5" fill="none" stroke-linecap="round" stroke-linejoin="round">
       <polyline points="20 6 9 17 4 12"></polyline>
     </svg>
-    <span id="toastText">Скопировано в буфер обмена</span>
+    <span id="toastText">Скопировано</span>
   </div>
 
-  <div class="admin-panel" id="adminPanel">
-    <span id="adminStatus">Режим просмотра</span>
-    <button id="adminBtn" class="btn-small">Войти</button>
-  </div>
-
+  <!-- Навигация -->
   <nav class="nav">
     <div class="nav-content">
       <div class="nav-left">
-        <div class="nav-logo-wrap">
+        <!-- Тройной клик по логотипу открывает панель управления -->
+        <div class="nav-logo-wrap" id="secretLogoTrigger" title="Тройной клик для панели управления">
           <svg class="nav-sparkle-logo" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
             <defs>
               <linearGradient id="sparkle-grad" x1="0%" y1="0%" x2="100%" y2="100%">
@@ -73,6 +70,7 @@
     </div>
   </nav>
 
+  <!-- Главный экран -->
   <header class="hero">
     <div class="hero-content fade-in">
       <p class="hero-label" data-key="hero_label">Development & Modding</p>
@@ -85,6 +83,7 @@
     </div>
   </header>
 
+  <!-- Секция: Специализация -->
   <section id="services" class="section">
     <div class="container">
       <div class="section-header fade-in">
@@ -111,30 +110,27 @@
     </div>
   </section>
 
+  <!-- Секция: Примеры работ -->
   <section id="portfolio" class="section">
     <div class="container">
       <div class="section-header fade-in">
         <h2 class="section-title" data-key="port_title">Примеры работ</h2>
         <p class="section-desc" data-key="port_desc">Кликните по фото или наведите курсор на 3 сек. для полноразмерного просмотра.</p>
       </div>
-      <div class="projects-grid">
+      <div class="projects-grid" id="projectsContainer">
         
         <article class="project-card tilt-card fade-in">
           <div class="v-drum-container">
             <div class="v-drum" id="drum-lua">
-              <div class="v-drum-slide">
-                <img src="lua1.jpg" alt="Lua Скрипт 1" class="drum-img zoomable">
-              </div>
-              <div class="v-drum-slide">
-                <img src="lua2.jpg" alt="Lua Скрипт 2" class="drum-img zoomable">
-              </div>
+              <div class="v-drum-slide"><img src="lua1.jpg" alt="Lua 1" class="drum-img zoomable"></div>
+              <div class="v-drum-slide"><img src="lua2.jpg" alt="Lua 2" class="drum-img zoomable"></div>
             </div>
             <div class="drum-controls">
-              <button class="drum-btn" onclick="scrollDrum('drum-lua', -1)" aria-label="Предыдущее">
-                <svg viewBox="0 0 24 24" width="14" height="14" stroke="currentColor" stroke-width="2.5" fill="none" stroke-linecap="round" stroke-linejoin="round"><polyline points="18 15 12 9 6 15"></polyline></svg>
+              <button class="drum-btn" onclick="scrollDrum('drum-lua', -1)" aria-label="Вверх">
+                <svg viewBox="0 0 24 24" width="14" height="14" stroke="currentColor" stroke-width="2.5" fill="none"><polyline points="18 15 12 9 6 15"></polyline></svg>
               </button>
-              <button class="drum-btn" onclick="scrollDrum('drum-lua', 1)" aria-label="Следующее">
-                <svg viewBox="0 0 24 24" width="14" height="14" stroke="currentColor" stroke-width="2.5" fill="none" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
+              <button class="drum-btn" onclick="scrollDrum('drum-lua', 1)" aria-label="Вниз">
+                <svg viewBox="0 0 24 24" width="14" height="14" stroke="currentColor" stroke-width="2.5" fill="none"><polyline points="6 9 12 15 18 9"></polyline></svg>
               </button>
             </div>
           </div>
@@ -148,19 +144,15 @@
         <article class="project-card tilt-card fade-in">
           <div class="v-drum-container">
             <div class="v-drum" id="drum-3d">
-              <div class="v-drum-slide">
-                <img src="3d1.jpg" alt="3D Модель 1" class="drum-img zoomable">
-              </div>
-              <div class="v-drum-slide">
-                <img src="3d2.jpg" alt="3D Модель 2" class="drum-img zoomable">
-              </div>
+              <div class="v-drum-slide"><img src="3d1.jpg" alt="3D 1" class="drum-img zoomable"></div>
+              <div class="v-drum-slide"><img src="3d2.jpg" alt="3D 2" class="drum-img zoomable"></div>
             </div>
             <div class="drum-controls">
-              <button class="drum-btn" onclick="scrollDrum('drum-3d', -1)" aria-label="Предыдущее">
-                <svg viewBox="0 0 24 24" width="14" height="14" stroke="currentColor" stroke-width="2.5" fill="none" stroke-linecap="round" stroke-linejoin="round"><polyline points="18 15 12 9 6 15"></polyline></svg>
+              <button class="drum-btn" onclick="scrollDrum('drum-3d', -1)" aria-label="Вверх">
+                <svg viewBox="0 0 24 24" width="14" height="14" stroke="currentColor" stroke-width="2.5" fill="none"><polyline points="18 15 12 9 6 15"></polyline></svg>
               </button>
-              <button class="drum-btn" onclick="scrollDrum('drum-3d', 1)" aria-label="Следующее">
-                <svg viewBox="0 0 24 24" width="14" height="14" stroke="currentColor" stroke-width="2.5" fill="none" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
+              <button class="drum-btn" onclick="scrollDrum('drum-3d', 1)" aria-label="Вниз">
+                <svg viewBox="0 0 24 24" width="14" height="14" stroke="currentColor" stroke-width="2.5" fill="none"><polyline points="6 9 12 15 18 9"></polyline></svg>
               </button>
             </div>
           </div>
@@ -174,19 +166,15 @@
         <article class="project-card tilt-card fade-in">
           <div class="v-drum-container">
             <div class="v-drum" id="drum-sborka">
-              <div class="v-drum-slide">
-                <img src="sborka.jpg" alt="Сборка 1" class="drum-img zoomable">
-              </div>
-              <div class="v-drum-slide">
-                <img src="sborka1.jpg" alt="Сборка 2" class="drum-img zoomable">
-              </div>
+              <div class="v-drum-slide"><img src="sborka.jpg" alt="Сборка 1" class="drum-img zoomable"></div>
+              <div class="v-drum-slide"><img src="sborka1.jpg" alt="Сборка 2" class="drum-img zoomable"></div>
             </div>
             <div class="drum-controls">
-              <button class="drum-btn" onclick="scrollDrum('drum-sborka', -1)" aria-label="Предыдущее">
-                <svg viewBox="0 0 24 24" width="14" height="14" stroke="currentColor" stroke-width="2.5" fill="none" stroke-linecap="round" stroke-linejoin="round"><polyline points="18 15 12 9 6 15"></polyline></svg>
+              <button class="drum-btn" onclick="scrollDrum('drum-sborka', -1)" aria-label="Вверх">
+                <svg viewBox="0 0 24 24" width="14" height="14" stroke="currentColor" stroke-width="2.5" fill="none"><polyline points="18 15 12 9 6 15"></polyline></svg>
               </button>
-              <button class="drum-btn" onclick="scrollDrum('drum-sborka', 1)" aria-label="Следующее">
-                <svg viewBox="0 0 24 24" width="14" height="14" stroke="currentColor" stroke-width="2.5" fill="none" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
+              <button class="drum-btn" onclick="scrollDrum('drum-sborka', 1)" aria-label="Вниз">
+                <svg viewBox="0 0 24 24" width="14" height="14" stroke="currentColor" stroke-width="2.5" fill="none"><polyline points="6 9 12 15 18 9"></polyline></svg>
               </button>
             </div>
           </div>
@@ -201,6 +189,7 @@
     </div>
   </section>
 
+  <!-- Секция: Стек -->
   <section id="skills" class="section">
     <div class="container">
       <div class="section-header fade-in">
@@ -219,13 +208,13 @@
     </div>
   </section>
 
+  <!-- Секция: Контакты -->
   <section id="contact" class="section">
     <div class="container">
       <div class="contact-card tilt-card fade-in">
         <h2 class="contact-title" data-key="ct_title">Связаться со мной</h2>
         <p class="contact-desc" data-key="ct_desc">ЛКМ — открыть ссылку • ПКМ — скопировать контакт</p>
         <div class="contact-grid">
-          
           <div class="contact-btn copy-action" data-copy="@wasert44" data-link="https://t.me/wasert44">
             <span class="contact-type">Telegram</span>
             <span class="contact-val">@wasert44</span>
@@ -240,7 +229,6 @@
             <span class="contact-type">Discord</span>
             <span class="contact-val">kabibar4ikk</span>
           </div>
-
         </div>
       </div>
     </div>
@@ -250,9 +238,57 @@
     <p>© 2026 QwertyOzzi Portfolio. All rights reserved.</p>
   </footer>
 
+  <!-- Модальное окно просмотра изображений -->
   <div class="lightbox" id="imageModal">
     <button class="lightbox-close" id="modalClose">✕</button>
     <img src="" alt="Full view" class="lightbox-img" id="modalImg">
+  </div>
+
+  <!-- Модальная панель управления проектами (Dashboard) -->
+  <div class="admin-modal" id="adminModal">
+    <div class="admin-window">
+      <div class="admin-header">
+        <h3>Управление портфолио</h3>
+        <button class="admin-close" id="adminCloseBtn">✕</button>
+      </div>
+
+      <div class="admin-body">
+        <div class="admin-tabs">
+          <button class="tab-btn active" onclick="switchAdminTab('add')">Добавить проект</button>
+          <button class="tab-btn" onclick="switchAdminTab('edit')">Тексты на сайте</button>
+        </div>
+
+        <!-- Вкладка добавления карточки -->
+        <div class="tab-content" id="tabAdd">
+          <div class="form-group">
+            <label>Категория (Тег):</label>
+            <input type="text" id="pCategory" placeholder="Например: Скрипты / Lua & mimgui">
+          </div>
+          <div class="form-group">
+            <label>Название проекта:</label>
+            <input type="text" id="pTitle" placeholder="Например: Custom HUD Redesign">
+          </div>
+          <div class="form-group">
+            <label>Описание проекта:</label>
+            <textarea id="pDesc" rows="3" placeholder="Краткое описание функционала и фич..."></textarea>
+          </div>
+          <div class="form-group">
+            <label>Ссылки на изображения (через запятую):</label>
+            <input type="text" id="pImages" placeholder="3d1.jpg, 3d2.jpg или https://...">
+          </div>
+          <button class="btn btn-primary btn-full" id="createProjectBtn">Добавить в портфолио</button>
+        </div>
+
+        <!-- Вкладка переключения режима inline-редактирования -->
+        <div class="tab-content hidden" id="tabEdit">
+          <p class="admin-hint">Включите режим правки, чтобы изменять любые заголовки и тексты прямо на странице кликом мыши.</p>
+          <div class="admin-actions-row">
+            <button class="btn btn-secondary" id="toggleInlineEditBtn">Включить правку текстов</button>
+            <button class="btn btn-primary" id="saveInlineEditBtn">Сохранить изменения</button>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 
   <script src="script.js"></script>
