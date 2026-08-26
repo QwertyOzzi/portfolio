@@ -31,8 +31,8 @@
   <nav class="nav">
     <div class="nav-content">
       <div class="nav-left">
-        <!-- Тройной клик по логотипу открывает панель управления -->
-        <div class="nav-logo-wrap" id="secretLogoTrigger" title="Тройной клик для панели управления">
+        <!-- Клик по логотипу или тексту -->
+        <div class="nav-logo-wrap" id="secretLogoTrigger" title="Нажмите 3 раза для входа в панель">
           <svg class="nav-sparkle-logo" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
             <defs>
               <linearGradient id="sparkle-grad" x1="0%" y1="0%" x2="100%" y2="100%">
@@ -244,11 +244,11 @@
     <img src="" alt="Full view" class="lightbox-img" id="modalImg">
   </div>
 
-  <!-- Модальная панель управления проектами (Dashboard) -->
+  <!-- Модальная панель управления (Dashboard) -->
   <div class="admin-modal" id="adminModal">
     <div class="admin-window">
       <div class="admin-header">
-        <h3>Управление портфолио</h3>
+        <h3>Панель управления</h3>
         <button class="admin-close" id="adminCloseBtn">✕</button>
       </div>
 
@@ -258,30 +258,28 @@
           <button class="tab-btn" onclick="switchAdminTab('edit')">Тексты на сайте</button>
         </div>
 
-        <!-- Вкладка добавления карточки -->
         <div class="tab-content" id="tabAdd">
           <div class="form-group">
-            <label>Категория (Тег):</label>
-            <input type="text" id="pCategory" placeholder="Например: Скрипты / Lua & mimgui">
+            <label>Категория:</label>
+            <input type="text" id="pCategory" placeholder="Скрипты / Lua & mimgui">
           </div>
           <div class="form-group">
             <label>Название проекта:</label>
-            <input type="text" id="pTitle" placeholder="Например: Custom HUD Redesign">
+            <input type="text" id="pTitle" placeholder="Custom Project Name">
           </div>
           <div class="form-group">
             <label>Описание проекта:</label>
-            <textarea id="pDesc" rows="3" placeholder="Краткое описание функционала и фич..."></textarea>
+            <textarea id="pDesc" rows="3" placeholder="Описание функций..."></textarea>
           </div>
           <div class="form-group">
-            <label>Ссылки на изображения (через запятую):</label>
-            <input type="text" id="pImages" placeholder="3d1.jpg, 3d2.jpg или https://...">
+            <label>Файлы картинок (через запятую):</label>
+            <input type="text" id="pImages" placeholder="lua1.jpg, lua2.jpg">
           </div>
           <button class="btn btn-primary btn-full" id="createProjectBtn">Добавить в портфолио</button>
         </div>
 
-        <!-- Вкладка переключения режима inline-редактирования -->
         <div class="tab-content hidden" id="tabEdit">
-          <p class="admin-hint">Включите режим правки, чтобы изменять любые заголовки и тексты прямо на странице кликом мыши.</p>
+          <p class="admin-hint">Включите режим правки, чтобы редактировать любые тексты на сайте простым кликом.</p>
           <div class="admin-actions-row">
             <button class="btn btn-secondary" id="toggleInlineEditBtn">Включить правку текстов</button>
             <button class="btn btn-primary" id="saveInlineEditBtn">Сохранить изменения</button>
