@@ -74,7 +74,7 @@ document.addEventListener("DOMContentLoaded", () => {
     if (saved) el.innerHTML = saved;
   });
 
-  const ADMIN_PASS = "1234";
+  const ADMIN_PASS = "eff31a14-f8b5-4b34-828b-4d47d565de29";
   let isEditing = false;
   const adminBtn = document.getElementById("adminBtn");
   const adminStatus = document.getElementById("adminStatus");
