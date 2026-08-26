@@ -11,19 +11,16 @@
 </head>
 <body>
 
-  <!-- Фон -->
   <div class="bg-grid"></div>
   <div class="glow-orb orb-1"></div>
   <div class="glow-orb orb-2"></div>
   <div class="glow-orb orb-3"></div>
 
-  <!-- Панель администратора -->
   <div class="admin-panel" id="adminPanel">
     <span id="adminStatus">Режим просмотра</span>
     <button id="adminBtn" class="btn-small">Войти</button>
   </div>
 
-  <!-- Навигация -->
   <nav class="nav">
     <div class="nav-content">
       <span class="nav-logo" data-key="nav_logo">Portfolio</span>
@@ -36,7 +33,6 @@
     </div>
   </nav>
 
-  <!-- Главный экран -->
   <header class="hero">
     <div class="hero-content fade-in">
       <p class="hero-label" data-key="hero_label">Development & Modding</p>
@@ -49,7 +45,6 @@
     </div>
   </header>
 
-  <!-- Секция: Специализация (Направления) -->
   <section id="services" class="section">
     <div class="container">
       <div class="section-header fade-in">
@@ -76,24 +71,22 @@
     </div>
   </section>
 
-  <!-- Секция: Примеры работ с вертикальным барабаном -->
   <section id="portfolio" class="section">
     <div class="container">
       <div class="section-header fade-in">
         <h2 class="section-title" data-key="port_title">Примеры работ</h2>
-        <p class="section-desc" data-key="port_desc">Интерактивный просмотр скриншотов с вертикальным переключением.</p>
+        <p class="section-desc" data-key="port_desc">Кликните по фото или наведите курсор на 3 сек. для полноразмерного просмотра.</p>
       </div>
       <div class="projects-grid">
         
-        <!-- Карточка 1: Скрипты -->
         <article class="project-card fade-in">
           <div class="v-drum-container">
             <div class="v-drum" id="drum-lua">
               <div class="v-drum-slide">
-                <img src="lua1.jpg" alt="Lua Скрипт 1" class="drum-img">
+                <img src="lua1.jpg" alt="Lua Скрипт 1" class="drum-img zoomable">
               </div>
               <div class="v-drum-slide">
-                <img src="lua2.jpg" alt="Lua Скрипт 2" class="drum-img">
+                <img src="lua2.jpg" alt="Lua Скрипт 2" class="drum-img zoomable">
               </div>
             </div>
             <div class="drum-controls">
@@ -112,15 +105,14 @@
           </div>
         </article>
 
-        <!-- Карточка 2: 3D Модели -->
         <article class="project-card fade-in">
           <div class="v-drum-container">
             <div class="v-drum" id="drum-3d">
               <div class="v-drum-slide">
-                <img src="3d1.jpg" alt="3D Модель 1" class="drum-img">
+                <img src="3d1.jpg" alt="3D Модель 1" class="drum-img zoomable">
               </div>
               <div class="v-drum-slide">
-                <img src="3d2.jpg" alt="3D Модель 2" class="drum-img">
+                <img src="3d2.jpg" alt="3D Модель 2" class="drum-img zoomable">
               </div>
             </div>
             <div class="drum-controls">
@@ -139,15 +131,14 @@
           </div>
         </article>
 
-        <!-- Карточка 3: Сборки -->
         <article class="project-card fade-in">
           <div class="v-drum-container">
             <div class="v-drum" id="drum-sborka">
               <div class="v-drum-slide">
-                <img src="sborka.jpg" alt="Сборка 1" class="drum-img">
+                <img src="sborka.jpg" alt="Сборка 1" class="drum-img zoomable">
               </div>
               <div class="v-drum-slide">
-                <img src="sborka1.jpg" alt="Сборка 2" class="drum-img">
+                <img src="sborka1.jpg" alt="Сборка 2" class="drum-img zoomable">
               </div>
             </div>
             <div class="drum-controls">
@@ -170,7 +161,6 @@
     </div>
   </section>
 
-  <!-- Секция: Стек -->
   <section id="skills" class="section">
     <div class="container">
       <div class="section-header fade-in">
@@ -189,7 +179,6 @@
     </div>
   </section>
 
-  <!-- Секция: Контакты -->
   <section id="contact" class="section">
     <div class="container">
       <div class="contact-card fade-in">
@@ -216,6 +205,11 @@
   <footer class="footer">
     <p>© 2026 QwertyOzzi Portfolio. All rights reserved.</p>
   </footer>
+
+  <div class="lightbox" id="imageModal">
+    <button class="lightbox-close" id="modalClose">✕</button>
+    <img src="" alt="Full view" class="lightbox-img" id="modalImg">
+  </div>
 
   <script src="script.js"></script>
 </body>
