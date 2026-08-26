@@ -12,10 +12,16 @@
 </head>
 <body>
 
+  <!-- Интерактивный канвас для физических частиц -->
+  <canvas id="particles-canvas"></canvas>
+
   <div class="bg-grid"></div>
   <div class="glow-orb orb-1"></div>
   <div class="glow-orb orb-2"></div>
   <div class="glow-orb orb-3"></div>
+
+  <!-- Всплывающее уведомление о копировании -->
+  <div class="toast" id="toast">Скопировано в буфер!</div>
 
   <div class="admin-panel" id="adminPanel">
     <span id="adminStatus">Режим просмотра</span>
@@ -37,17 +43,22 @@
               <stop offset="100%" stop-color="#c084fc" />
             </linearGradient>
           </defs>
-          
-          <!-- Основная большая звезда -->
           <path class="star-main" d="M 45,5 C 47,38 52,43 88,50 C 52,57 47,62 30,95 C 38,62 33,57 5,50 C 33,43 38,38 45,5 Z" fill="url(#sparkle-grad)" />
-          
-          <!-- Анимированная малая звезда (мерцание, пульсация, парение) -->
           <g class="star-mini-wrap">
             <path class="star-mini" d="M 78,22 C 79,29 81,31 88,32 C 81,33 79,35 78,42 C 77,35 75,33 68,32 C 75,31 77,29 78,22 Z" fill="url(#small-star-grad)" />
           </g>
         </svg>
         <span class="nav-logo" data-key="nav_logo">Portfolio</span>
       </div>
+
+      <!-- Виджет локального времени разработчика -->
+      <div class="dev-time-widget">
+        <span class="status-indicator"></span>
+        <span class="time-label">Local:</span>
+        <span id="devClock">--:--:--</span>
+        <span class="time-tz">(UTC+3)</span>
+      </div>
+
       <div class="nav-links">
         <a href="#services">Специализация</a>
         <a href="#portfolio">Примеры работ</a>
@@ -76,17 +87,17 @@
         <p class="section-desc" data-key="srv_desc">Основные категории выполняемых задач и проектов.</p>
       </div>
       <div class="bento-grid">
-        <div class="bento-card fade-in">
+        <div class="bento-card tilt-element fade-in">
           <div class="card-tag">Development</div>
           <h3 data-key="s1_h">Скрипты и автоматизация</h3>
           <p data-key="s1_t">Написание функциональных скриптов с кастомными интерфейсами (mimgui), парсеров, хелперов, ботов и систем автоматизации под любые требования.</p>
         </div>
-        <div class="bento-card fade-in">
+        <div class="bento-card tilt-element fade-in">
           <div class="card-tag">3D Graphics</div>
           <h3 data-key="s2_h">3D Моделирование и заменки</h3>
           <p data-key="s2_t">Создание и адаптация 3D-моделей: оружие, скины, автомобили, оптимизация сетки, правильная развертка текстур и подгонка иерархии костей/дамми.</p>
         </div>
-        <div class="bento-card fade-in">
+        <div class="bento-card tilt-element fade-in">
           <div class="card-tag">Custom Builds</div>
           <h3 data-key="s3_h">Сборки и оптимизация</h3>
           <p data-key="s3_t">Сборка стабильных игровых сборок с нуля, подбор визуала, внедрение фиксов совместимости, вырезание мусора и настройка максимального FPS.</p>
@@ -103,7 +114,7 @@
       </div>
       <div class="projects-grid">
         
-        <article class="project-card fade-in">
+        <article class="project-card tilt-element fade-in">
           <div class="v-drum-container">
             <div class="v-drum" id="drum-lua">
               <div class="v-drum-slide">
@@ -129,7 +140,7 @@
           </div>
         </article>
 
-        <article class="project-card fade-in">
+        <article class="project-card tilt-element fade-in">
           <div class="v-drum-container">
             <div class="v-drum" id="drum-3d">
               <div class="v-drum-slide">
@@ -155,7 +166,7 @@
           </div>
         </article>
 
-        <article class="project-card fade-in">
+        <article class="project-card tilt-element fade-in">
           <div class="v-drum-container">
             <div class="v-drum" id="drum-sborka">
               <div class="v-drum-slide">
@@ -205,22 +216,26 @@
 
   <section id="contact" class="section">
     <div class="container">
-      <div class="contact-card fade-in">
+      <div class="contact-card tilt-element fade-in">
         <h2 class="contact-title" data-key="ct_title">Связаться со мной</h2>
-        <p class="contact-desc" data-key="ct_desc">Для заказа скриптов, 3D-моделей или консультаций напишите в любой удобный мессенджер.</p>
+        <p class="contact-desc" data-key="ct_desc">Для заказа скриптов, 3D-моделей или консультаций кликните для копирования или перехода.</p>
         <div class="contact-grid">
-          <a href="https://t.me/wasert44" target="_blank" class="contact-btn">
-            <span class="contact-type">Telegram</span>
+          
+          <div class="contact-btn copyable" data-copy="@wasert44" onclick="handleContactClick(event, 'https://t.me/wasert44')">
+            <span class="contact-type">Telegram (Клик: перейти / ПКМ: копия)</span>
             <span class="contact-val">@wasert44</span>
-          </a>
-          <a href="https://vk.ru/gomez44" target="_blank" class="contact-btn">
+          </div>
+
+          <div class="contact-btn copyable" data-copy="https://vk.ru/gomez44" onclick="handleContactClick(event, 'https://vk.ru/gomez44')">
             <span class="contact-type">ВКонтакте</span>
             <span class="contact-val">vk.ru/gomez44</span>
-          </a>
-          <div class="contact-btn non-clickable">
-            <span class="contact-type">Discord</span>
+          </div>
+
+          <div class="contact-btn copyable" data-copy="kabibar4ikk">
+            <span class="contact-type">Discord (Клик: копировать)</span>
             <span class="contact-val">kabibar4ikk</span>
           </div>
+
         </div>
       </div>
     </div>
