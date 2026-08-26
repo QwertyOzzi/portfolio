@@ -29,7 +29,6 @@ body {
   position: relative;
 }
 
-/* Сетка и световые сферы */
 .bg-grid {
   position: fixed;
   top: 0;
@@ -83,7 +82,6 @@ body {
   padding: 0 24px;
 }
 
-/* Панель администратора */
 .admin-panel {
   position: fixed;
   bottom: 20px;
@@ -119,7 +117,6 @@ body {
   border-radius: 4px;
 }
 
-/* Навигация */
 .nav {
   position: fixed;
   top: 0;
@@ -161,7 +158,6 @@ body {
   color: var(--text-primary);
 }
 
-/* Главный экран (Hero) */
 .hero {
   min-height: 85vh;
   display: flex;
@@ -205,7 +201,6 @@ body {
   gap: 16px;
 }
 
-/* Кнопки */
 .btn {
   display: inline-block;
   padding: 12px 28px;
@@ -238,7 +233,6 @@ body {
   transform: scale(1.02);
 }
 
-/* Общие стили секций */
 .section {
   padding: 85px 0;
 }
@@ -259,7 +253,6 @@ body {
   font-size: 16px;
 }
 
-/* Секция: Направления разработки (Bento Grid) */
 .bento-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
@@ -302,7 +295,6 @@ body {
   line-height: 1.6;
 }
 
-/* Секция: Примеры работ (Projects Grid) */
 .projects-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
@@ -330,7 +322,6 @@ body {
   box-shadow: 0 16px 40px rgba(0, 0, 0, 0.6);
 }
 
-/* Вертикальный барабан картинок */
 .v-drum-container {
   position: relative;
   width: 100%;
@@ -376,10 +367,13 @@ body {
   object-position: center;
   display: block;
   user-select: none;
-  pointer-events: none;
 }
 
-/* Кнопки переключения барабана */
+.drum-img.zoomable {
+  pointer-events: auto;
+  cursor: zoom-in;
+}
+
 .drum-controls {
   position: absolute;
   right: 14px;
@@ -423,7 +417,6 @@ body {
   transform: scale(0.95);
 }
 
-/* Описание внутри карточки проекта */
 .project-info {
   padding: 24px;
   display: flex;
@@ -454,7 +447,6 @@ body {
   line-height: 1.55;
 }
 
-/* Секция: Стек технологий */
 .skills-grid {
   display: flex;
   flex-wrap: wrap;
@@ -478,7 +470,6 @@ body {
   border-color: var(--card-hover-border);
 }
 
-/* Секция: Контакты */
 .contact-card {
   background: radial-gradient(circle at 50% 0%, rgba(41, 151, 255, 0.16) 0%, rgba(23, 26, 35, 0.8) 70%);
   border: 1px solid var(--card-border);
@@ -547,7 +538,6 @@ body {
   cursor: default;
 }
 
-/* Футер */
 .footer {
   text-align: center;
   padding: 40px 24px;
@@ -556,7 +546,6 @@ body {
   font-size: 12px;
 }
 
-/* Анимация плавного появления */
 .fade-in {
   opacity: 0;
   transform: translateY(20px);
@@ -566,4 +555,68 @@ body {
 .fade-in.visible {
   opacity: 1;
   transform: translateY(0);
+}
+
+.lightbox {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(5, 6, 8, 0.88);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 5000;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.lightbox.active {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.lightbox-img {
+  max-width: 90vw;
+  max-height: 88vh;
+  object-fit: contain;
+  border-radius: 16px;
+  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.8), 0 0 0 1px rgba(255, 255, 255, 0.15);
+  transform: scale(0.65) translateY(40px);
+  opacity: 0;
+  transition: transform 0.45s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.35s ease;
+  user-select: none;
+}
+
+.lightbox.active .lightbox-img {
+  transform: scale(1) translateY(0);
+  opacity: 1;
+}
+
+.lightbox-close {
+  position: absolute;
+  top: 24px;
+  right: 28px;
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  color: #fff;
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  font-size: 16px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  backdrop-filter: blur(10px);
+  transition: background 0.2s ease, transform 0.2s ease;
+}
+
+.lightbox-close:hover {
+  background: rgba(255, 255, 255, 0.22);
+  transform: scale(1.08);
 }
