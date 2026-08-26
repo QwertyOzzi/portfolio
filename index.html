@@ -4,6 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Portfolio | Developer & Modder</title>
+  <link id="dynamic-favicon" rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><circle cx='16' cy='16' r='14' fill='%232997ff'/></svg>">
   <link rel="stylesheet" href="style.css">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -23,7 +24,19 @@
 
   <nav class="nav">
     <div class="nav-content">
-      <span class="nav-logo" data-key="nav_logo">Portfolio</span>
+      <div class="nav-logo-wrap">
+        <svg class="nav-dyn-logo" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="16" cy="16" r="14" stroke="url(#logo-grad)" stroke-width="2.5" class="logo-ring" />
+          <polygon points="16,8 23,20 9,20" fill="url(#logo-grad)" class="logo-core" />
+          <defs>
+            <linearGradient id="logo-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" stop-color="#2997ff" />
+              <stop offset="100%" stop-color="#9d4edd" />
+            </linearGradient>
+          </defs>
+        </svg>
+        <span class="nav-logo" data-key="nav_logo">Portfolio</span>
+      </div>
       <div class="nav-links">
         <a href="#services">Специализация</a>
         <a href="#portfolio">Примеры работ</a>
