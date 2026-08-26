@@ -1,4 +1,4 @@
-// Глобальная функция скролла барабана для вызова из onclick
+// Скролл барабана
 window.scrollDrum = function(drumId, direction) {
   const drum = document.getElementById(drumId);
   if (drum) {
@@ -9,7 +9,51 @@ window.scrollDrum = function(drumId, direction) {
 };
 
 document.addEventListener("DOMContentLoaded", () => {
-  // 1. Анимация появления блоков при скролле
+  // 1. Динамический Favicon в табе браузера
+  const favicon = document.getElementById("dynamic-favicon");
+  const canvas = document.createElement("canvas");
+  canvas.width = 32;
+  canvas.height = 32;
+  const ctx = canvas.getContext("2d");
+  let angle = 0;
+
+  function renderDynamicFavicon() {
+    ctx.clearRect(0, 0, 32, 32);
+
+    ctx.save();
+    ctx.translate(16, 16);
+    ctx.rotate(angle);
+
+    // Внешнее кольцо с градиентом
+    const grad = ctx.createLinearGradient(-14, -14, 14, 14);
+    grad.addColorStop(0, "#2997ff");
+    grad.addColorStop(1, "#9d4edd");
+
+    ctx.beginPath();
+    ctx.arc(0, 0, 12, 0, Math.PI * 2);
+    ctx.strokeStyle = grad;
+    ctx.lineWidth = 3;
+    ctx.stroke();
+
+    // Внутренний треугольник
+    ctx.beginPath();
+    ctx.moveTo(0, -6);
+    ctx.lineTo(6, 6);
+    ctx.lineTo(-6, 6);
+    ctx.closePath();
+    ctx.fillStyle = grad;
+    ctx.fill();
+
+    ctx.restore();
+
+    favicon.href = canvas.toDataURL("image/png");
+    angle += 0.04;
+    requestAnimationFrame(renderDynamicFavicon);
+  }
+
+  renderDynamicFavicon();
+
+  // 2. Анимация появления блоков при скролле
   const animatedElements = document.querySelectorAll(".fade-in");
   const observer = new IntersectionObserver((entries, obs) => {
     entries.forEach(entry => {
@@ -22,7 +66,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   animatedElements.forEach(el => observer.observe(el));
 
-  // 2. Загрузка сохраненного контента (Режим администратора)
+  // 3. Загрузка сохраненного контента (Admin Panel)
   const editables = document.querySelectorAll("[data-key]");
   editables.forEach(el => {
     const key = el.getAttribute("data-key");
@@ -61,7 +105,7 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
-  // 3. Логика модального окна и Hover-таймера на 3 секунды
+  // 4. Логика модального окна и Hover-таймера на 3 секунды
   const modal = document.getElementById("imageModal");
   const modalImg = document.getElementById("modalImg");
   const modalClose = document.getElementById("modalClose");
@@ -83,13 +127,11 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   zoomableImages.forEach(img => {
-    // Открытие кликом
     img.addEventListener("click", (e) => {
       e.stopPropagation();
       openModal(img.src);
     });
 
-    // Открытие удержанием курсора без движения 3 секунды
     img.addEventListener("mouseenter", () => {
       clearTimeout(hoverTimer);
       hoverTimer = setTimeout(() => {
