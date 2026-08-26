@@ -11,10 +11,22 @@
 </head>
 <body>
 
+  <!-- Фоновые элементы и сетка -->
+  <div class="bg-grid"></div>
+  <div class="glow-orb orb-1"></div>
+  <div class="glow-orb orb-2"></div>
+  <div class="glow-orb orb-3"></div>
+
+  <!-- Панель управления владельца -->
+  <div class="admin-panel" id="adminPanel">
+    <span id="adminStatus">Режим просмотра</span>
+    <button id="adminBtn" class="btn-small">Войти</button>
+  </div>
+
   <!-- Навигация -->
   <nav class="nav">
     <div class="nav-content">
-      <span class="nav-logo">Portfolio</span>
+      <span class="nav-logo" data-key="nav_logo">Portfolio</span>
       <div class="nav-links">
         <a href="#about">Обо мне</a>
         <a href="#skills">Стек</a>
@@ -27,9 +39,9 @@
   <!-- Главный экран -->
   <header class="hero">
     <div class="hero-content fade-in">
-      <p class="hero-label">Software & Script Developer</p>
-      <h1 class="hero-title">Проектирую функционал.<br>Создаю интерфейсы.</h1>
-      <p class="hero-subtitle">Разработка ПО, кастомных скриптов, UI-модулей и системных решений.</p>
+      <p class="hero-label" data-key="hero_label">Software & Script Developer</p>
+      <h1 class="hero-title" data-key="hero_title">Проектирую функционал.<br>Создаю интерфейсы.</h1>
+      <p class="hero-subtitle" data-key="hero_sub">Разработка ПО, кастомных скриптов, UI-модулей и системных решений.</p>
       <div class="hero-actions">
         <a href="#projects" class="btn btn-primary">Смотреть проекты</a>
         <a href="#contact" class="btn btn-secondary">Связаться</a>
@@ -41,21 +53,21 @@
   <section id="about" class="section">
     <div class="container">
       <div class="section-header fade-in">
-        <h2 class="section-title">Подход</h2>
-        <p class="section-desc">Чистый код, внимание к деталям и упор на производительность.</p>
+        <h2 class="section-title" data-key="about_title">Подход</h2>
+        <p class="section-desc" data-key="about_desc">Чистый код, внимание к деталям и упор на производительность.</p>
       </div>
       <div class="bento-grid">
         <div class="bento-card bento-large fade-in">
-          <h3>Архитектура и логика</h3>
-          <p>Создание отказоустойчивых решений, работа с API, парсинг данных и автоматизация рутинных процессов.</p>
+          <h3 data-key="bento1_t">Архитектура и логика</h3>
+          <p data-key="bento1_p">Создание отказоустойчивых решений, работа с API, парсинг данных и автоматизация рутинных процессов.</p>
         </div>
         <div class="bento-card fade-in">
-          <h3>Интерфейсы</h3>
-          <p>Интерактивные UI с кастомным рендером и оптимизированным FPS.</p>
+          <h3 data-key="bento2_t">Интерфейсы</h3>
+          <p data-key="bento2_p">Интерактивные UI с кастомным рендером и оптимизированным FPS.</p>
         </div>
         <div class="bento-card fade-in">
-          <h3>Оптимизация</h3>
-          <p>Минимизация задержек, управление памятью и профилирование.</p>
+          <h3 data-key="bento3_t">Оптимизация</h3>
+          <p data-key="bento3_p">Минимизация задержек, управление памятью и профилирование.</p>
         </div>
       </div>
     </div>
@@ -65,17 +77,17 @@
   <section id="skills" class="section">
     <div class="container">
       <div class="section-header fade-in">
-        <h2 class="section-title">Стек технологий</h2>
+        <h2 class="section-title" data-key="skills_title">Стек технологий</h2>
       </div>
       <div class="skills-grid">
-        <div class="skill-pill fade-in">Lua / mimgui</div>
-        <div class="skill-pill fade-in">Python</div>
-        <div class="skill-pill fade-in">C++ / Arduino</div>
-        <div class="skill-pill fade-in">HTML5 / CSS3 / JS</div>
-        <div class="skill-pill fade-in">Swift</div>
-        <div class="skill-pill fade-in">Git / GitHub</div>
-        <div class="skill-pill fade-in">REST API / JSON</div>
-        <div class="skill-pill fade-in">3D Modeling (Blender)</div>
+        <div class="skill-pill fade-in" data-key="s1">Lua / mimgui</div>
+        <div class="skill-pill fade-in" data-key="s2">Python</div>
+        <div class="skill-pill fade-in" data-key="s3">C++ / Arduino</div>
+        <div class="skill-pill fade-in" data-key="s4">HTML5 / CSS3 / JS</div>
+        <div class="skill-pill fade-in" data-key="s5">Swift</div>
+        <div class="skill-pill fade-in" data-key="s6">Git / GitHub</div>
+        <div class="skill-pill fade-in" data-key="s7">REST API / JSON</div>
+        <div class="skill-pill fade-in" data-key="s8">3D Modeling (Blender)</div>
       </div>
     </div>
   </section>
@@ -84,13 +96,13 @@
   <section id="projects" class="section">
     <div class="container">
       <div class="section-header fade-in">
-        <h2 class="section-title">Избранные проекты</h2>
+        <h2 class="section-title" data-key="projects_title">Избранные проекты</h2>
       </div>
       <div class="projects-grid">
         <article class="project-card fade-in">
-          <div class="project-meta">Software / Automation</div>
-          <h3 class="project-title">Custom Core Engine</h3>
-          <p class="project-desc">Комплексный инструмент автоматизации интерфейса с модульной архитектурой и динамической подгрузкой данных.</p>
+          <div class="project-meta" data-key="p1_meta">Software / Automation</div>
+          <h3 class="project-title" data-key="p1_title">Custom Core Engine</h3>
+          <p class="project-desc" data-key="p1_desc">Комплексный инструмент автоматизации интерфейса с модульной архитектурой и динамической подгрузкой данных.</p>
           <div class="project-tags">
             <span>Lua</span>
             <span>mimgui</span>
@@ -99,9 +111,9 @@
         </article>
 
         <article class="project-card fade-in">
-          <div class="project-meta">Web Application</div>
-          <h3 class="project-title">Data Tracker & Analyzer</h3>
-          <p class="project-desc">Интерактивный веб-сервис для мониторинга событий в реальном времени с синхронизацией через облачную базу данных.</p>
+          <div class="project-meta" data-key="p2_meta">Web Application</div>
+          <h3 class="project-title" data-key="p2_title">Data Tracker & Analyzer</h3>
+          <p class="project-desc" data-key="p2_desc">Интерактивный веб-сервис для мониторинга событий в реальном времени с синхронизацией через облачную базу данных.</p>
           <div class="project-tags">
             <span>JavaScript</span>
             <span>Firebase</span>
@@ -110,9 +122,9 @@
         </article>
 
         <article class="project-card fade-in">
-          <div class="project-meta">Hardware & Embedded</div>
-          <h3 class="project-title">Microcontroller Controller Unit</h3>
-          <p class="project-desc">Прошивка и аппаратная настройка блока управления периферией с обработкой сигналов через ШИМ и энкодеры.</p>
+          <div class="project-meta" data-key="p3_meta">Hardware & Embedded</div>
+          <h3 class="project-title" data-key="p3_title">Microcontroller Controller Unit</h3>
+          <p class="project-desc" data-key="p3_desc">Прошивка и аппаратная настройка блока управления периферией с обработкой сигналов через ШИМ и энкодеры.</p>
           <div class="project-tags">
             <span>C++</span>
             <span>Arduino</span>
@@ -127,10 +139,10 @@
   <section id="contact" class="section">
     <div class="container">
       <div class="contact-card fade-in">
-        <h2 class="contact-title">Готовы обсудить проект?</h2>
-        <p class="contact-desc">Открыт к разработке сложных систем, веб-приложений и совместным проектам.</p>
+        <h2 class="contact-title" data-key="c_title">Готовы обсудить проект?</h2>
+        <p class="contact-desc" data-key="c_desc">Открыт к разработке сложных систем, веб-приложений и совместным проектам.</p>
         <div class="contact-links">
-          <a href="https://github.com" target="_blank" class="btn btn-primary">GitHub Profile</a>
+          <a href="https://github.com/QwertyOzzi" target="_blank" class="btn btn-primary">GitHub Profile</a>
           <a href="https://t.me" target="_blank" class="btn btn-secondary">Telegram</a>
         </div>
       </div>
