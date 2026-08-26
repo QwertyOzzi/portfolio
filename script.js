@@ -1,4 +1,3 @@
-// Скролл барабана
 window.scrollDrum = function(drumId, direction) {
   const drum = document.getElementById(drumId);
   if (drum) {
@@ -8,9 +7,27 @@ window.scrollDrum = function(drumId, direction) {
   }
 };
 
+window.switchAdminTab = function(tabName) {
+  const tabAdd = document.getElementById("tabAdd");
+  const tabEdit = document.getElementById("tabEdit");
+  const btns = document.querySelectorAll(".tab-btn");
+
+  if (tabName === "add") {
+    tabAdd.classList.remove("hidden");
+    tabEdit.classList.add("hidden");
+    btns[0].classList.add("active");
+    btns[1].classList.remove("active");
+  } else {
+    tabAdd.classList.add("hidden");
+    tabEdit.classList.remove("hidden");
+    btns[0].classList.remove("active");
+    btns[1].classList.add("active");
+  }
+};
+
 document.addEventListener("DOMContentLoaded", () => {
 
-  // 1. Динамический заголовок вкладки (Page Visibility API)
+  // 1. Динамический заголовок вкладки
   const originalTitle = document.title;
   document.addEventListener("visibilitychange", () => {
     if (document.hidden) {
@@ -46,12 +63,11 @@ document.addEventListener("DOMContentLoaded", () => {
     }, 2000);
   }
 
-  // 4. Обработка кликов по контактам (ЛКМ / ПКМ)
+  // 4. Обработка кликов по контактам
   document.querySelectorAll(".copy-action").forEach(btn => {
     const textToCopy = btn.getAttribute("data-copy");
     const directLink = btn.getAttribute("data-link");
 
-    // Левый клик (ЛКМ)
     btn.addEventListener("click", () => {
       if (directLink && directLink.trim() !== "") {
         window.open(directLink, "_blank");
@@ -62,41 +78,40 @@ document.addEventListener("DOMContentLoaded", () => {
       }
     });
 
-    // Правый клик (ПКМ) - перехват и копирование без меню браузера
     btn.addEventListener("contextmenu", (e) => {
-      e.preventDefault(); // Блокировка стандартного контекстного меню браузера
+      e.preventDefault();
       if (textToCopy) {
         navigator.clipboard.writeText(textToCopy).then(() => {
           triggerToast(`Скопировано в буфер: ${textToCopy}`);
-        }).catch(() => {
-          triggerToast("Не удалось скопировать");
         });
       }
     });
   });
 
-  // 5. 3D Tilt эффект карточек
-  const tiltCards = document.querySelectorAll(".tilt-card");
-  tiltCards.forEach(card => {
-    card.addEventListener("mousemove", (e) => {
-      const rect = card.getBoundingClientRect();
-      const x = e.clientX - rect.left;
-      const y = e.clientY - rect.top;
-      const centerX = rect.width / 2;
-      const centerY = rect.height / 2;
+  // 5. 3D Tilt эффект для десктопов
+  if (window.innerWidth > 768) {
+    const tiltCards = document.querySelectorAll(".tilt-card");
+    tiltCards.forEach(card => {
+      card.addEventListener("mousemove", (e) => {
+        const rect = card.getBoundingClientRect();
+        const x = e.clientX - rect.left;
+        const y = e.clientY - rect.top;
+        const centerX = rect.width / 2;
+        const centerY = rect.height / 2;
 
-      const rotX = ((y - centerY) / centerY) * -9;
-      const rotY = ((x - centerX) / centerX) * 9;
+        const rotX = ((y - centerY) / centerY) * -9;
+        const rotY = ((x - centerX) / centerX) * 9;
 
-      card.style.transform = `perspective(1000px) rotateX(${rotX.toFixed(2)}deg) rotateY(${rotY.toFixed(2)}deg) scale3d(1.025, 1.025, 1.025)`;
+        card.style.transform = `perspective(1000px) rotateX(${rotX.toFixed(2)}deg) rotateY(${rotY.toFixed(2)}deg) scale3d(1.025, 1.025, 1.025)`;
+      });
+
+      card.addEventListener("mouseleave", () => {
+        card.style.transform = "perspective(1000px) rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1)";
+      });
     });
+  }
 
-    card.addEventListener("mouseleave", () => {
-      card.style.transform = "perspective(1000px) rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1)";
-    });
-  });
-
-  // 6. Интерактивные физические частицы звездного неба
+  // 6. Физические фоновые частицы
   const pCanvas = document.getElementById("particles-canvas");
   if (pCanvas) {
     const pCtx = pCanvas.getContext("2d");
@@ -109,7 +124,7 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 
     const particles = [];
-    const count = Math.floor(Math.min(width, 1400) / 18);
+    const count = Math.floor(Math.min(width, 1400) / (window.innerWidth < 768 ? 25 : 18));
     const mouse = { x: null, y: null, radius: 120 };
 
     window.addEventListener("mousemove", (e) => {
@@ -250,7 +265,7 @@ document.addEventListener("DOMContentLoaded", () => {
   }, { threshold: 0.1 });
   animatedElements.forEach(el => observer.observe(el));
 
-  // 9. Админ-панель
+  // 9. Загрузка сохраненных текстов и кастомных карточек из localStorage
   const editables = document.querySelectorAll("[data-key]");
   editables.forEach(el => {
     const key = el.getAttribute("data-key");
@@ -258,43 +273,144 @@ document.addEventListener("DOMContentLoaded", () => {
     if (saved) el.innerHTML = saved;
   });
 
-  const ADMIN_PASS = "1234";
-  let isEditing = false;
-  const adminBtn = document.getElementById("adminBtn");
-  const adminStatus = document.getElementById("adminStatus");
+  const savedCards = JSON.parse(localStorage.getItem("portfolio_custom_cards") || "[]");
+  const container = document.getElementById("projectsContainer");
+  
+  function renderCard(data, idx) {
+    const drumId = `custom-drum-${idx}`;
+    const imagesArray = data.images.split(",").map(s => s.trim()).filter(Boolean);
+    const slidesHtml = imagesArray.map(img => `<div class="v-drum-slide"><img src="${img}" alt="Preview" class="drum-img zoomable"></div>`).join("");
 
-  if (adminBtn) {
-    adminBtn.addEventListener("click", () => {
-      if (!isEditing) {
-        const pass = prompt("Введите PIN для редактирования:");
-        if (pass === ADMIN_PASS) {
-          isEditing = true;
-          adminStatus.innerText = "Режим правки";
-          adminBtn.innerText = "Сохранить";
-          editables.forEach(el => el.setAttribute("contenteditable", "true"));
-        } else if (pass !== null) {
-          alert("Неверный PIN");
-        }
+    const card = document.createElement("article");
+    card.className = "project-card tilt-card fade-in visible";
+    card.innerHTML = `
+      <div class="v-drum-container">
+        <div class="v-drum" id="${drumId}">
+          ${slidesHtml || '<div class="v-drum-slide"><img src="3d1.jpg" class="drum-img zoomable"></div>'}
+        </div>
+        ${imagesArray.length > 1 ? `
+        <div class="drum-controls">
+          <button class="drum-btn" onclick="scrollDrum('${drumId}', -1)">▲</button>
+          <button class="drum-btn" onclick="scrollDrum('${drumId}', 1)">▼</button>
+        </div>` : ''}
+      </div>
+      <div class="project-info">
+        <div class="project-meta">${data.category || 'Проект'}</div>
+        <h3 class="project-title">${data.title || 'Новый проект'}</h3>
+        <p class="project-desc">${data.desc || ''}</p>
+      </div>
+    `;
+    container.appendChild(card);
+  }
+
+  savedCards.forEach((c, idx) => renderCard(c, idx));
+
+  // 10. Модальная панель управления (Dashboard)
+  const ADMIN_PASS = "1234";
+  const adminModal = document.getElementById("adminModal");
+  const adminCloseBtn = document.getElementById("adminCloseBtn");
+  const secretLogo = document.getElementById("secretLogoTrigger");
+
+  function openAdmin() {
+    const pass = prompt("Введите PIN администратора:");
+    if (pass === ADMIN_PASS) {
+      adminModal.classList.add("active");
+    } else if (pass !== null) {
+      alert("Неверный PIN");
+    }
+  }
+
+  // Вызов по комбинации Ctrl + Shift + A
+  document.addEventListener("keydown", (e) => {
+    if (e.ctrlKey && e.shiftKey && (e.key === "A" || e.key === "a" || e.key === "Ф" || e.key === "ф")) {
+      e.preventDefault();
+      openAdmin();
+    }
+  });
+
+  // Тройной клик по логотипу
+  let logoClicks = 0;
+  let clickResetTimer = null;
+  if (secretLogo) {
+    secretLogo.addEventListener("click", () => {
+      logoClicks++;
+      clearTimeout(clickResetTimer);
+      if (logoClicks >= 3) {
+        logoClicks = 0;
+        openAdmin();
       } else {
-        editables.forEach(el => {
-          el.removeAttribute("contenteditable");
-          const key = el.getAttribute("data-key");
-          localStorage.setItem("portfolio_" + key, el.innerHTML);
-        });
-        isEditing = false;
-        adminStatus.innerText = "Сохранено";
-        adminBtn.innerText = "Войти";
-        setTimeout(() => { adminStatus.innerText = "Режим просмотра"; }, 2000);
+        clickResetTimer = setTimeout(() => { logoClicks = 0; }, 600);
       }
     });
   }
 
-  // 10. Lightbox Модалка + 3 сек Hover
+  if (adminCloseBtn) {
+    adminCloseBtn.addEventListener("click", () => adminModal.classList.remove("active"));
+  }
+
+  // Добавление новой карточки из формы
+  const createBtn = document.getElementById("createProjectBtn");
+  if (createBtn) {
+    createBtn.addEventListener("click", () => {
+      const category = document.getElementById("pCategory").value;
+      const title = document.getElementById("pTitle").value;
+      const desc = document.getElementById("pDesc").value;
+      const images = document.getElementById("pImages").value;
+
+      if (!title) {
+        alert("Заполните название проекта!");
+        return;
+      }
+
+      const newCardData = { category, title, desc, images };
+      savedCards.push(newCardData);
+      localStorage.setItem("portfolio_custom_cards", JSON.stringify(savedCards));
+      renderCard(newCardData, savedCards.length);
+      bindImageZoomEvents();
+
+      // Очистка полей и закрытие
+      document.getElementById("pCategory").value = "";
+      document.getElementById("pTitle").value = "";
+      document.getElementById("pDesc").value = "";
+      document.getElementById("pImages").value = "";
+      adminModal.classList.remove("active");
+      triggerToast("Проект добавлен!");
+    });
+  }
+
+  // Режим inline-редактирования
+  const toggleInlineBtn = document.getElementById("toggleInlineEditBtn");
+  const saveInlineBtn = document.getElementById("saveInlineEditBtn");
+  let isInlineMode = false;
+
+  if (toggleInlineBtn && saveInlineBtn) {
+    toggleInlineBtn.addEventListener("click", () => {
+      isInlineMode = !isInlineMode;
+      document.querySelectorAll("[data-key]").forEach(el => {
+        el.setAttribute("contenteditable", isInlineMode ? "true" : "false");
+      });
+      toggleInlineBtn.innerText = isInlineMode ? "Отключить подсветку текста" : "Включить правку текстов";
+      adminModal.classList.remove("active");
+      triggerToast(isInlineMode ? "Режим правки включен" : "Режим правки выключен");
+    });
+
+    saveInlineBtn.addEventListener("click", () => {
+      document.querySelectorAll("[data-key]").forEach(el => {
+        el.removeAttribute("contenteditable");
+        const key = el.getAttribute("data-key");
+        localStorage.setItem("portfolio_" + key, el.innerHTML);
+      });
+      isInlineMode = false;
+      toggleInlineBtn.innerText = "Включить правку текстов";
+      adminModal.classList.remove("active");
+      triggerToast("Тексты успешно сохранены!");
+    });
+  }
+
+  // 11. Lightbox Модалка + 3 сек Hover
   const modal = document.getElementById("imageModal");
   const modalImg = document.getElementById("modalImg");
   const modalClose = document.getElementById("modalClose");
-  const zoomableImages = document.querySelectorAll(".drum-img");
-
   let hoverTimer = null;
 
   function openModal(src) {
@@ -310,30 +426,28 @@ document.addEventListener("DOMContentLoaded", () => {
     setTimeout(() => { modalImg.src = ""; }, 350);
   }
 
-  zoomableImages.forEach(img => {
-    img.addEventListener("click", (e) => {
-      e.stopPropagation();
-      openModal(img.src);
-    });
-
-    img.addEventListener("mouseenter", () => {
-      clearTimeout(hoverTimer);
-      hoverTimer = setTimeout(() => {
+  function bindImageZoomEvents() {
+    document.querySelectorAll(".drum-img").forEach(img => {
+      img.onclick = (e) => {
+        e.stopPropagation();
         openModal(img.src);
-      }, 3000);
-    });
+      };
 
-    img.addEventListener("mousemove", () => {
-      clearTimeout(hoverTimer);
-      hoverTimer = setTimeout(() => {
-        openModal(img.src);
-      }, 3000);
-    });
+      img.onmouseenter = () => {
+        clearTimeout(hoverTimer);
+        hoverTimer = setTimeout(() => openModal(img.src), 3000);
+      };
 
-    img.addEventListener("mouseleave", () => {
-      clearTimeout(hoverTimer);
+      img.onmousemove = () => {
+        clearTimeout(hoverTimer);
+        hoverTimer = setTimeout(() => openModal(img.src), 3000);
+      };
+
+      img.onmouseleave = () => clearTimeout(hoverTimer);
     });
-  });
+  }
+
+  bindImageZoomEvents();
 
   if (modalClose) modalClose.addEventListener("click", closeModal);
   if (modal) {
@@ -343,8 +457,9 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   document.addEventListener("keydown", (e) => {
-    if (e.key === "Escape" && modal && modal.classList.contains("active")) {
-      closeModal();
+    if (e.key === "Escape") {
+      if (modal && modal.classList.contains("active")) closeModal();
+      if (adminModal && adminModal.classList.contains("active")) adminModal.classList.remove("active");
     }
   });
 });
