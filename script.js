@@ -1,3 +1,4 @@
+// Глобальный вызов прокрутки барабана
 window.scrollDrum = function(drumId, direction) {
   const drum = document.getElementById(drumId);
   if (drum) {
@@ -7,6 +8,7 @@ window.scrollDrum = function(drumId, direction) {
   }
 };
 
+// Переключение вкладок в панели
 window.switchAdminTab = function(tabName) {
   const tabAdd = document.getElementById("tabAdd");
   const tabEdit = document.getElementById("tabEdit");
@@ -27,7 +29,56 @@ window.switchAdminTab = function(tabName) {
 
 document.addEventListener("DOMContentLoaded", () => {
 
-  // 1. Динамический заголовок вкладки
+  const ADMIN_PASS = "1234";
+  const adminModal = document.getElementById("adminModal");
+  const adminCloseBtn = document.getElementById("adminCloseBtn");
+  const secretLogo = document.getElementById("secretLogoTrigger");
+
+  // Функция авторизации и открытия панели
+  window.openAdmin = function() {
+    const pass = prompt("Введите PIN администратора:");
+    if (pass === ADMIN_PASS) {
+      if (adminModal) adminModal.classList.add("active");
+    } else if (pass !== null) {
+      alert("Неверный PIN!");
+    }
+  };
+
+  // Команда в консоли (F12 -> admin())
+  window.admin = window.openAdmin;
+
+  // 1. Тройной клик по логотипу
+  let logoClicks = 0;
+  let clickTimer = null;
+  if (secretLogo) {
+    secretLogo.addEventListener("click", (e) => {
+      e.preventDefault();
+      logoClicks++;
+      clearTimeout(clickTimer);
+      if (logoClicks >= 3) {
+        logoClicks = 0;
+        window.openAdmin();
+      } else {
+        clickTimer = setTimeout(() => { logoClicks = 0; }, 800);
+      }
+    });
+  }
+
+  // 2. Горячие клавиши: F2 или Ctrl+Shift+A
+  document.addEventListener("keydown", (e) => {
+    if (e.key === "F2" || (e.ctrlKey && e.shiftKey && (e.code === "KeyA" || e.key === "A" || e.key === "a" || e.key === "Ф" || e.key === "ф"))) {
+      e.preventDefault();
+      window.openAdmin();
+    }
+  });
+
+  if (adminCloseBtn) {
+    adminCloseBtn.addEventListener("click", () => {
+      adminModal.classList.remove("active");
+    });
+  }
+
+  // 3. Динамический заголовок вкладки
   const originalTitle = document.title;
   document.addEventListener("visibilitychange", () => {
     if (document.hidden) {
@@ -37,7 +88,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   });
 
-  // 2. Часы в навигации
+  // 4. Часы в навигации
   function updateClock() {
     const clockEl = document.getElementById("devClock");
     if (clockEl) {
@@ -48,7 +99,7 @@ document.addEventListener("DOMContentLoaded", () => {
   updateClock();
   setInterval(updateClock, 1000);
 
-  // 3. Тост уведомление
+  // 5. Toast Уведомление
   const toast = document.getElementById("toast");
   const toastText = document.getElementById("toastText");
   let toastTimer = null;
@@ -63,7 +114,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }, 2000);
   }
 
-  // 4. Обработка кликов по контактам
+  // 6. Клик по контактам
   document.querySelectorAll(".copy-action").forEach(btn => {
     const textToCopy = btn.getAttribute("data-copy");
     const directLink = btn.getAttribute("data-link");
@@ -88,7 +139,7 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   });
 
-  // 5. 3D Tilt эффект для десктопов
+  // 7. 3D Tilt эффект для экранов шире 768px
   if (window.innerWidth > 768) {
     const tiltCards = document.querySelectorAll(".tilt-card");
     tiltCards.forEach(card => {
@@ -111,7 +162,7 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
-  // 6. Физические фоновые частицы
+  // 8. Физические фоновые частицы
   const pCanvas = document.getElementById("particles-canvas");
   if (pCanvas) {
     const pCtx = pCanvas.getContext("2d");
@@ -195,7 +246,7 @@ document.addEventListener("DOMContentLoaded", () => {
     animateParticles();
   }
 
-  // 7. Динамический Favicon
+  // 9. Динамический Favicon
   const favicon = document.getElementById("dynamic-favicon");
   const canvas = document.createElement("canvas");
   canvas.width = 32;
@@ -253,7 +304,7 @@ document.addEventListener("DOMContentLoaded", () => {
   }
   renderDynamicFavicon();
 
-  // 8. Появление элементов при скролле
+  // 10. Появление при скролле
   const animatedElements = document.querySelectorAll(".fade-in");
   const observer = new IntersectionObserver((entries, obs) => {
     entries.forEach(entry => {
@@ -265,7 +316,7 @@ document.addEventListener("DOMContentLoaded", () => {
   }, { threshold: 0.1 });
   animatedElements.forEach(el => observer.observe(el));
 
-  // 9. Загрузка сохраненных текстов и кастомных карточек из localStorage
+  // 11. Загрузка сохраненных текстов
   const editables = document.querySelectorAll("[data-key]");
   editables.forEach(el => {
     const key = el.getAttribute("data-key");
@@ -273,6 +324,7 @@ document.addEventListener("DOMContentLoaded", () => {
     if (saved) el.innerHTML = saved;
   });
 
+  // Загрузка кастомных карточек
   const savedCards = JSON.parse(localStorage.getItem("portfolio_custom_cards") || "[]");
   const container = document.getElementById("projectsContainer");
   
@@ -305,50 +357,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   savedCards.forEach((c, idx) => renderCard(c, idx));
 
-  // 10. Модальная панель управления (Dashboard)
-  const ADMIN_PASS = "1234";
-  const adminModal = document.getElementById("adminModal");
-  const adminCloseBtn = document.getElementById("adminCloseBtn");
-  const secretLogo = document.getElementById("secretLogoTrigger");
-
-  function openAdmin() {
-    const pass = prompt("Введите PIN администратора:");
-    if (pass === ADMIN_PASS) {
-      adminModal.classList.add("active");
-    } else if (pass !== null) {
-      alert("Неверный PIN");
-    }
-  }
-
-  // Вызов по комбинации Ctrl + Shift + A
-  document.addEventListener("keydown", (e) => {
-    if (e.ctrlKey && e.shiftKey && (e.key === "A" || e.key === "a" || e.key === "Ф" || e.key === "ф")) {
-      e.preventDefault();
-      openAdmin();
-    }
-  });
-
-  // Тройной клик по логотипу
-  let logoClicks = 0;
-  let clickResetTimer = null;
-  if (secretLogo) {
-    secretLogo.addEventListener("click", () => {
-      logoClicks++;
-      clearTimeout(clickResetTimer);
-      if (logoClicks >= 3) {
-        logoClicks = 0;
-        openAdmin();
-      } else {
-        clickResetTimer = setTimeout(() => { logoClicks = 0; }, 600);
-      }
-    });
-  }
-
-  if (adminCloseBtn) {
-    adminCloseBtn.addEventListener("click", () => adminModal.classList.remove("active"));
-  }
-
-  // Добавление новой карточки из формы
+  // Добавление карточки из админки
   const createBtn = document.getElementById("createProjectBtn");
   if (createBtn) {
     createBtn.addEventListener("click", () => {
@@ -366,9 +375,8 @@ document.addEventListener("DOMContentLoaded", () => {
       savedCards.push(newCardData);
       localStorage.setItem("portfolio_custom_cards", JSON.stringify(savedCards));
       renderCard(newCardData, savedCards.length);
-      bindImageZoomEvents();
+      bindImageEvents();
 
-      // Очистка полей и закрытие
       document.getElementById("pCategory").value = "";
       document.getElementById("pTitle").value = "";
       document.getElementById("pDesc").value = "";
@@ -378,7 +386,7 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
-  // Режим inline-редактирования
+  // Режим Inline-редактирования
   const toggleInlineBtn = document.getElementById("toggleInlineEditBtn");
   const saveInlineBtn = document.getElementById("saveInlineEditBtn");
   let isInlineMode = false;
@@ -389,7 +397,7 @@ document.addEventListener("DOMContentLoaded", () => {
       document.querySelectorAll("[data-key]").forEach(el => {
         el.setAttribute("contenteditable", isInlineMode ? "true" : "false");
       });
-      toggleInlineBtn.innerText = isInlineMode ? "Отключить подсветку текста" : "Включить правку текстов";
+      toggleInlineBtn.innerText = isInlineMode ? "Отключить подсветку" : "Включить правку текстов";
       adminModal.classList.remove("active");
       triggerToast(isInlineMode ? "Режим правки включен" : "Режим правки выключен");
     });
@@ -407,7 +415,7 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
-  // 11. Lightbox Модалка + 3 сек Hover
+  // 12. Lightbox Модалка
   const modal = document.getElementById("imageModal");
   const modalImg = document.getElementById("modalImg");
   const modalClose = document.getElementById("modalClose");
@@ -426,7 +434,7 @@ document.addEventListener("DOMContentLoaded", () => {
     setTimeout(() => { modalImg.src = ""; }, 350);
   }
 
-  function bindImageZoomEvents() {
+  function bindImageEvents() {
     document.querySelectorAll(".drum-img").forEach(img => {
       img.onclick = (e) => {
         e.stopPropagation();
@@ -447,7 +455,7 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
-  bindImageZoomEvents();
+  bindImageEvents();
 
   if (modalClose) modalClose.addEventListener("click", closeModal);
   if (modal) {
