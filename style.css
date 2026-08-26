@@ -1,12 +1,12 @@
 :root {
-  --bg-color: #000000;
-  --card-bg: rgba(255, 255, 255, 0.04);
-  --card-border: rgba(255, 255, 255, 0.08);
-  --card-hover-border: rgba(255, 255, 255, 0.2);
-  --text-primary: #f5f5f7;
-  --text-secondary: #86868b;
+  --bg-color: #0b0c10;
+  --card-bg: rgba(22, 24, 30, 0.7);
+  --card-border: rgba(255, 255, 255, 0.14);
+  --card-hover-border: rgba(64, 156, 255, 0.5);
+  --text-primary: #ffffff;
+  --text-secondary: #a0a5b5;
   --accent-blue: #2997ff;
-  --nav-bg: rgba(0, 0, 0, 0.72);
+  --nav-bg: rgba(11, 12, 16, 0.75);
 }
 
 * {
@@ -26,6 +26,56 @@ html {
 body {
   line-height: 1.5;
   overflow-x: hidden;
+  position: relative;
+}
+
+/* Фоновая сетка */
+.bg-grid {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-size: 50px 50px;
+  background-image: 
+    linear-gradient(to right, rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+  z-index: -2;
+  pointer-events: none;
+}
+
+/* Световые сферы */
+.glow-orb {
+  position: fixed;
+  border-radius: 50%;
+  filter: blur(120px);
+  z-index: -1;
+  pointer-events: none;
+  opacity: 0.35;
+}
+
+.orb-1 {
+  width: 500px;
+  height: 500px;
+  background: radial-gradient(circle, #0071e3 0%, rgba(0, 113, 227, 0) 70%);
+  top: 10%;
+  left: -100px;
+}
+
+.orb-2 {
+  width: 600px;
+  height: 600px;
+  background: radial-gradient(circle, #6e40c9 0%, rgba(110, 64, 201, 0) 70%);
+  top: 45%;
+  right: -150px;
+}
+
+.orb-3 {
+  width: 450px;
+  height: 450px;
+  background: radial-gradient(circle, #0098ff 0%, rgba(0, 152, 255, 0) 70%);
+  bottom: 5%;
+  left: 20%;
 }
 
 .container {
@@ -34,16 +84,50 @@ body {
   padding: 0 24px;
 }
 
-/* ��������� */
+/* Панель администратора */
+.admin-panel {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  background: rgba(18, 20, 26, 0.9);
+  border: 1px solid var(--card-border);
+  padding: 8px 14px;
+  border-radius: 30px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 12px;
+  color: var(--text-secondary);
+  z-index: 2000;
+  backdrop-filter: blur(10px);
+}
+
+.btn-small {
+  background: var(--accent-blue);
+  color: #fff;
+  border: none;
+  padding: 4px 10px;
+  border-radius: 20px;
+  cursor: pointer;
+  font-size: 11px;
+}
+
+[contenteditable="true"] {
+  outline: 2px dashed var(--accent-blue) !important;
+  background: rgba(41, 151, 255, 0.08);
+  border-radius: 4px;
+}
+
+/* Навигация */
 .nav {
   position: fixed;
   top: 0;
   left: 0;
   width: 100%;
-  height: 52px;
+  height: 54px;
   background: var(--nav-bg);
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
+  backdrop-filter: blur(25px);
+  -webkit-backdrop-filter: blur(25px);
   border-bottom: 1px solid var(--card-border);
   z-index: 1000;
 }
@@ -60,14 +144,14 @@ body {
 
 .nav-logo {
   font-weight: 600;
-  font-size: 17px;
+  font-size: 18px;
   letter-spacing: -0.02em;
 }
 
 .nav-links a {
   color: var(--text-secondary);
   text-decoration: none;
-  font-size: 13px;
+  font-size: 14px;
   margin-left: 24px;
   transition: color 0.2s ease;
 }
@@ -78,7 +162,7 @@ body {
 
 /* Hero */
 .hero {
-  min-height: 90vh;
+  min-height: 85vh;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -87,12 +171,12 @@ body {
 }
 
 .hero-label {
-  color: var(--text-secondary);
-  font-size: 14px;
+  color: var(--accent-blue);
+  font-size: 13px;
   font-weight: 600;
   text-transform: uppercase;
-  letter-spacing: 0.08em;
-  margin-bottom: 12px;
+  letter-spacing: 0.1em;
+  margin-bottom: 16px;
 }
 
 .hero-title {
@@ -100,19 +184,18 @@ body {
   font-weight: 700;
   line-height: 1.05;
   letter-spacing: -0.03em;
-  background: linear-gradient(180deg, #ffffff 0%, #a1a1a6 100%);
+  background: linear-gradient(180deg, #ffffff 0%, #cbd2e1 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   margin-bottom: 24px;
 }
 
 .hero-subtitle {
-  font-size: clamp(17px, 2.5vw, 22px);
+  font-size: clamp(17px, 2.5vw, 21px);
   color: var(--text-secondary);
-  max-width: 600px;
+  max-width: 620px;
   margin: 0 auto 36px;
   font-weight: 400;
-  letter-spacing: -0.01em;
 }
 
 .hero-actions {
@@ -121,10 +204,10 @@ body {
   gap: 16px;
 }
 
-/* ������ */
+/* Кнопки */
 .btn {
   display: inline-block;
-  padding: 12px 24px;
+  padding: 12px 26px;
   border-radius: 980px;
   font-size: 14px;
   font-weight: 500;
@@ -135,6 +218,7 @@ body {
 .btn-primary {
   background-color: var(--accent-blue);
   color: #ffffff;
+  box-shadow: 0 4px 20px rgba(41, 151, 255, 0.35);
 }
 
 .btn-primary:hover {
@@ -143,27 +227,27 @@ body {
 }
 
 .btn-secondary {
-  background-color: rgba(255, 255, 255, 0.1);
+  background-color: rgba(255, 255, 255, 0.08);
   color: var(--text-primary);
   border: 1px solid var(--card-border);
 }
 
 .btn-secondary:hover {
-  background-color: rgba(255, 255, 255, 0.15);
+  background-color: rgba(255, 255, 255, 0.14);
   transform: scale(1.02);
 }
 
-/* ������ */
+/* Секции */
 .section {
-  padding: 100px 0;
+  padding: 90px 0;
 }
 
 .section-header {
-  margin-bottom: 48px;
+  margin-bottom: 40px;
 }
 
 .section-title {
-  font-size: clamp(28px, 4vw, 44px);
+  font-size: clamp(28px, 4vw, 42px);
   font-weight: 600;
   letter-spacing: -0.02em;
   margin-bottom: 8px;
@@ -185,21 +269,22 @@ body {
   background: var(--card-bg);
   border: 1px solid var(--card-border);
   border-radius: 20px;
-  padding: 36px;
-  backdrop-filter: blur(10px);
-  transition: border-color 0.3s ease, transform 0.3s ease;
+  padding: 34px;
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  transition: border-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
 }
 
 .bento-card:hover {
   border-color: var(--card-hover-border);
-  transform: translateY(-2px);
+  transform: translateY(-3px);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
 }
 
 .bento-card h3 {
   font-size: 20px;
   font-weight: 600;
   margin-bottom: 12px;
-  letter-spacing: -0.01em;
 }
 
 .bento-card p {
@@ -221,16 +306,18 @@ body {
 .skill-pill {
   background: var(--card-bg);
   border: 1px solid var(--card-border);
-  padding: 10px 20px;
+  padding: 10px 22px;
   border-radius: 980px;
   font-size: 14px;
   color: var(--text-primary);
-  transition: background-color 0.2s ease, border-color 0.2s ease;
+  backdrop-filter: blur(10px);
+  transition: background-color 0.2s ease, border-color 0.2s ease, transform 0.2s ease;
 }
 
 .skill-pill:hover {
-  background-color: rgba(255, 255, 255, 0.08);
+  background-color: rgba(255, 255, 255, 0.12);
   border-color: var(--card-hover-border);
+  transform: translateY(-2px);
 }
 
 /* Projects */
@@ -243,17 +330,20 @@ body {
 .project-card {
   background: var(--card-bg);
   border: 1px solid var(--card-border);
-  border-radius: 24px;
-  padding: 36px;
+  border-radius: 22px;
+  padding: 32px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
   transition: all 0.3s ease;
 }
 
 .project-card:hover {
   border-color: var(--card-hover-border);
   transform: translateY(-4px);
+  box-shadow: 0 12px 36px rgba(0, 0, 0, 0.6);
 }
 
 .project-meta {
@@ -276,6 +366,7 @@ body {
   color: var(--text-secondary);
   font-size: 14px;
   margin-bottom: 24px;
+  line-height: 1.6;
 }
 
 .project-tags {
@@ -286,19 +377,21 @@ body {
 
 .project-tags span {
   font-size: 12px;
-  background: rgba(255, 255, 255, 0.06);
-  padding: 4px 10px;
+  background: rgba(255, 255, 255, 0.08);
+  padding: 5px 12px;
   border-radius: 6px;
-  color: var(--text-secondary);
+  color: var(--text-primary);
+  border: 1px solid rgba(255, 255, 255, 0.05);
 }
 
 /* Contact & Footer */
 .contact-card {
-  background: radial-gradient(circle at 50% 0%, rgba(41, 151, 255, 0.12) 0%, rgba(255, 255, 255, 0.02) 70%);
+  background: radial-gradient(circle at 50% 0%, rgba(41, 151, 255, 0.18) 0%, rgba(22, 24, 30, 0.7) 70%);
   border: 1px solid var(--card-border);
   border-radius: 28px;
   padding: 64px 24px;
   text-align: center;
+  backdrop-filter: blur(16px);
 }
 
 .contact-title {
@@ -327,12 +420,11 @@ body {
   font-size: 12px;
 }
 
-/* �������� ��� ������� */
+/* Анимации появления */
 .fade-in {
   opacity: 0;
-  transform: translateY(24px);
-  transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
-  will-change: opacity, transform;
+  transform: translateY(20px);
+  transition: opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1), transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .fade-in.visible {
