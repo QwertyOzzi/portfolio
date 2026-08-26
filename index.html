@@ -81,7 +81,7 @@
     <div class="container">
       <div class="section-header fade-in">
         <h2 class="section-title" data-key="port_title">Примеры работ</h2>
-        <p class="section-desc" data-key="port_desc">Используйте колесико мыши или стрелки для перелистывания скриншотов.</p>
+        <p class="section-desc" data-key="port_desc">Интерактивный просмотр скриншотов с вертикальным переключением.</p>
       </div>
       <div class="projects-grid">
         
@@ -97,8 +97,12 @@
               </div>
             </div>
             <div class="drum-controls">
-              <button class="drum-btn" onclick="scrollDrum('drum-lua', -1)">▲</button>
-              <button class="drum-btn" onclick="scrollDrum('drum-lua', 1)">▼</button>
+              <button class="drum-btn" onclick="scrollDrum('drum-lua', -1)" aria-label="Предыдущее">
+                <svg viewBox="0 0 24 24" width="14" height="14" stroke="currentColor" stroke-width="2.5" fill="none" stroke-linecap="round" stroke-linejoin="round"><polyline points="18 15 12 9 6 15"></polyline></svg>
+              </button>
+              <button class="drum-btn" onclick="scrollDrum('drum-lua', 1)" aria-label="Следующее">
+                <svg viewBox="0 0 24 24" width="14" height="14" stroke="currentColor" stroke-width="2.5" fill="none" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
+              </button>
             </div>
           </div>
           <div class="project-info">
@@ -120,8 +124,12 @@
               </div>
             </div>
             <div class="drum-controls">
-              <button class="drum-btn" onclick="scrollDrum('drum-3d', -1)">▲</button>
-              <button class="drum-btn" onclick="scrollDrum('drum-3d', 1)">▼</button>
+              <button class="drum-btn" onclick="scrollDrum('drum-3d', -1)" aria-label="Предыдущее">
+                <svg viewBox="0 0 24 24" width="14" height="14" stroke="currentColor" stroke-width="2.5" fill="none" stroke-linecap="round" stroke-linejoin="round"><polyline points="18 15 12 9 6 15"></polyline></svg>
+              </button>
+              <button class="drum-btn" onclick="scrollDrum('drum-3d', 1)" aria-label="Следующее">
+                <svg viewBox="0 0 24 24" width="14" height="14" stroke="currentColor" stroke-width="2.5" fill="none" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
+              </button>
             </div>
           </div>
           <div class="project-info">
@@ -143,8 +151,12 @@
               </div>
             </div>
             <div class="drum-controls">
-              <button class="drum-btn" onclick="scrollDrum('drum-sborka', -1)">▲</button>
-              <button class="drum-btn" onclick="scrollDrum('drum-sborka', 1)">▼</button>
+              <button class="drum-btn" onclick="scrollDrum('drum-sborka', -1)" aria-label="Предыдущее">
+                <svg viewBox="0 0 24 24" width="14" height="14" stroke="currentColor" stroke-width="2.5" fill="none" stroke-linecap="round" stroke-linejoin="round"><polyline points="18 15 12 9 6 15"></polyline></svg>
+              </button>
+              <button class="drum-btn" onclick="scrollDrum('drum-sborka', 1)" aria-label="Следующее">
+                <svg viewBox="0 0 24 24" width="14" height="14" stroke="currentColor" stroke-width="2.5" fill="none" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
+              </button>
             </div>
           </div>
           <div class="project-info">
