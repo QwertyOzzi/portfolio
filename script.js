@@ -51,3 +51,12 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   });
 });
+
+// Функция прокрутки барабана
+function scrollDrum(drumId, direction) {
+  const drum = document.getElementById(drumId);
+  if (drum) {
+    const height = drum.clientHeight;
+    drum.scrollBy({ top: direction * height, behavior: "smooth" });
+  }
+}
