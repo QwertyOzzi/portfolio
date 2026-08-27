@@ -3,286 +3,424 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Portfolio | Developer & Modder</title>
-  <link id="dynamic-favicon" rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><path d='M16 2 Q16 16 30 16 Q16 16 16 30 Q16 16 2 16 Q16 16 16 2 Z' fill='%232997ff'/></svg>">
-  <link rel="stylesheet" href="style.css">
+  <title>QwertyOzzi — Creative Developer & Digital Modder</title>
+  <link id="dynamic-favicon" rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><circle cx='16' cy='16' r='14' fill='%23111215'/></svg>">
+  
+  <!-- Шрифты: Syne (Display), Plus Jakarta Sans (Body), JetBrains Mono (Tech/Meta) -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=SF+Pro+Display:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Syne:wght@700;800&display=swap" rel="stylesheet">
+  
+  <link rel="stylesheet" href="style.css">
+  
+  <!-- GSAP, ScrollTrigger, Lenis -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+  <script src="https://unpkg.com/lenis@1.1.9/dist/lenis.min.js"></script>
 </head>
-<body>
+<body class="editorial-theme">
 
-  <canvas id="particles-canvas"></canvas>
+  <!-- Кастомный кинетический курсор -->
+  <div class="cursor-dot" id="cursorDot"></div>
+  <div class="cursor-follower" id="cursorFollower">
+    <span class="cursor-label" id="cursorLabel"></span>
+  </div>
 
-  <div class="bg-grid"></div>
-  <div class="glow-orb orb-1"></div>
-  <div class="glow-orb orb-2"></div>
-  <div class="glow-orb orb-3"></div>
+  <!-- Фоновые инженерные направляющие и легкий шум -->
+  <div class="grid-backdrop">
+    <div class="grid-line"></div>
+    <div class="grid-line"></div>
+    <div class="grid-line"></div>
+    <div class="grid-line"></div>
+  </div>
 
-  <!-- Уведомление Apple Glass -->
+  <!-- Уведомление об успешном действии (Toast) -->
   <div class="toast" id="toast">
-    <svg class="toast-icon" viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" stroke-width="2.5" fill="none" stroke-linecap="round" stroke-linejoin="round">
-      <polyline points="20 6 9 17 4 12"></polyline>
-    </svg>
-    <span id="toastText">Скопировано</span>
+    <span class="toast-indicator"></span>
+    <span id="toastText">Скопировано в буфер</span>
   </div>
 
   <!-- Навигация -->
-  <nav class="nav">
-    <div class="nav-content">
+  <header class="nav-wrapper">
+    <nav class="nav">
       <div class="nav-left">
-        <!-- Клик по логотипу или тексту -->
-        <div class="nav-logo-wrap" id="secretLogoTrigger" title="Нажмите 3 раза для входа в панель">
-          <svg class="nav-sparkle-logo" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <defs>
-              <linearGradient id="sparkle-grad" x1="0%" y1="0%" x2="100%" y2="100%">
-                <stop offset="0%" stop-color="#ffffff" />
-                <stop offset="50%" stop-color="#2997ff" />
-                <stop offset="100%" stop-color="#a855f7" />
-              </linearGradient>
-              <linearGradient id="small-star-grad" x1="0%" y1="0%" x2="100%" y2="100%">
-                <stop offset="0%" stop-color="#60a5fa" />
-                <stop offset="100%" stop-color="#c084fc" />
-              </linearGradient>
-            </defs>
-            <path class="star-main" d="M 45,5 C 47,38 52,43 88,50 C 52,57 47,62 30,95 C 38,62 33,57 5,50 C 33,43 38,38 45,5 Z" fill="url(#sparkle-grad)" />
-            <g class="star-mini-wrap">
-              <path class="star-mini" d="M 78,22 C 79,29 81,31 88,32 C 81,33 79,35 78,42 C 77,35 75,33 68,32 C 75,31 77,29 78,22 Z" fill="url(#small-star-grad)" />
-            </g>
-          </svg>
-          <span class="nav-logo" data-key="nav_logo">Portfolio</span>
+        <div class="brand-trigger" id="secretLogoTrigger" data-cursor="ADMIN">
+          <span class="brand-symbol">✦</span>
+          <span class="brand-name" data-key="nav_logo">QWERTY_OZZI</span>
+          <span class="brand-meta">[V2.6.DEV]</span>
         </div>
+      </div>
 
-        <div class="status-badge">
+      <div class="nav-center">
+        <div class="status-pill">
           <span class="status-dot"></span>
-          <span class="status-title">ONLINE</span>
-          <span class="status-divider">•</span>
-          <span id="devClock">--:--:--</span>
+          <span class="status-text">SYSTEM ONLINE</span>
+          <span class="status-time" id="devClock">--:--:--</span>
+          <span class="status-tz">UTC+3</span>
         </div>
       </div>
 
-      <div class="nav-links">
-        <a href="#services">Специализация</a>
-        <a href="#portfolio">Примеры работ</a>
-        <a href="#skills">Стек</a>
-        <a href="#contact">Контакты</a>
+      <div class="nav-right">
+        <div class="nav-menu">
+          <a href="#services" class="nav-item magnetic" data-cursor="LINK"><span>01</span> Спецификация</a>
+          <a href="#portfolio" class="nav-item magnetic" data-cursor="LINK"><span>02</span> Проекты</a>
+          <a href="#stack" class="nav-item magnetic" data-cursor="LINK"><span>03</span> Стек</a>
+          <a href="#contact" class="nav-item nav-action magnetic" data-cursor="CONTACT">Связаться ↗</a>
+        </div>
       </div>
-    </div>
-  </nav>
-
-  <!-- Главный экран -->
-  <header class="hero">
-    <div class="hero-content fade-in">
-      <p class="hero-label" data-key="hero_label">Development & Modding</p>
-      <h1 class="hero-title" data-key="hero_title">Скрипты. 3D Модели.<br>Кастомные сборки.</h1>
-      <p class="hero-subtitle" data-key="hero_sub">Разработка функциональных Lua/Python скриптов, 3D-моделирование и кастомизация игровых клиентов под ключ.</p>
-      <div class="hero-actions">
-        <a href="#portfolio" class="btn btn-primary">Примеры работ</a>
-        <a href="#contact" class="btn btn-secondary">Связаться</a>
-      </div>
-    </div>
+    </nav>
   </header>
 
-  <!-- Секция: Специализация -->
-  <section id="services" class="section">
-    <div class="container">
-      <div class="section-header fade-in">
-        <h2 class="section-title" data-key="srv_title">Направления разработки</h2>
-        <p class="section-desc" data-key="srv_desc">Основные категории выполняемых задач и проектов.</p>
+  <main class="page-content">
+    
+    <!-- Hero Section -->
+    <section class="hero-section">
+      <div class="hero-meta-top">
+        <span class="meta-tag">[CREATIVE ENGINEERING]</span>
+        <span class="meta-tag">[DIGITAL MODDING & SCRIPTS]</span>
+        <span class="meta-tag">[LOC: 49.04° N, 28.43° E]</span>
       </div>
-      <div class="bento-grid">
-        <div class="bento-card tilt-card fade-in">
-          <div class="card-tag">Development</div>
-          <h3 data-key="s1_h">Скрипты и автоматизация</h3>
-          <p data-key="s1_t">Написание функциональных скриптов с кастомными интерфейсами (mimgui), парсеров, хелперов, ботов и систем автоматизации под любые требования.</p>
-        </div>
-        <div class="bento-card tilt-card fade-in">
-          <div class="card-tag">3D Graphics</div>
-          <h3 data-key="s2_h">3D Моделирование и заменки</h3>
-          <p data-key="s2_t">Создание и адаптация 3D-моделей: оружие, скины, автомобили, оптимизация сетки, правильная развертка текстур и подгонка иерархии костей/дамми.</p>
-        </div>
-        <div class="bento-card tilt-card fade-in">
-          <div class="card-tag">Custom Builds</div>
-          <h3 data-key="s3_h">Сборки и оптимизация</h3>
-          <p data-key="s3_t">Сборка стабильных игровых сборок с нуля, подбор визуала, внедрение фиксов совместимости, вырезание мусора и настройка максимального FPS.</p>
-        </div>
-      </div>
-    </div>
-  </section>
 
-  <!-- Секция: Примеры работ -->
-  <section id="portfolio" class="section">
-    <div class="container">
-      <div class="section-header fade-in">
-        <h2 class="section-title" data-key="port_title">Примеры работ</h2>
-        <p class="section-desc" data-key="port_desc">Кликните по фото или наведите курсор на 3 сек. для полноразмерного просмотра.</p>
+      <div class="hero-title-container">
+        <div class="hero-line-wrap">
+          <h1 class="hero-title" data-key="hero_title_1">ИНЖЕНЕРИЯ</h1>
+        </div>
+        <div class="hero-line-wrap hero-line-offset">
+          <div class="hero-inline-badge">
+            <span class="badge-dot"></span>
+            <span>PROD READY</span>
+          </div>
+          <h1 class="hero-title hero-outline" data-key="hero_title_2">ИНТЕРФЕЙСОВ</h1>
+        </div>
+        <div class="hero-line-wrap">
+          <h1 class="hero-title" data-key="hero_title_3">& МОДДИНГ.</h1>
+        </div>
       </div>
-      <div class="projects-grid" id="projectsContainer">
+
+      <div class="hero-footer-grid">
+        <div class="hero-desc-block">
+          <p class="hero-lead" data-key="hero_sub">
+            Проектирование функциональных систем, высокоскоростных Lua/C++ скриптов, кастомных 3D-моделей и оптимизированных игровых сред с безупречной архитектурой.
+          </p>
+        </div>
+
+        <div class="hero-stats-block">
+          <div class="stat-card">
+            <span class="stat-num">100%</span>
+            <span class="stat-lbl">Отказоустойчивость скриптов</span>
+          </div>
+          <div class="stat-card">
+            <span class="stat-num">&lt;2ms</span>
+            <span class="stat-lbl">Задержка выполнения логики</span>
+          </div>
+        </div>
+
+        <div class="hero-cta-block">
+          <a href="#portfolio" class="btn-editorial magnetic" data-cursor="VIEW">
+            <span class="btn-text">Исследовать проекты</span>
+            <span class="btn-icon">↓</span>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- Секция 01: Направления -->
+    <section id="services" class="section services-section">
+      <div class="section-header-editorial">
+        <div class="header-index">01 / SPECIFICATION</div>
+        <h2 class="section-title-editorial" data-key="srv_title">КЛЮЧЕВЫЕ НАПРАВЛЕНИЯ</h2>
+      </div>
+
+      <div class="services-editorial-grid">
+        <article class="service-card tilt-card" data-cursor="EXPLORE">
+          <div class="service-meta">
+            <span class="service-num">[01]</span>
+            <span class="service-cat">SOFTWARE & AUTOMATION</span>
+          </div>
+          <h3 class="service-title" data-key="s1_h">Скрипты и системная логика</h3>
+          <p class="service-desc" data-key="s1_t">
+            Разработка отказоустойчивых скриптовых модулей с кастомными GUI на mimgui, перехватом сетевых пакетов, парсингом и автоматизацией процессов.
+          </p>
+          <div class="service-tags">
+            <span>#Lua</span>
+            <span>#mimgui</span>
+            <span>#Memory_Hooks</span>
+            <span>#JSON_API</span>
+          </div>
+        </article>
+
+        <article class="service-card tilt-card service-card-featured" data-cursor="EXPLORE">
+          <div class="service-meta">
+            <span class="service-num">[02]</span>
+            <span class="service-cat">3D MODELLING & RIGGING</span>
+          </div>
+          <h3 class="service-title" data-key="s2_h">3D Модели и ретекстур</h3>
+          <p class="service-desc" data-key="s2_t">
+            Создание высокоточных замен оружия, транспорта и персонажей. Чистая полигональная сетка, текстурирование высокого разрешения, настройка дамми и костей.
+          </p>
+          <div class="service-tags">
+            <span>#Blender</span>
+            <span>#DragonFF</span>
+            <span>#MagicTXD</span>
+            <span>#UV_Mapping</span>
+          </div>
+        </article>
+
+        <article class="service-card tilt-card" data-cursor="EXPLORE">
+          <div class="service-meta">
+            <span class="service-num">[03]</span>
+            <span class="service-cat">OPTIMIZATION & CLIENT BUILDS</span>
+          </div>
+          <h3 class="service-title" data-key="s3_h">Кастомные сборки клиентов</h3>
+          <p class="service-desc" data-key="s3_t">
+            Комплексный тюнинг игровых сборок под ключ: устранение конфликтов библиотек, очистка лишних ресурсов и достижение максимального стабильного фреймрейта.
+          </p>
+          <div class="service-tags">
+            <span>#FPS_Boost</span>
+            <span>#Stability_Pack</span>
+            <span>#Custom_HUD</span>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <!-- Секция 02: Проекты -->
+    <section id="portfolio" class="section portfolio-section">
+      <div class="section-header-editorial">
+        <div class="header-index">02 / ARCHIVE</div>
+        <h2 class="section-title-editorial" data-key="port_title">ИЗБРАННЫЕ РАБОТЫ</h2>
+        <p class="section-desc-editorial" data-key="port_desc">Интерактивный просмотр медиа-архива. Кликните по превью для зума.</p>
+      </div>
+
+      <div class="projects-spatial-list" id="projectsContainer">
         
-        <article class="project-card tilt-card fade-in">
-          <div class="v-drum-container">
-            <div class="v-drum" id="drum-lua">
-              <div class="v-drum-slide"><img src="lua1.jpg" alt="Lua 1" class="drum-img zoomable"></div>
-              <div class="v-drum-slide"><img src="lua2.jpg" alt="Lua 2" class="drum-img zoomable"></div>
+        <!-- Проект 1 -->
+        <article class="project-row" data-cursor="DRUM">
+          <div class="project-row-left">
+            <div class="project-index-badge">PRJ_01</div>
+            <div class="project-tags-row">
+              <span class="ptag">LUA</span>
+              <span class="ptag">MIMGUI</span>
+              <span class="ptag">NET_PACKETS</span>
             </div>
-            <div class="drum-controls">
-              <button class="drum-btn" onclick="scrollDrum('drum-lua', -1)" aria-label="Вверх">
-                <svg viewBox="0 0 24 24" width="14" height="14" stroke="currentColor" stroke-width="2.5" fill="none"><polyline points="18 15 12 9 6 15"></polyline></svg>
-              </button>
-              <button class="drum-btn" onclick="scrollDrum('drum-lua', 1)" aria-label="Вниз">
-                <svg viewBox="0 0 24 24" width="14" height="14" stroke="currentColor" stroke-width="2.5" fill="none"><polyline points="6 9 12 15 18 9"></polyline></svg>
-              </button>
-            </div>
+            <h3 class="project-heading" data-key="p1_name">NexusCore UI & Assistant</h3>
+            <p class="project-summary" data-key="p1_txt">
+              Многофункциональный комплекс инструментов автоматизации с модульной архитектурой окон, биндером, кастомными индикаторами и системой тем оформления.
+            </p>
           </div>
-          <div class="project-info">
-            <div class="project-meta" data-key="p1_cat">Скрипты / Lua & mimgui</div>
-            <h3 class="project-title" data-key="p1_name">Мультифункциональный UI-Хелпер</h3>
-            <p class="project-desc" data-key="p1_txt">Кастомный графический интерфейс с гибкой настройкой рендера, обработкой пакетов и синхронизацией данных.</p>
+
+          <div class="project-row-right">
+            <div class="editorial-drum-wrap">
+              <div class="editorial-drum" id="drum-lua">
+                <div class="drum-frame"><img src="lua1.jpg" alt="Lua 1" class="media-zoomable"></div>
+                <div class="drum-frame"><img src="lua2.jpg" alt="Lua 2" class="media-zoomable"></div>
+              </div>
+              <div class="drum-nav-overlay">
+                <button class="drum-nav-btn magnetic" onclick="scrollDrum('drum-lua', -1)" aria-label="Предыдущее">↑</button>
+                <button class="drum-nav-btn magnetic" onclick="scrollDrum('drum-lua', 1)" aria-label="Следующее">↓</button>
+              </div>
+            </div>
           </div>
         </article>
 
-        <article class="project-card tilt-card fade-in">
-          <div class="v-drum-container">
-            <div class="v-drum" id="drum-3d">
-              <div class="v-drum-slide"><img src="3d1.jpg" alt="3D 1" class="drum-img zoomable"></div>
-              <div class="v-drum-slide"><img src="3d2.jpg" alt="3D 2" class="drum-img zoomable"></div>
+        <!-- Проект 2 -->
+        <article class="project-row" data-cursor="DRUM">
+          <div class="project-row-left">
+            <div class="project-index-badge">PRJ_02</div>
+            <div class="project-tags-row">
+              <span class="ptag">BLENDER</span>
+              <span class="ptag">3D_ASSETS</span>
+              <span class="ptag">TEXTURES</span>
             </div>
-            <div class="drum-controls">
-              <button class="drum-btn" onclick="scrollDrum('drum-3d', -1)" aria-label="Вверх">
-                <svg viewBox="0 0 24 24" width="14" height="14" stroke="currentColor" stroke-width="2.5" fill="none"><polyline points="18 15 12 9 6 15"></polyline></svg>
-              </button>
-              <button class="drum-btn" onclick="scrollDrum('drum-3d', 1)" aria-label="Вниз">
-                <svg viewBox="0 0 24 24" width="14" height="14" stroke="currentColor" stroke-width="2.5" fill="none"><polyline points="6 9 12 15 18 9"></polyline></svg>
-              </button>
-            </div>
+            <h3 class="project-heading" data-key="p2_name">Custom 3D Vehicles & Weapons</h3>
+            <p class="project-summary" data-key="p2_txt">
+              Высокодетализированные заменки моделей авто и оружия. Авторский шейдинг, оптимизированный вес моделей и качественные карты отражений.
+            </p>
           </div>
-          <div class="project-info">
-            <div class="project-meta" data-key="p2_cat">3D Модели / Blender</div>
-            <h3 class="project-title" data-key="p2_name">Кастомный пак заменок</h3>
-            <p class="project-desc" data-key="p2_txt">Высокополигональные модели с оптимизацией геометрии и авторскими текстурами высокой четкости.</p>
+
+          <div class="project-row-right">
+            <div class="editorial-drum-wrap">
+              <div class="editorial-drum" id="drum-3d">
+                <div class="drum-frame"><img src="3d1.jpg" alt="3D 1" class="media-zoomable"></div>
+                <div class="drum-frame"><img src="3d2.jpg" alt="3D 2" class="media-zoomable"></div>
+              </div>
+              <div class="drum-nav-overlay">
+                <button class="drum-nav-btn magnetic" onclick="scrollDrum('drum-3d', -1)" aria-label="Предыдущее">↑</button>
+                <button class="drum-nav-btn magnetic" onclick="scrollDrum('drum-3d', 1)" aria-label="Следующее">↓</button>
+              </div>
+            </div>
           </div>
         </article>
 
-        <article class="project-card tilt-card fade-in">
-          <div class="v-drum-container">
-            <div class="v-drum" id="drum-sborka">
-              <div class="v-drum-slide"><img src="sborka.jpg" alt="Сборка 1" class="drum-img zoomable"></div>
-              <div class="v-drum-slide"><img src="sborka1.jpg" alt="Сборка 2" class="drum-img zoomable"></div>
+        <!-- Проект 3 -->
+        <article class="project-row" data-cursor="DRUM">
+          <div class="project-row-left">
+            <div class="project-index-badge">PRJ_03</div>
+            <div class="project-tags-row">
+              <span class="ptag">MODDING</span>
+              <span class="ptag">CLIENT_TUNE</span>
+              <span class="ptag">MAX_FPS</span>
             </div>
-            <div class="drum-controls">
-              <button class="drum-btn" onclick="scrollDrum('drum-sborka', -1)" aria-label="Вверх">
-                <svg viewBox="0 0 24 24" width="14" height="14" stroke="currentColor" stroke-width="2.5" fill="none"><polyline points="18 15 12 9 6 15"></polyline></svg>
-              </button>
-              <button class="drum-btn" onclick="scrollDrum('drum-sborka', 1)" aria-label="Вниз">
-                <svg viewBox="0 0 24 24" width="14" height="14" stroke="currentColor" stroke-width="2.5" fill="none"><polyline points="6 9 12 15 18 9"></polyline></svg>
-              </button>
-            </div>
+            <h3 class="project-heading" data-key="p3_name">Performance Client Setup</h3>
+            <p class="project-summary" data-key="p3_txt">
+              Оптимизированный пакет клиентской сборки с интегрированными фиксами памяти, кастомным визуальным стилем и плавной отрисовкой дистанции.
+            </p>
           </div>
-          <div class="project-info">
-            <div class="project-meta" data-key="p3_cat">Клиентские сборки</div>
-            <h3 class="project-title" data-key="p3_name">Оптимизированная сборка</h3>
-            <p class="project-desc" data-key="p3_txt">Чистый клиент с пакетом стабильности, кастомными анимациями, графическими модами и фиксом просадок кадров.</p>
+
+          <div class="project-row-right">
+            <div class="editorial-drum-wrap">
+              <div class="editorial-drum" id="drum-sborka">
+                <div class="drum-frame"><img src="sborka.jpg" alt="Сборка 1" class="media-zoomable"></div>
+                <div class="drum-frame"><img src="sborka1.jpg" alt="Сборка 2" class="media-zoomable"></div>
+              </div>
+              <div class="drum-nav-overlay">
+                <button class="drum-nav-btn magnetic" onclick="scrollDrum('drum-sborka', -1)" aria-label="Предыдущее">↑</button>
+                <button class="drum-nav-btn magnetic" onclick="scrollDrum('drum-sborka', 1)" aria-label="Следующее">↓</button>
+              </div>
+            </div>
           </div>
         </article>
 
       </div>
-    </div>
-  </section>
+    </section>
 
-  <!-- Секция: Стек -->
-  <section id="skills" class="section">
-    <div class="container">
-      <div class="section-header fade-in">
-        <h2 class="section-title" data-key="tech_title">Инструменты и технологии</h2>
+    <!-- Секция 03: Инженерный стек -->
+    <section id="stack" class="section stack-section">
+      <div class="section-header-editorial">
+        <div class="header-index">03 / TECH MATRIX</div>
+        <h2 class="section-title-editorial" data-key="tech_title">ТЕХНОЛОГИЧЕСКИЙ СТЕК</h2>
       </div>
-      <div class="skills-grid">
-        <div class="skill-pill fade-in" data-key="sk1">Lua / mimgui</div>
-        <div class="skill-pill fade-in" data-key="sk2">Blender / 3D Modding</div>
-        <div class="skill-pill fade-in" data-key="sk3">TXD Workshop / Magic.TXD</div>
-        <div class="skill-pill fade-in" data-key="sk4">Python</div>
-        <div class="skill-pill fade-in" data-key="sk5">C++ / Arduino</div>
-        <div class="skill-pill fade-in" data-key="sk6">HTML5 / CSS3 / JavaScript</div>
-        <div class="skill-pill fade-in" data-key="sk7">Git / GitHub</div>
-        <div class="skill-pill fade-in" data-key="sk8">Photoshop UI Design</div>
-      </div>
-    </div>
-  </section>
 
-  <!-- Секция: Контакты -->
-  <section id="contact" class="section">
-    <div class="container">
-      <div class="contact-card tilt-card fade-in">
-        <h2 class="contact-title" data-key="ct_title">Связаться со мной</h2>
-        <p class="contact-desc" data-key="ct_desc">ЛКМ — открыть ссылку • ПКМ — скопировать контакт</p>
-        <div class="contact-grid">
-          <div class="contact-btn copy-action" data-copy="@wasert44" data-link="https://t.me/wasert44">
-            <span class="contact-type">Telegram</span>
-            <span class="contact-val">@wasert44</span>
+      <div class="tech-matrix-grid">
+        <div class="matrix-cell">
+          <div class="m-head"><span class="m-idx">01</span> LUA / MIMGUI</div>
+          <div class="m-body">Разработка клиентских интерфейсов, хуков памяти и скриптовых утилит.</div>
+          <div class="m-foot">[CORE DEV]</div>
+        </div>
+        <div class="matrix-cell">
+          <div class="m-head"><span class="m-idx">02</span> BLENDER 3D</div>
+          <div class="m-body">3D моделирование, UV-развертка, скиннинг и экспорт через DragonFF.</div>
+          <div class="m-foot">[3D GRAPHICS]</div>
+        </div>
+        <div class="matrix-cell">
+          <div class="m-head"><span class="m-idx">03</span> PYTHON / REST</div>
+          <div class="m-body">Автоматизация задач, парсинг данных, боты и серверная интеграция.</div>
+          <div class="m-foot">[BACKEND / AUTOMATION]</div>
+        </div>
+        <div class="matrix-cell">
+          <div class="m-head"><span class="m-idx">04</span> C++ & ARDUINO</div>
+          <div class="m-body">Программирование контроллеров, ШИМ-управление и аппаратная логика.</div>
+          <div class="m-foot">[HARDWARE / EMBEDDED]</div>
+        </div>
+        <div class="matrix-cell">
+          <div class="m-head"><span class="m-idx">05</span> FRONTEND TECH</div>
+          <div class="m-body">HTML5, CSS3, ES6+, GSAP, Canvas API и адаптивные веб-приложения.</div>
+          <div class="m-foot">[UI / UX DEV]</div>
+        </div>
+        <div class="matrix-cell">
+          <div class="m-head"><span class="m-idx">06</span> MAGIC.TXD & PS</div>
+          <div class="m-body">Конвертация и оптимизация текстурных архивов, дизайн интерфейсов.</div>
+          <div class="m-foot">[ASSET OPTIMIZATION]</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Секция 04: Контакты -->
+    <section id="contact" class="section contact-section">
+      <div class="contact-editorial-container">
+        <div class="contact-top-meta">
+          <span>[COMMUNICATION DOCK]</span>
+          <span>[RESPONSE TIME: FAST]</span>
+        </div>
+
+        <h2 class="contact-hero-heading" data-key="ct_title">ГОТОВЫ ОБСУДИТЬ ПРОЕКТ?</h2>
+        <p class="contact-sub-editorial" data-key="ct_desc">
+          ЛКМ — открыть ссылку • ПКМ — мгновенно скопировать контакт в буфер
+        </p>
+
+        <div class="contact-cards-dock">
+          <div class="contact-pill copy-action magnetic" data-copy="@wasert44" data-link="https://t.me/wasert44" data-cursor="OPEN/COPY">
+            <span class="cp-type">TELEGRAM</span>
+            <span class="cp-val">@wasert44</span>
+            <span class="cp-arrow">↗</span>
           </div>
 
-          <div class="contact-btn copy-action" data-copy="https://vk.ru/gomez44" data-link="https://vk.ru/gomez44">
-            <span class="contact-type">ВКонтакте</span>
-            <span class="contact-val">vk.ru/gomez44</span>
+          <div class="contact-pill copy-action magnetic" data-copy="https://vk.ru/gomez44" data-link="https://vk.ru/gomez44" data-cursor="OPEN/COPY">
+            <span class="cp-type">VKONTAKTE</span>
+            <span class="cp-val">vk.ru/gomez44</span>
+            <span class="cp-arrow">↗</span>
           </div>
 
-          <div class="contact-btn copy-action" data-copy="kabibar4ikk" data-link="">
-            <span class="contact-type">Discord</span>
-            <span class="contact-val">kabibar4ikk</span>
+          <div class="contact-pill copy-action magnetic" data-copy="kabibar4ikk" data-link="" data-cursor="COPY">
+            <span class="cp-type">DISCORD</span>
+            <span class="cp-val">kabibar4ikk</span>
+            <span class="cp-arrow">⎘</span>
           </div>
         </div>
       </div>
-    </div>
-  </section>
+    </section>
+  </main>
 
-  <footer class="footer">
-    <p>© 2026 QwertyOzzi Portfolio. All rights reserved.</p>
+  <!-- Футер -->
+  <footer class="footer-editorial">
+    <div class="footer-inner">
+      <div class="f-left">
+        <span>© 2026 QWERTY_OZZI. ВСЕ ПРАВА ЗАЩИЩЕНЫ.</span>
+      </div>
+      <div class="f-right">
+        <span>BUILT WITH GSAP & LENIS</span>
+      </div>
+    </div>
   </footer>
 
-  <!-- Модальное окно просмотра изображений -->
+  <!-- Lightbox для зума картинок -->
   <div class="lightbox" id="imageModal">
-    <button class="lightbox-close" id="modalClose">✕</button>
-    <img src="" alt="Full view" class="lightbox-img" id="modalImg">
+    <button class="lightbox-close" id="modalClose" aria-label="Закрыть">✕</button>
+    <img src="" alt="Full preview" class="lightbox-img" id="modalImg">
   </div>
 
-  <!-- Модальная панель управления (Dashboard) -->
+  <!-- Админ-панель (F2 / Тройной клик / admin()) -->
   <div class="admin-modal" id="adminModal">
     <div class="admin-window">
       <div class="admin-header">
-        <h3>Панель управления</h3>
+        <div class="admin-title-wrap">
+          <span class="admin-dot"></span>
+          <h3>ПАНЕЛЬ УПРАВЛЕНИЯ</h3>
+        </div>
         <button class="admin-close" id="adminCloseBtn">✕</button>
       </div>
 
       <div class="admin-body">
         <div class="admin-tabs">
-          <button class="tab-btn active" onclick="switchAdminTab('add')">Добавить проект</button>
+          <button class="tab-btn active" onclick="switchAdminTab('add')">Новый проект</button>
           <button class="tab-btn" onclick="switchAdminTab('edit')">Тексты на сайте</button>
         </div>
 
         <div class="tab-content" id="tabAdd">
           <div class="form-group">
-            <label>Категория:</label>
-            <input type="text" id="pCategory" placeholder="Скрипты / Lua & mimgui">
+            <label>Категория (Теги):</label>
+            <input type="text" id="pCategory" placeholder="LUA, MIMGUI, CORE">
           </div>
           <div class="form-group">
             <label>Название проекта:</label>
-            <input type="text" id="pTitle" placeholder="Custom Project Name">
+            <input type="text" id="pTitle" placeholder="Project Name">
           </div>
           <div class="form-group">
             <label>Описание проекта:</label>
-            <textarea id="pDesc" rows="3" placeholder="Описание функций..."></textarea>
+            <textarea id="pDesc" rows="3" placeholder="Краткое описание функций..."></textarea>
           </div>
           <div class="form-group">
             <label>Файлы картинок (через запятую):</label>
-            <input type="text" id="pImages" placeholder="lua1.jpg, lua2.jpg">
+            <input type="text" id="pImages" placeholder="3d1.jpg, 3d2.jpg">
           </div>
-          <button class="btn btn-primary btn-full" id="createProjectBtn">Добавить в портфолио</button>
+          <button class="btn-editorial btn-full" id="createProjectBtn">Добавить в портфолио</button>
         </div>
 
         <div class="tab-content hidden" id="tabEdit">
-          <p class="admin-hint">Включите режим правки, чтобы редактировать любые тексты на сайте простым кликом.</p>
+          <p class="admin-hint">Редактируйте заголовки и описания прямо на странице простым кликом.</p>
           <div class="admin-actions-row">
-            <button class="btn btn-secondary" id="toggleInlineEditBtn">Включить правку текстов</button>
-            <button class="btn btn-primary" id="saveInlineEditBtn">Сохранить изменения</button>
+            <button class="btn-editorial btn-secondary" id="toggleInlineEditBtn">Включить подсветку текста</button>
+            <button class="btn-editorial" id="saveInlineEditBtn">Сохранить правки</button>
           </div>
         </div>
       </div>
