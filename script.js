@@ -1,4 +1,145 @@
-// Инициализация Lenis (Smooth Scroll)
+// ==========================================================================
+// СЛОВАРЬ МУЛЬТИЯЗЫЧНОСТИ (RU, UA, EN)
+// ==========================================================================
+const translations = {
+  ru: {
+    nav_logo: "QWERTY_OZZI",
+    status_online: "SYSTEM ONLINE",
+    nav_services: "Спецификация",
+    nav_projects: "Проекты",
+    nav_stack: "Стек",
+    nav_contact: "Связаться",
+    hero_meta_1: "[CREATIVE ENGINEERING]",
+    hero_meta_2: "[DIGITAL MODDING & SCRIPTS]",
+    hero_title_1: "ИНЖЕНЕРИЯ",
+    hero_badge: "PROD READY",
+    hero_title_2: "ИНТЕРФЕЙСОВ",
+    hero_title_3: "& МОДДИНГ.",
+    hero_lead: "Проектирование функциональных систем, высокоскоростных Lua/C++ скриптов, кастомных 3D-моделей и оптимизированных игровых сред с безупречной архитектурой.",
+    stat_1: "Отказоустойчивость скриптов",
+    stat_2: "Задержка выполнения логики",
+    hero_btn: "Исследовать проекты",
+    services_heading: "КЛЮЧЕВЫЕ НАПРАВЛЕНИЯ",
+    s1_title: "Скрипты и системная логика",
+    s1_desc: "Разработка отказоустойчивых скриптовых модулей с кастомными GUI на mimgui, перехватом сетевых пакетов, парсингом и автоматизацией процессов.",
+    s2_title: "3D Модели и ретекстур",
+    s2_desc: "Создание высокоточных замен оружия, транспорта и персонажей. Чистая полигональная сетка, текстурирование высокого разрешения, настройка дамми и костей.",
+    s3_title: "Кастомные сборки клиентов",
+    s3_desc: "Комплексный тюнинг игровых сборок под ключ: устранение конфликтов библиотек, очистка лишних ресурсов и достижение максимального стабильного фреймрейта.",
+    projects_heading: "ИЗБРАННЫЕ РАБОТЫ",
+    projects_sub: "Интерактивный просмотр медиа-архива. Кликните по превью для зума.",
+    p1_title: "NexusCore UI & Assistant",
+    p1_desc: "Многофункциональный комплекс инструментов автоматизации с модульной архитектурой окон, биндером, кастомными индикаторами и системой тем оформления.",
+    p2_title: "Custom 3D Vehicles & Weapons",
+    p2_desc: "Высокодетализированные заменки моделей авто и оружия. Авторский шейдинг, оптимизированный вес моделей и качественные карты отражений.",
+    p3_title: "Performance Client Setup",
+    p3_desc: "Оптимизированный пакет клиентской сборки с интегрированными фиксами памяти, кастомным визуальным стилем и плавной отрисовкой дистанции.",
+    stack_heading: "ТЕХНОЛОГИЧЕСКИЙ СТЕК",
+    st1_desc: "Разработка клиентских интерфейсов, хуков памяти и скриптовых утилит.",
+    st2_desc: "3D моделирование, UV-развертка, скиннинг и экспорт через DragonFF.",
+    st3_desc: "Автоматизация задач, парсинг данных, боты и серверная интеграция.",
+    st4_desc: "Программирование контроллеров, ШИМ-управление и аппаратная логика.",
+    st5_desc: "HTML5, CSS3, ES6+, GSAP, Canvas API и адаптивные веб-приложения.",
+    st6_desc: "Конвертация и оптимизация текстурных архивов, дизайн интерфейсов.",
+    contact_heading: "ГОТОВЫ ОБСУДИТЬ ПРОЕКТ?",
+    contact_speed: "[RESPONSE TIME: FAST]",
+    contact_hint: "ЛКМ — открыть ссылку • ПКМ — мгновенно скопировать контакт в буфер",
+    footer_rights: "© 2026 QWERTY_OZZI. ВСЕ ПРАВА ЗАЩИЩЕНЫ.",
+    toast_copied: "Скопировано в буфер"
+  },
+  ua: {
+    nav_logo: "QWERTY_OZZI",
+    status_online: "СИСТЕМА ОНЛАЙН",
+    nav_services: "Специфікація",
+    nav_projects: "Проєкти",
+    nav_stack: "Стек",
+    nav_contact: "Зв'язатися",
+    hero_meta_1: "[КРЕАТИВНА ІНЖЕНЕРІЯ]",
+    hero_meta_2: "[ЦИФРОВИЙ МОДДІНГ ТА СКРИПТИ]",
+    hero_title_1: "ІНЖЕНЕРІЯ",
+    hero_badge: "PROD READY",
+    hero_title_2: "ІНТЕРФЕЙСІВ",
+    hero_title_3: "ТА МОДДІНГ.",
+    hero_lead: "Проєктування функціональних систем, високошвидкісних Lua/C++ скриптів, кастомних 3D-моделей та оптимізованих ігрових середовищ із бездоганною архітектурою.",
+    stat_1: "Відмовостійкість скриптів",
+    stat_2: "Затримка виконання логіки",
+    hero_btn: "Дослідити проєкти",
+    services_heading: "КЛЮЧОВІ НАПРЯМКИ",
+    s1_title: "Скрипти та системна логіка",
+    s1_desc: "Розробка відмовостійких скриптових модулів із кастомними GUI на mimgui, перехопленням мережевих пакетів, парсингом та автоматизацією процесів.",
+    s2_title: "3D Моделі та ретекстур",
+    s2_desc: "Створення високоточних замін зброї, транспорту та персонажів. Чиста полігональна сітка, текстурування високої роздільної здатності, налаштування дамі та кісток.",
+    s3_title: "Кастомні збірки клієнтів",
+    s3_desc: "Комплексний тюнінг ігрових збірок під ключ: усунення конфліктів бібліотек, очищення зайвих ресурсів та досягнення максимального стабільного фреймрейту.",
+    projects_heading: "ОБРАНІ РОБОТИ",
+    projects_sub: "Інтерактивний перегляд медіа-архіву. Клікніть по прев'ю для зуму.",
+    p1_title: "NexusCore UI & Assistant",
+    p1_desc: "Багатофункціональний комплекс інструментів автоматизації з модульною архітектурою вікон, біндером, кастомними індикаторами та системою тем оформлення.",
+    p2_title: "Custom 3D Vehicles & Weapons",
+    p2_desc: "Високодеталізовані замінники моделей авто та зброї. Авторський шейдинг, оптимізована вага моделей та якісні карти відображень.",
+    p3_title: "Performance Client Setup",
+    p3_desc: "Оптимізований пакет клієнтської збірки з інтегрованими фіксами пам'яті, кастомним візуальним стилем та плавним промальовуванням дистанції.",
+    stack_heading: "ТЕХНОЛОГІЧНИЙ СТЕК",
+    st1_desc: "Розробка клієнтських інтерфейсів, хуків пам'яті та скриптових утиліт.",
+    st2_desc: "3D моделювання, UV-розгортка, скінінг та експорт через DragonFF.",
+    st3_desc: "Автоматизація завдань, парсинг даних, боти та серверна інтеграція.",
+    st4_desc: "Програмування контролерів, ШІМ-керування та апаратна логіка.",
+    st5_desc: "HTML5, CSS3, ES6+, GSAP, Canvas API та адаптивні веб-застосунки.",
+    st6_desc: "Конвертація та оптимізація текстурних архівів, дизайн інтерфейсів.",
+    contact_heading: "ГОТОВІ ОБГОВОРИТИ ПРОЄКТ?",
+    contact_speed: "[ЧАС ВІДПОВІДІ: ШВИДКО]",
+    contact_hint: "ЛКМ — відкрити посилання • ПКМ — миттєво скопіювати контакт у буфер",
+    footer_rights: "© 2026 QWERTY_OZZI. ВСІ ПРАВА ЗАХИЩЕНІ.",
+    toast_copied: "Скопійовано в буфер"
+  },
+  en: {
+    nav_logo: "QWERTY_OZZI",
+    status_online: "SYSTEM ONLINE",
+    nav_services: "Specifications",
+    nav_projects: "Projects",
+    nav_stack: "Stack",
+    nav_contact: "Contact",
+    hero_meta_1: "[CREATIVE ENGINEERING]",
+    hero_meta_2: "[DIGITAL MODDING & SCRIPTS]",
+    hero_title_1: "ENGINEERING",
+    hero_badge: "PROD READY",
+    hero_title_2: "INTERFACES",
+    hero_title_3: "& MODDING.",
+    hero_lead: "Architecting high-performance systems, low-latency Lua/C++ scripts, custom 3D assets, and optimized client environments with uncompromising precision.",
+    stat_1: "Script Fault Tolerance",
+    stat_2: "Execution Logic Latency",
+    hero_btn: "Explore Archive",
+    services_heading: "CORE DISCIPLINES",
+    s1_title: "Scripts & Core Logic",
+    s1_desc: "Engineering fault-tolerant script architectures, custom mimgui GUIs, network packet interceptors, scraping pipelines, and task automation.",
+    s2_title: "3D Models & Retexturing",
+    s2_desc: "Crafting precision replacement assets for weapons, vehicles, and characters. Optimized topology, high-res texture maps, dummy alignment, and bone rigging.",
+    s3_title: "Custom Client Builds",
+    s3_desc: "End-to-end client engine tuning: dependency conflict resolution, redundant asset stripping, memory optimization, and stable high-FPS delivery.",
+    projects_heading: "FEATURED ARCHIVE",
+    projects_sub: "Interactive media showcase. Click preview frames for deep zoom inspection.",
+    p1_title: "NexusCore UI & Assistant",
+    p1_desc: "Modular automated workflow suite featuring dynamic dockable window nodes, keybinder hooks, custom performance HUDs, and real-time palette engines.",
+    p2_title: "Custom 3D Vehicles & Weapons",
+    p2_desc: "High-fidelity weapon and automotive asset replacements with custom shader workflows, ultra-light poly distribution, and precise specular passes.",
+    p3_title: "Performance Client Setup",
+    p3_desc: "Stripped and fortified game runtime configuration equipped with memory management fixes, refined draw distance, and custom aesthetic mods.",
+    stack_heading: "TECHNOLOGY MATRIX",
+    st1_desc: "Custom client UI engineering, memory hook injections, and automation toolsets.",
+    st2_desc: "3D asset design, clean UV unwrapping, bone rigging, and DragonFF compilation.",
+    st3_desc: "Task automation pipelines, parsing engines, automated bots, and REST API integration.",
+    st4_desc: "Microcontroller logic, PWM signal routing, and hardware interface design.",
+    st5_desc: "HTML5, CSS3, ES6+, GSAP timelines, Canvas 2D, and reactive frontends.",
+    st6_desc: "Texture compression, archive compilation, and user interface asset styling.",
+    contact_heading: "READY TO INITIALIZE?",
+    contact_speed: "[RESPONSE TIME: FAST]",
+    contact_hint: "LMB — Open link • RMB — Copy handle instantly to clipboard",
+    footer_rights: "© 2026 QWERTY_OZZI. ALL RIGHTS RESERVED.",
+    toast_copied: "Copied to clipboard"
+  }
+};
+
+// Smooth Scroll (Lenis)
 let lenis;
 try {
   lenis = new Lenis({
@@ -46,7 +187,68 @@ window.switchAdminTab = function(tabName) {
 
 document.addEventListener("DOMContentLoaded", () => {
 
-  // 1. Кастомный кинетический курсор с lerp
+  // ========================================================================
+  // 1. ПЕРЕКЛЮЧАТЕЛЬ ТЕМЫ (DARK / LIGHT) — ПО УМОЛЧАНИЮ DARK
+  // ========================================================================
+  const savedTheme = localStorage.getItem("portfolio_theme") || "dark";
+  document.documentElement.setAttribute("data-theme", savedTheme);
+
+  const themeToggleBtn = document.getElementById("themeToggleBtn");
+  const themeLabel = document.getElementById("themeLabel");
+
+  function updateThemeUI(theme) {
+    if (themeLabel) themeLabel.textContent = theme.toUpperCase();
+  }
+  updateThemeUI(savedTheme);
+
+  if (themeToggleBtn) {
+    themeToggleBtn.addEventListener("click", () => {
+      const current = document.documentElement.getAttribute("data-theme") || "dark";
+      const nextTheme = current === "dark" ? "light" : "dark";
+      document.documentElement.setAttribute("data-theme", nextTheme);
+      localStorage.setItem("portfolio_theme", nextTheme);
+      updateThemeUI(nextTheme);
+    });
+  }
+
+  // ========================================================================
+  // 2. ПЕРЕКЛЮЧАТЕЛЬ ЯЗЫКОВ (RU, UA, EN)
+  // ========================================================================
+  let currentLang = localStorage.getItem("portfolio_lang") || "ru";
+
+  function applyLanguage(lang) {
+    currentLang = lang;
+    localStorage.setItem("portfolio_lang", lang);
+    document.documentElement.setAttribute("lang", lang);
+
+    document.querySelectorAll("[data-i18n]").forEach(el => {
+      const key = el.getAttribute("data-i18n");
+      if (translations[lang] && translations[lang][key]) {
+        el.innerHTML = translations[lang][key];
+      }
+    });
+
+    document.querySelectorAll(".lang-btn").forEach(btn => {
+      if (btn.getAttribute("data-lang") === lang) {
+        btn.classList.add("active");
+      } else {
+        btn.classList.remove("active");
+      }
+    });
+  }
+
+  applyLanguage(currentLang);
+
+  document.querySelectorAll(".lang-btn").forEach(btn => {
+    btn.addEventListener("click", () => {
+      const lang = btn.getAttribute("data-lang");
+      applyLanguage(lang);
+    });
+  });
+
+  // ========================================================================
+  // 3. КАСТОМНЫЙ КУРСОР С ИНТЕРПОЛЯЦИЕЙ
+  // ========================================================================
   const dot = document.getElementById("cursorDot");
   const follower = document.getElementById("cursorFollower");
   const cursorLabel = document.getElementById("cursorLabel");
@@ -78,7 +280,6 @@ document.addEventListener("DOMContentLoaded", () => {
     }
     animateCursor();
 
-    // Hover состояния для курсора
     document.querySelectorAll("[data-cursor]").forEach(el => {
       el.addEventListener("mouseenter", () => {
         const label = el.getAttribute("data-cursor");
@@ -91,7 +292,6 @@ document.addEventListener("DOMContentLoaded", () => {
       });
     });
 
-    // Магнитные элементы
     document.querySelectorAll(".magnetic").forEach(btn => {
       btn.addEventListener("mousemove", (e) => {
         const rect = btn.getBoundingClientRect();
@@ -105,11 +305,12 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
-  // 2. GSAP ScrollTrigger Анимации появления
+  // ========================================================================
+  // 4. GSAP АНИМАЦИИ
+  // ========================================================================
   if (typeof gsap !== "undefined") {
     gsap.registerPlugin(ScrollTrigger);
 
-    // Hero кинетическая типографика
     gsap.from(".hero-title", {
       y: 120,
       opacity: 0,
@@ -127,7 +328,6 @@ document.addEventListener("DOMContentLoaded", () => {
       ease: "power3.out"
     });
 
-    // Карточки спецификаций
     gsap.from(".service-card", {
       scrollTrigger: {
         trigger: ".services-editorial-grid",
@@ -140,7 +340,6 @@ document.addEventListener("DOMContentLoaded", () => {
       ease: "power3.out"
     });
 
-    // Ряды проектов
     gsap.from(".project-row", {
       scrollTrigger: {
         trigger: ".projects-spatial-list",
@@ -154,7 +353,9 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
-  // 3. Часы и часовой пояс
+  // ========================================================================
+  // 5. ЧАСЫ И ДИНАМИЧЕСКИЙ ЗАГОЛОВОК
+  // ========================================================================
   function updateClock() {
     const clockEl = document.getElementById("devClock");
     if (clockEl) {
@@ -165,13 +366,14 @@ document.addEventListener("DOMContentLoaded", () => {
   updateClock();
   setInterval(updateClock, 1000);
 
-  // 4. Dynamic Page Title
   const originalTitle = document.title;
   document.addEventListener("visibilitychange", () => {
     document.title = document.hidden ? "✦ [WAITING_RESPONSE] | QwertyOzzi" : originalTitle;
   });
 
-  // 5. Toast уведомление
+  // ========================================================================
+  // 6. TOAST УВЕДОМЛЕНИЕ И КОПИРОВАНИЕ
+  // ========================================================================
   const toast = document.getElementById("toast");
   const toastText = document.getElementById("toastText");
   let toastTimer = null;
@@ -184,7 +386,6 @@ document.addEventListener("DOMContentLoaded", () => {
     toastTimer = setTimeout(() => toast.classList.remove("show"), 2200);
   }
 
-  // 6. Клик по контактам (ЛКМ переход / ПКМ копирование)
   document.querySelectorAll(".copy-action").forEach(btn => {
     const textToCopy = btn.getAttribute("data-copy");
     const directLink = btn.getAttribute("data-link");
@@ -194,7 +395,8 @@ document.addEventListener("DOMContentLoaded", () => {
         window.open(directLink, "_blank");
       } else if (textToCopy) {
         navigator.clipboard.writeText(textToCopy).then(() => {
-          triggerToast(`Скопировано: ${textToCopy}`);
+          const tCopied = (translations[currentLang] && translations[currentLang].toast_copied) || "Скопировано в буфер";
+          triggerToast(`${tCopied}: ${textToCopy}`);
         });
       }
     });
@@ -203,13 +405,16 @@ document.addEventListener("DOMContentLoaded", () => {
       e.preventDefault();
       if (textToCopy) {
         navigator.clipboard.writeText(textToCopy).then(() => {
-          triggerToast(`Скопировано в буфер: ${textToCopy}`);
+          const tCopied = (translations[currentLang] && translations[currentLang].toast_copied) || "Скопировано в буфер";
+          triggerToast(`${tCopied}: ${textToCopy}`);
         });
       }
     });
   });
 
-  // 7. Lightbox Zoom
+  // ========================================================================
+  // 7. LIGHTBOX ЗУМ
+  // ========================================================================
   const modal = document.getElementById("imageModal");
   const modalImg = document.getElementById("modalImg");
   const modalClose = document.getElementById("modalClose");
@@ -253,7 +458,9 @@ document.addEventListener("DOMContentLoaded", () => {
   if (modalClose) modalClose.addEventListener("click", closeModal);
   if (modal) modal.addEventListener("click", (e) => { if (e.target === modal) closeModal(); });
 
-  // 8. Админ-панель (F2 / Тройной клик / admin())
+  // ========================================================================
+  // 8. АДМИН-ПАНЕЛЬ (F2 / Тройной клик / admin())
+  // ========================================================================
   const ADMIN_PASS = "1234";
   const adminModal = document.getElementById("adminModal");
   const adminCloseBtn = document.getElementById("adminCloseBtn");
@@ -299,14 +506,9 @@ document.addEventListener("DOMContentLoaded", () => {
     adminCloseBtn.addEventListener("click", () => adminModal.classList.remove("active"));
   }
 
-  // 9. Загрузка данных из localStorage
-  const editables = document.querySelectorAll("[data-key]");
-  editables.forEach(el => {
-    const key = el.getAttribute("data-key");
-    const saved = localStorage.getItem("portfolio_" + key);
-    if (saved) el.innerHTML = saved;
-  });
-
+  // ========================================================================
+  // 9. ЗАГРУЗКА И СОЗДАНИЕ ПРОЕКТОВ (LOCALSTORAGE)
+  // ========================================================================
   const savedCards = JSON.parse(localStorage.getItem("portfolio_custom_cards") || "[]");
   const container = document.getElementById("projectsContainer");
 
@@ -345,7 +547,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
   savedCards.forEach((c, idx) => renderProjectRow(c, idx));
 
-  // Создание проекта
   const createBtn = document.getElementById("createProjectBtn");
   if (createBtn) {
     createBtn.addEventListener("click", () => {
@@ -382,7 +583,7 @@ document.addEventListener("DOMContentLoaded", () => {
   if (toggleInlineBtn && saveInlineBtn) {
     toggleInlineBtn.addEventListener("click", () => {
       isInline = !isInline;
-      document.querySelectorAll("[data-key]").forEach(el => {
+      document.querySelectorAll("[data-i18n]").forEach(el => {
         el.setAttribute("contenteditable", isInline ? "true" : "false");
       });
       toggleInlineBtn.innerText = isInline ? "Отключить подсветку" : "Включить подсветку текста";
@@ -391,10 +592,8 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 
     saveInlineBtn.addEventListener("click", () => {
-      document.querySelectorAll("[data-key]").forEach(el => {
+      document.querySelectorAll("[data-i18n]").forEach(el => {
         el.removeAttribute("contenteditable");
-        const key = el.getAttribute("data-key");
-        localStorage.setItem("portfolio_" + key, el.innerHTML);
       });
       isInline = false;
       toggleInlineBtn.innerText = "Включить подсветку текста";
@@ -403,7 +602,9 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
-  // 10. Favicon
+  // ========================================================================
+  // 10. АНИМИРОВАННЫЙ ЗВЕЗДНЫЙ FAVICON
+  // ========================================================================
   const favicon = document.getElementById("dynamic-favicon");
   const canvas = document.createElement("canvas");
   canvas.width = 32;
@@ -411,18 +612,52 @@ document.addEventListener("DOMContentLoaded", () => {
   const ctx = canvas.getContext("2d");
   let t = 0;
 
+  function draw4PointStar(cx, cy, rOuter, rInner) {
+    ctx.beginPath();
+    ctx.moveTo(cx, cy - rOuter);
+    ctx.quadraticCurveTo(cx, cy, cx + rInner, cy);
+    ctx.lineTo(cx + rOuter, cy);
+    ctx.quadraticCurveTo(cx, cy, cx, cy + rInner);
+    ctx.lineTo(cx + rOuter, cy);
+    ctx.quadraticCurveTo(cx, cy, cx - rInner, cy);
+    ctx.lineTo(cx - rOuter, cy);
+    ctx.quadraticCurveTo(cx, cy, cx, cy - rInner);
+    ctx.closePath();
+    ctx.fill();
+  }
+
   function renderFavicon() {
     ctx.clearRect(0, 0, 32, 32);
+
     ctx.save();
-    ctx.translate(16, 16);
-    ctx.rotate(t);
-    ctx.fillStyle = "#111215";
-    ctx.fillRect(-10, -10, 20, 20);
-    ctx.fillStyle = "#1d4ed8";
-    ctx.fillRect(-4, -4, 8, 8);
+    ctx.translate(14, 18);
+    ctx.rotate(-0.15);
+    const gradMain = ctx.createLinearGradient(-10, -10, 10, 10);
+    gradMain.addColorStop(0, "#ffffff");
+    gradMain.addColorStop(0.6, "#2997ff");
+    gradMain.addColorStop(1, "#a855f7");
+    ctx.fillStyle = gradMain;
+    draw4PointStar(0, 0, 13, 2.5);
     ctx.restore();
+
+    const scale = 0.7 + 0.55 * Math.sin(t * 3);
+    const alpha = 0.35 + 0.65 * (Math.sin(t * 3) * 0.5 + 0.5);
+
+    ctx.save();
+    ctx.translate(24 + Math.sin(t * 2) * 0.5, 7 + Math.cos(t * 2) * 0.5);
+    ctx.rotate(t * 1.5);
+    ctx.scale(scale, scale);
+    ctx.globalAlpha = Math.max(0.1, Math.min(1, alpha));
+
+    const gradMini = ctx.createLinearGradient(-4, -4, 4, 4);
+    gradMini.addColorStop(0, "#60a5fa");
+    gradMini.addColorStop(1, "#c084fc");
+    ctx.fillStyle = gradMini;
+    draw4PointStar(0, 0, 6, 1.2);
+    ctx.restore();
+
     favicon.href = canvas.toDataURL("image/png");
-    t += 0.03;
+    t += 0.035;
     requestAnimationFrame(renderFavicon);
   }
   renderFavicon();
