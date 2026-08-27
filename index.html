@@ -32,10 +32,9 @@
     <div class="grid-line"></div>
   </div>
 
-  <!-- Плавающая панель в левом нижнем углу: Тема и Язык -->
+  <!-- Панель настроек (Тема и Языки) -->
   <aside class="corner-dock" aria-label="Панель настроек">
-    <!-- Переключатель темы -->
-    <button class="dock-btn theme-toggle magnetic" id="themeToggleBtn" data-cursor="THEME" title="Сменить тему">
+    <button class="dock-btn theme-toggle magnetic" id="themeToggleBtn" title="Сменить тему">
       <span class="theme-icon dark-icon">🌙</span>
       <span class="theme-icon light-icon">☀️</span>
       <span class="dock-label" id="themeLabel">DARK</span>
@@ -43,11 +42,10 @@
     
     <div class="dock-divider"></div>
 
-    <!-- Переключатель языка -->
     <div class="lang-selector">
-      <button class="lang-btn magnetic" data-lang="ru" data-cursor="LANG">RU</button>
-      <button class="lang-btn magnetic" data-lang="ua" data-cursor="LANG">UA</button>
-      <button class="lang-btn magnetic" data-lang="en" data-cursor="LANG">EN</button>
+      <button class="lang-btn magnetic" data-lang="ru">RU</button>
+      <button class="lang-btn magnetic" data-lang="ua">UA</button>
+      <button class="lang-btn magnetic" data-lang="en">EN</button>
     </div>
   </aside>
 
@@ -61,8 +59,25 @@
   <header class="nav-wrapper">
     <nav class="nav">
       <div class="nav-left">
-        <div class="brand-trigger" id="secretLogoTrigger" data-cursor="ADMIN">
-          <span class="brand-symbol">✦</span>
+        <!-- Логотип без data-cursor -->
+        <div class="brand-trigger" id="secretLogoTrigger" title="Панель управления (F2)">
+          <svg class="nav-sparkle-logo" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+              <linearGradient id="sparkle-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" stop-color="#ffffff" />
+                <stop offset="50%" stop-color="#2997ff" />
+                <stop offset="100%" stop-color="#a855f7" />
+              </linearGradient>
+              <linearGradient id="small-star-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" stop-color="#60a5fa" />
+                <stop offset="100%" stop-color="#c084fc" />
+              </linearGradient>
+            </defs>
+            <path class="star-main" d="M 45,5 C 47,38 52,43 88,50 C 52,57 47,62 30,95 C 38,62 33,57 5,50 C 33,43 38,38 45,5 Z" fill="url(#sparkle-grad)" />
+            <g class="star-mini-wrap">
+              <path class="star-mini" d="M 78,22 C 79,29 81,31 88,32 C 81,33 79,35 78,42 C 77,35 75,33 68,32 C 75,31 77,29 78,22 Z" fill="url(#small-star-grad)" />
+            </g>
+          </svg>
           <span class="brand-name" data-i18n="nav_logo">QWERTY_OZZI</span>
           <span class="brand-meta">[V2.6.DEV]</span>
         </div>
@@ -211,7 +226,6 @@
 
       <div class="projects-spatial-list" id="projectsContainer">
         
-        <!-- Проект 1 -->
         <article class="project-row" data-cursor="DRUM">
           <div class="project-row-left">
             <div class="project-index-badge">PRJ_01</div>
@@ -240,7 +254,6 @@
           </div>
         </article>
 
-        <!-- Проект 2 -->
         <article class="project-row" data-cursor="DRUM">
           <div class="project-row-left">
             <div class="project-index-badge">PRJ_02</div>
@@ -269,7 +282,6 @@
           </div>
         </article>
 
-        <!-- Проект 3 -->
         <article class="project-row" data-cursor="DRUM">
           <div class="project-row-left">
             <div class="project-index-badge">PRJ_03</div>
@@ -356,13 +368,13 @@
         </p>
 
         <div class="contact-cards-dock">
-          <div class="contact-pill copy-action magnetic" data-copy="@wasert44" data-link="https://t.me/wasert44" data-cursor="OPEN/COPY">
+          <div class="contact-pill copy-action magnetic" data-copy="@wasert44" data-link="https://t.me/wasert44" data-cursor="OPEN">
             <span class="cp-type">TELEGRAM</span>
             <span class="cp-val">@wasert44</span>
             <span class="cp-arrow">↗</span>
           </div>
 
-          <div class="contact-pill copy-action magnetic" data-copy="https://vk.ru/gomez44" data-link="https://vk.ru/gomez44" data-cursor="OPEN/COPY">
+          <div class="contact-pill copy-action magnetic" data-copy="https://vk.ru/gomez44" data-link="https://vk.ru/gomez44" data-cursor="OPEN">
             <span class="cp-type">VKONTAKTE</span>
             <span class="cp-val">vk.ru/gomez44</span>
             <span class="cp-arrow">↗</span>
@@ -378,7 +390,6 @@
     </section>
   </main>
 
-  <!-- Футер -->
   <footer class="footer-editorial">
     <div class="footer-inner">
       <div class="f-left">
@@ -390,13 +401,11 @@
     </div>
   </footer>
 
-  <!-- Lightbox -->
   <div class="lightbox" id="imageModal">
     <button class="lightbox-close" id="modalClose" aria-label="Закрыть">✕</button>
     <img src="" alt="Full preview" class="lightbox-img" id="modalImg">
   </div>
 
-  <!-- Панель управления (F2 / Тройной клик / admin()) -->
   <div class="admin-modal" id="adminModal">
     <div class="admin-window">
       <div class="admin-header">
