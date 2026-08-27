@@ -1,4 +1,25 @@
-:root {
+/* ==========================================================================
+   ЦВЕТОВЫЕ ТОКЕНЫ: DARK (ПО УМОЛЧАНИЮ) И LIGHT
+   ========================================================================== */
+:root,
+html[data-theme="dark"] {
+  --bg-primary: #0d0f14;
+  --bg-surface: #141720;
+  --bg-card: #191d28;
+  --text-primary: #f5f6f9;
+  --text-secondary: #9da3b4;
+  --text-muted: #5e6373;
+  --border-color: rgba(255, 255, 255, 0.1);
+  --border-hover: rgba(255, 255, 255, 0.3);
+  --accent: #2997ff;
+  --accent-glow: rgba(41, 151, 255, 0.2);
+  --grid-line: rgba(255, 255, 255, 0.035);
+  --nav-bg: rgba(13, 15, 20, 0.85);
+  --cursor-color: #ffffff;
+  --cursor-border: rgba(255, 255, 255, 0.4);
+}
+
+html[data-theme="light"] {
   --bg-primary: #f4f3ef;
   --bg-surface: #eae8e1;
   --bg-card: #ffffff;
@@ -9,6 +30,13 @@
   --border-hover: rgba(17, 18, 21, 0.35);
   --accent: #1d4ed8;
   --accent-glow: rgba(29, 78, 216, 0.15);
+  --grid-line: rgba(17, 18, 21, 0.04);
+  --nav-bg: rgba(244, 243, 239, 0.85);
+  --cursor-color: #111215;
+  --cursor-border: rgba(17, 18, 21, 0.3);
+}
+
+:root {
   --font-display: 'Syne', -apple-system, sans-serif;
   --font-body: 'Plus Jakarta Sans', -apple-system, sans-serif;
   --font-mono: 'JetBrains Mono', monospace;
@@ -25,6 +53,7 @@ html {
   color: var(--text-primary);
   font-family: var(--font-body);
   -webkit-font-smoothing: antialiased;
+  transition: background-color 0.35s ease, color 0.35s ease;
 }
 
 body {
@@ -34,7 +63,7 @@ body {
   line-height: 1.6;
 }
 
-/* Фоновая инженерная сетка */
+/* Сетка */
 .grid-backdrop {
   position: fixed;
   top: 0;
@@ -51,17 +80,17 @@ body {
 .grid-line {
   width: 1px;
   height: 100%;
-  background-color: rgba(17, 18, 21, 0.04);
+  background-color: var(--grid-line);
 }
 
-/* Кастомный кинетический курсор */
+/* Кастомный курсор */
 .cursor-dot {
   position: fixed;
   top: 0;
   left: 0;
   width: 8px;
   height: 8px;
-  background-color: var(--text-primary);
+  background-color: var(--cursor-color);
   border-radius: 50%;
   pointer-events: none;
   z-index: 9999;
@@ -75,7 +104,7 @@ body {
   left: 0;
   width: 36px;
   height: 36px;
-  border: 1px solid rgba(17, 18, 21, 0.3);
+  border: 1px solid var(--cursor-border);
   border-radius: 50%;
   pointer-events: none;
   z-index: 9998;
@@ -107,6 +136,100 @@ body {
   opacity: 1;
 }
 
+/* ==========================================================================
+   НИЖНИЙ ЛЕВЫЙ УГОЛ: ПАНЕЛЬ ТЕМЫ И ЯЗЫКОВ (CORNER DOCK)
+   ========================================================================== */
+.corner-dock {
+  position: fixed;
+  bottom: 24px;
+  left: 24px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: var(--nav-bg);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid var(--border-color);
+  padding: 6px 12px;
+  border-radius: 980px;
+  z-index: 1000;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
+}
+
+.dock-btn {
+  background: none;
+  border: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  cursor: pointer;
+  color: var(--text-primary);
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 600;
+  padding: 4px 8px;
+  border-radius: 980px;
+  transition: background-color 0.2s, color 0.2s;
+}
+
+.dock-btn:hover {
+  background: var(--bg-surface);
+}
+
+.theme-icon {
+  font-size: 13px;
+  line-height: 1;
+}
+
+html[data-theme="dark"] .light-icon {
+  display: none;
+}
+html[data-theme="dark"] .dark-icon {
+  display: inline-block;
+}
+
+html[data-theme="light"] .dark-icon {
+  display: none;
+}
+html[data-theme="light"] .light-icon {
+  display: inline-block;
+}
+
+.dock-divider {
+  width: 1px;
+  height: 16px;
+  background: var(--border-color);
+}
+
+.lang-selector {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.lang-btn {
+  background: none;
+  border: none;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--text-muted);
+  cursor: pointer;
+  padding: 4px 7px;
+  border-radius: 6px;
+  transition: all 0.2s;
+}
+
+.lang-btn:hover {
+  color: var(--text-primary);
+  background: var(--bg-surface);
+}
+
+.lang-btn.active {
+  color: #ffffff;
+  background: var(--accent);
+}
+
 /* Toast */
 .toast {
   position: fixed;
@@ -114,7 +237,7 @@ body {
   left: 50%;
   transform: translateX(-50%) translateY(40px);
   background: var(--text-primary);
-  color: #ffffff;
+  color: var(--bg-primary);
   padding: 10px 22px;
   border-radius: 980px;
   font-family: var(--font-mono);
@@ -125,7 +248,7 @@ body {
   z-index: 10000;
   opacity: 0;
   visibility: hidden;
-  box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+  box-shadow: 0 10px 30px rgba(0,0,0,0.25);
   transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.35s, visibility 0.35s;
 }
 
@@ -138,7 +261,7 @@ body {
 .toast-indicator {
   width: 6px;
   height: 6px;
-  background-color: #30d158;
+  background-color: #10b981;
   border-radius: 50%;
 }
 
@@ -157,13 +280,14 @@ body {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  background: rgba(244, 243, 239, 0.85);
+  background: var(--nav-bg);
   backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
   border: 1px solid var(--border-color);
   padding: 10px 24px;
   border-radius: 980px;
   pointer-events: auto;
+  transition: background 0.3s, border-color 0.3s;
 }
 
 .brand-trigger {
@@ -184,6 +308,7 @@ body {
   font-weight: 600;
   font-size: 13px;
   letter-spacing: 0.05em;
+  color: var(--text-primary);
 }
 
 .brand-meta {
@@ -240,7 +365,7 @@ body {
   gap: 4px;
 }
 
-.nav-item span {
+.nav-item .item-num {
   color: var(--text-muted);
   font-size: 10px;
 }
@@ -251,13 +376,14 @@ body {
 
 .nav-action {
   background-color: var(--text-primary);
-  color: #ffffff !important;
+  color: var(--bg-primary) !important;
   padding: 6px 14px;
   border-radius: 980px;
 }
 
 .nav-action:hover {
   background-color: var(--accent);
+  color: #ffffff !important;
 }
 
 /* Page Layout */
@@ -379,7 +505,7 @@ body {
   align-items: center;
   gap: 12px;
   background-color: var(--text-primary);
-  color: #ffffff;
+  color: var(--bg-primary);
   padding: 14px 28px;
   border-radius: 980px;
   text-decoration: none;
@@ -393,6 +519,7 @@ body {
 
 .btn-editorial:hover {
   background-color: var(--accent);
+  color: #ffffff;
   transform: translateY(-2px);
   box-shadow: 0 10px 25px var(--accent-glow);
 }
@@ -412,7 +539,7 @@ body {
   justify-content: center;
 }
 
-/* Секции Общие */
+/* Секции */
 .section {
   padding: 120px 0;
   border-top: 1px solid var(--border-color);
@@ -436,6 +563,7 @@ body {
   font-weight: 800;
   letter-spacing: -0.03em;
   text-transform: uppercase;
+  color: var(--text-primary);
 }
 
 .section-desc-editorial {
@@ -460,12 +588,12 @@ body {
   flex-direction: column;
   justify-content: space-between;
   min-height: 380px;
-  transition: border-color 0.3s, transform 0.3s, box-shadow 0.3s;
+  transition: border-color 0.3s, transform 0.3s, box-shadow 0.3s, background-color 0.3s;
 }
 
 .service-card:hover {
   border-color: var(--border-hover);
-  box-shadow: 0 20px 40px rgba(17, 18, 21, 0.06);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
 }
 
 .service-meta {
@@ -487,6 +615,7 @@ body {
   font-weight: 700;
   letter-spacing: -0.02em;
   margin: 20px 0 12px;
+  color: var(--text-primary);
 }
 
 .service-desc {
@@ -527,12 +656,12 @@ body {
   border-radius: 24px;
   padding: 48px;
   align-items: center;
-  transition: border-color 0.3s, box-shadow 0.3s;
+  transition: border-color 0.3s, box-shadow 0.3s, background-color 0.3s;
 }
 
 .project-row:hover {
   border-color: var(--border-hover);
-  box-shadow: 0 24px 60px rgba(17, 18, 21, 0.08);
+  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.2);
 }
 
 .project-index-badge {
@@ -565,6 +694,7 @@ body {
   font-weight: 700;
   letter-spacing: -0.02em;
   margin-bottom: 16px;
+  color: var(--text-primary);
 }
 
 .project-summary {
@@ -630,7 +760,7 @@ body {
   width: 34px;
   height: 34px;
   border-radius: 50%;
-  background: rgba(255, 255, 255, 0.85);
+  background: var(--bg-card);
   border: 1px solid var(--border-color);
   color: var(--text-primary);
   font-family: var(--font-mono);
@@ -644,8 +774,9 @@ body {
 }
 
 .drum-nav-btn:hover {
-  background: var(--text-primary);
+  background: var(--accent);
   color: #fff;
+  border-color: var(--accent);
 }
 
 /* Секция 03: Tech Matrix */
@@ -670,7 +801,7 @@ body {
 }
 
 .matrix-cell:hover {
-  background-color: #faf9f6;
+  background-color: var(--bg-surface);
 }
 
 .m-head {
@@ -725,6 +856,7 @@ body {
   font-weight: 800;
   letter-spacing: -0.03em;
   margin-bottom: 12px;
+  color: var(--text-primary);
 }
 
 .contact-sub-editorial {
@@ -755,16 +887,15 @@ body {
 }
 
 .contact-pill:hover {
-  background: var(--text-primary);
-  color: #fff;
-  border-color: var(--text-primary);
+  background: var(--accent);
+  border-color: var(--accent);
   transform: translateY(-2px);
 }
 
 .contact-pill:hover .cp-type,
 .contact-pill:hover .cp-val,
 .contact-pill:hover .cp-arrow {
-  color: #fff;
+  color: #ffffff;
 }
 
 .cp-type {
@@ -807,7 +938,7 @@ body {
   left: 0;
   width: 100vw;
   height: 100vh;
-  background: rgba(17, 18, 21, 0.92);
+  background: rgba(10, 12, 16, 0.95);
   backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
   display: flex;
@@ -868,7 +999,7 @@ body {
   left: 0;
   width: 100vw;
   height: 100vh;
-  background: rgba(17, 18, 21, 0.6);
+  background: rgba(10, 12, 16, 0.75);
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
   display: flex;
@@ -892,7 +1023,7 @@ body {
   width: 90%;
   max-width: 460px;
   padding: 28px;
-  box-shadow: 0 30px 80px rgba(0,0,0,0.25);
+  box-shadow: 0 30px 80px rgba(0,0,0,0.5);
 }
 
 .admin-header {
@@ -919,6 +1050,7 @@ body {
   font-family: var(--font-mono);
   font-size: 14px;
   font-weight: 600;
+  color: var(--text-primary);
 }
 
 .admin-close {
@@ -943,13 +1075,14 @@ body {
   border-radius: 8px;
   font-family: var(--font-mono);
   font-size: 12px;
+  color: var(--text-secondary);
   cursor: pointer;
   transition: all 0.2s;
 }
 
 .tab-btn.active {
   background: var(--text-primary);
-  color: #fff;
+  color: var(--bg-primary);
 }
 
 .form-group {
@@ -1030,6 +1163,12 @@ body {
   .cursor-dot, .cursor-follower {
     display: none !important;
   }
+
+  .corner-dock {
+    bottom: 16px;
+    left: 16px;
+    padding: 4px 10px;
+  }
 }
 
 @media (max-width: 600px) {
@@ -1045,7 +1184,7 @@ body {
     gap: 12px;
   }
 
-  .nav-item span {
+  .nav-item .item-num {
     display: none;
   }
 
