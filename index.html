@@ -1,32 +1,30 @@
 <!DOCTYPE html>
-<html lang="ru">
+<html lang="ru" data-theme="dark">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>QwertyOzzi — Creative Developer & Digital Modder</title>
   <link id="dynamic-favicon" rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><circle cx='16' cy='16' r='14' fill='%23111215'/></svg>">
   
-  <!-- Шрифты: Syne (Display), Plus Jakarta Sans (Body), JetBrains Mono (Tech/Meta) -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Syne:wght@700;800&display=swap" rel="stylesheet">
   
   <link rel="stylesheet" href="style.css">
   
-  <!-- GSAP, ScrollTrigger, Lenis -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
   <script src="https://unpkg.com/lenis@1.1.9/dist/lenis.min.js"></script>
 </head>
 <body class="editorial-theme">
 
-  <!-- Кастомный кинетический курсор -->
+  <!-- Кастомный курсор -->
   <div class="cursor-dot" id="cursorDot"></div>
   <div class="cursor-follower" id="cursorFollower">
     <span class="cursor-label" id="cursorLabel"></span>
   </div>
 
-  <!-- Фоновые инженерные направляющие и легкий шум -->
+  <!-- Сетка -->
   <div class="grid-backdrop">
     <div class="grid-line"></div>
     <div class="grid-line"></div>
@@ -34,7 +32,26 @@
     <div class="grid-line"></div>
   </div>
 
-  <!-- Уведомление об успешном действии (Toast) -->
+  <!-- Плавающая панель в левом нижнем углу: Тема и Язык -->
+  <aside class="corner-dock" aria-label="Панель настроек">
+    <!-- Переключатель темы -->
+    <button class="dock-btn theme-toggle magnetic" id="themeToggleBtn" data-cursor="THEME" title="Сменить тему">
+      <span class="theme-icon dark-icon">🌙</span>
+      <span class="theme-icon light-icon">☀️</span>
+      <span class="dock-label" id="themeLabel">DARK</span>
+    </button>
+    
+    <div class="dock-divider"></div>
+
+    <!-- Переключатель языка -->
+    <div class="lang-selector">
+      <button class="lang-btn magnetic" data-lang="ru" data-cursor="LANG">RU</button>
+      <button class="lang-btn magnetic" data-lang="ua" data-cursor="LANG">UA</button>
+      <button class="lang-btn magnetic" data-lang="en" data-cursor="LANG">EN</button>
+    </div>
+  </aside>
+
+  <!-- Toast -->
   <div class="toast" id="toast">
     <span class="toast-indicator"></span>
     <span id="toastText">Скопировано в буфер</span>
@@ -46,7 +63,7 @@
       <div class="nav-left">
         <div class="brand-trigger" id="secretLogoTrigger" data-cursor="ADMIN">
           <span class="brand-symbol">✦</span>
-          <span class="brand-name" data-key="nav_logo">QWERTY_OZZI</span>
+          <span class="brand-name" data-i18n="nav_logo">QWERTY_OZZI</span>
           <span class="brand-meta">[V2.6.DEV]</span>
         </div>
       </div>
@@ -54,7 +71,7 @@
       <div class="nav-center">
         <div class="status-pill">
           <span class="status-dot"></span>
-          <span class="status-text">SYSTEM ONLINE</span>
+          <span class="status-text" data-i18n="status_online">SYSTEM ONLINE</span>
           <span class="status-time" id="devClock">--:--:--</span>
           <span class="status-tz">UTC+3</span>
         </div>
@@ -62,10 +79,10 @@
 
       <div class="nav-right">
         <div class="nav-menu">
-          <a href="#services" class="nav-item magnetic" data-cursor="LINK"><span>01</span> Спецификация</a>
-          <a href="#portfolio" class="nav-item magnetic" data-cursor="LINK"><span>02</span> Проекты</a>
-          <a href="#stack" class="nav-item magnetic" data-cursor="LINK"><span>03</span> Стек</a>
-          <a href="#contact" class="nav-item nav-action magnetic" data-cursor="CONTACT">Связаться ↗</a>
+          <a href="#services" class="nav-item magnetic" data-cursor="LINK"><span class="item-num">01</span> <span data-i18n="nav_services">Спецификация</span></a>
+          <a href="#portfolio" class="nav-item magnetic" data-cursor="LINK"><span class="item-num">02</span> <span data-i18n="nav_projects">Проекты</span></a>
+          <a href="#stack" class="nav-item magnetic" data-cursor="LINK"><span class="item-num">03</span> <span data-i18n="nav_stack">Стек</span></a>
+          <a href="#contact" class="nav-item nav-action magnetic" data-cursor="CONTACT"><span data-i18n="nav_contact">Связаться</span> ↗</a>
         </div>
       </div>
     </nav>
@@ -76,30 +93,30 @@
     <!-- Hero Section -->
     <section class="hero-section">
       <div class="hero-meta-top">
-        <span class="meta-tag">[CREATIVE ENGINEERING]</span>
-        <span class="meta-tag">[DIGITAL MODDING & SCRIPTS]</span>
+        <span class="meta-tag" data-i18n="hero_meta_1">[CREATIVE ENGINEERING]</span>
+        <span class="meta-tag" data-i18n="hero_meta_2">[DIGITAL MODDING & SCRIPTS]</span>
         <span class="meta-tag">[LOC: 49.04° N, 28.43° E]</span>
       </div>
 
       <div class="hero-title-container">
         <div class="hero-line-wrap">
-          <h1 class="hero-title" data-key="hero_title_1">ИНЖЕНЕРИЯ</h1>
+          <h1 class="hero-title" data-i18n="hero_title_1">ИНЖЕНЕРИЯ</h1>
         </div>
         <div class="hero-line-wrap hero-line-offset">
           <div class="hero-inline-badge">
             <span class="badge-dot"></span>
-            <span>PROD READY</span>
+            <span data-i18n="hero_badge">PROD READY</span>
           </div>
-          <h1 class="hero-title hero-outline" data-key="hero_title_2">ИНТЕРФЕЙСОВ</h1>
+          <h1 class="hero-title hero-outline" data-i18n="hero_title_2">ИНТЕРФЕЙСОВ</h1>
         </div>
         <div class="hero-line-wrap">
-          <h1 class="hero-title" data-key="hero_title_3">& МОДДИНГ.</h1>
+          <h1 class="hero-title" data-i18n="hero_title_3">& МОДДИНГ.</h1>
         </div>
       </div>
 
       <div class="hero-footer-grid">
         <div class="hero-desc-block">
-          <p class="hero-lead" data-key="hero_sub">
+          <p class="hero-lead" data-i18n="hero_lead">
             Проектирование функциональных систем, высокоскоростных Lua/C++ скриптов, кастомных 3D-моделей и оптимизированных игровых сред с безупречной архитектурой.
           </p>
         </div>
@@ -107,17 +124,17 @@
         <div class="hero-stats-block">
           <div class="stat-card">
             <span class="stat-num">100%</span>
-            <span class="stat-lbl">Отказоустойчивость скриптов</span>
+            <span class="stat-lbl" data-i18n="stat_1">Отказоустойчивость скриптов</span>
           </div>
           <div class="stat-card">
             <span class="stat-num">&lt;2ms</span>
-            <span class="stat-lbl">Задержка выполнения логики</span>
+            <span class="stat-lbl" data-i18n="stat_2">Задержка выполнения логики</span>
           </div>
         </div>
 
         <div class="hero-cta-block">
           <a href="#portfolio" class="btn-editorial magnetic" data-cursor="VIEW">
-            <span class="btn-text">Исследовать проекты</span>
+            <span class="btn-text" data-i18n="hero_btn">Исследовать проекты</span>
             <span class="btn-icon">↓</span>
           </a>
         </div>
@@ -128,7 +145,7 @@
     <section id="services" class="section services-section">
       <div class="section-header-editorial">
         <div class="header-index">01 / SPECIFICATION</div>
-        <h2 class="section-title-editorial" data-key="srv_title">КЛЮЧЕВЫЕ НАПРАВЛЕНИЯ</h2>
+        <h2 class="section-title-editorial" data-i18n="services_heading">КЛЮЧЕВЫЕ НАПРАВЛЕНИЯ</h2>
       </div>
 
       <div class="services-editorial-grid">
@@ -137,8 +154,8 @@
             <span class="service-num">[01]</span>
             <span class="service-cat">SOFTWARE & AUTOMATION</span>
           </div>
-          <h3 class="service-title" data-key="s1_h">Скрипты и системная логика</h3>
-          <p class="service-desc" data-key="s1_t">
+          <h3 class="service-title" data-i18n="s1_title">Скрипты и системная логика</h3>
+          <p class="service-desc" data-i18n="s1_desc">
             Разработка отказоустойчивых скриптовых модулей с кастомными GUI на mimgui, перехватом сетевых пакетов, парсингом и автоматизацией процессов.
           </p>
           <div class="service-tags">
@@ -154,8 +171,8 @@
             <span class="service-num">[02]</span>
             <span class="service-cat">3D MODELLING & RIGGING</span>
           </div>
-          <h3 class="service-title" data-key="s2_h">3D Модели и ретекстур</h3>
-          <p class="service-desc" data-key="s2_t">
+          <h3 class="service-title" data-i18n="s2_title">3D Модели и ретекстур</h3>
+          <p class="service-desc" data-i18n="s2_desc">
             Создание высокоточных замен оружия, транспорта и персонажей. Чистая полигональная сетка, текстурирование высокого разрешения, настройка дамми и костей.
           </p>
           <div class="service-tags">
@@ -171,8 +188,8 @@
             <span class="service-num">[03]</span>
             <span class="service-cat">OPTIMIZATION & CLIENT BUILDS</span>
           </div>
-          <h3 class="service-title" data-key="s3_h">Кастомные сборки клиентов</h3>
-          <p class="service-desc" data-key="s3_t">
+          <h3 class="service-title" data-i18n="s3_title">Кастомные сборки клиентов</h3>
+          <p class="service-desc" data-i18n="s3_desc">
             Комплексный тюнинг игровых сборок под ключ: устранение конфликтов библиотек, очистка лишних ресурсов и достижение максимального стабильного фреймрейта.
           </p>
           <div class="service-tags">
@@ -188,8 +205,8 @@
     <section id="portfolio" class="section portfolio-section">
       <div class="section-header-editorial">
         <div class="header-index">02 / ARCHIVE</div>
-        <h2 class="section-title-editorial" data-key="port_title">ИЗБРАННЫЕ РАБОТЫ</h2>
-        <p class="section-desc-editorial" data-key="port_desc">Интерактивный просмотр медиа-архива. Кликните по превью для зума.</p>
+        <h2 class="section-title-editorial" data-i18n="projects_heading">ИЗБРАННЫЕ РАБОТЫ</h2>
+        <p class="section-desc-editorial" data-i18n="projects_sub">Интерактивный просмотр медиа-архива. Кликните по превью для зума.</p>
       </div>
 
       <div class="projects-spatial-list" id="projectsContainer">
@@ -203,8 +220,8 @@
               <span class="ptag">MIMGUI</span>
               <span class="ptag">NET_PACKETS</span>
             </div>
-            <h3 class="project-heading" data-key="p1_name">NexusCore UI & Assistant</h3>
-            <p class="project-summary" data-key="p1_txt">
+            <h3 class="project-heading" data-i18n="p1_title">NexusCore UI & Assistant</h3>
+            <p class="project-summary" data-i18n="p1_desc">
               Многофункциональный комплекс инструментов автоматизации с модульной архитектурой окон, биндером, кастомными индикаторами и системой тем оформления.
             </p>
           </div>
@@ -232,8 +249,8 @@
               <span class="ptag">3D_ASSETS</span>
               <span class="ptag">TEXTURES</span>
             </div>
-            <h3 class="project-heading" data-key="p2_name">Custom 3D Vehicles & Weapons</h3>
-            <p class="project-summary" data-key="p2_txt">
+            <h3 class="project-heading" data-i18n="p2_title">Custom 3D Vehicles & Weapons</h3>
+            <p class="project-summary" data-i18n="p2_desc">
               Высокодетализированные заменки моделей авто и оружия. Авторский шейдинг, оптимизированный вес моделей и качественные карты отражений.
             </p>
           </div>
@@ -261,8 +278,8 @@
               <span class="ptag">CLIENT_TUNE</span>
               <span class="ptag">MAX_FPS</span>
             </div>
-            <h3 class="project-heading" data-key="p3_name">Performance Client Setup</h3>
-            <p class="project-summary" data-key="p3_txt">
+            <h3 class="project-heading" data-i18n="p3_title">Performance Client Setup</h3>
+            <p class="project-summary" data-i18n="p3_desc">
               Оптимизированный пакет клиентской сборки с интегрированными фиксами памяти, кастомным визуальным стилем и плавной отрисовкой дистанции.
             </p>
           </div>
@@ -288,38 +305,38 @@
     <section id="stack" class="section stack-section">
       <div class="section-header-editorial">
         <div class="header-index">03 / TECH MATRIX</div>
-        <h2 class="section-title-editorial" data-key="tech_title">ТЕХНОЛОГИЧЕСКИЙ СТЕК</h2>
+        <h2 class="section-title-editorial" data-i18n="stack_heading">ТЕХНОЛОГИЧЕСКИЙ СТЕК</h2>
       </div>
 
       <div class="tech-matrix-grid">
         <div class="matrix-cell">
           <div class="m-head"><span class="m-idx">01</span> LUA / MIMGUI</div>
-          <div class="m-body">Разработка клиентских интерфейсов, хуков памяти и скриптовых утилит.</div>
+          <div class="m-body" data-i18n="st1_desc">Разработка клиентских интерфейсов, хуков памяти и скриптовых утилит.</div>
           <div class="m-foot">[CORE DEV]</div>
         </div>
         <div class="matrix-cell">
           <div class="m-head"><span class="m-idx">02</span> BLENDER 3D</div>
-          <div class="m-body">3D моделирование, UV-развертка, скиннинг и экспорт через DragonFF.</div>
+          <div class="m-body" data-i18n="st2_desc">3D моделирование, UV-развертка, скиннинг и экспорт через DragonFF.</div>
           <div class="m-foot">[3D GRAPHICS]</div>
         </div>
         <div class="matrix-cell">
           <div class="m-head"><span class="m-idx">03</span> PYTHON / REST</div>
-          <div class="m-body">Автоматизация задач, парсинг данных, боты и серверная интеграция.</div>
+          <div class="m-body" data-i18n="st3_desc">Автоматизация задач, парсинг данных, боты и серверная интеграция.</div>
           <div class="m-foot">[BACKEND / AUTOMATION]</div>
         </div>
         <div class="matrix-cell">
           <div class="m-head"><span class="m-idx">04</span> C++ & ARDUINO</div>
-          <div class="m-body">Программирование контроллеров, ШИМ-управление и аппаратная логика.</div>
+          <div class="m-body" data-i18n="st4_desc">Программирование контроллеров, ШИМ-управление и аппаратная логика.</div>
           <div class="m-foot">[HARDWARE / EMBEDDED]</div>
         </div>
         <div class="matrix-cell">
           <div class="m-head"><span class="m-idx">05</span> FRONTEND TECH</div>
-          <div class="m-body">HTML5, CSS3, ES6+, GSAP, Canvas API и адаптивные веб-приложения.</div>
+          <div class="m-body" data-i18n="st5_desc">HTML5, CSS3, ES6+, GSAP, Canvas API и адаптивные веб-приложения.</div>
           <div class="m-foot">[UI / UX DEV]</div>
         </div>
         <div class="matrix-cell">
           <div class="m-head"><span class="m-idx">06</span> MAGIC.TXD & PS</div>
-          <div class="m-body">Конвертация и оптимизация текстурных архивов, дизайн интерфейсов.</div>
+          <div class="m-body" data-i18n="st6_desc">Конвертация и оптимизация текстурных архивов, дизайн интерфейсов.</div>
           <div class="m-foot">[ASSET OPTIMIZATION]</div>
         </div>
       </div>
@@ -330,11 +347,11 @@
       <div class="contact-editorial-container">
         <div class="contact-top-meta">
           <span>[COMMUNICATION DOCK]</span>
-          <span>[RESPONSE TIME: FAST]</span>
+          <span data-i18n="contact_speed">[RESPONSE TIME: FAST]</span>
         </div>
 
-        <h2 class="contact-hero-heading" data-key="ct_title">ГОТОВЫ ОБСУДИТЬ ПРОЕКТ?</h2>
-        <p class="contact-sub-editorial" data-key="ct_desc">
+        <h2 class="contact-hero-heading" data-i18n="contact_heading">ГОТОВЫ ОБСУДИТЬ ПРОЕКТ?</h2>
+        <p class="contact-sub-editorial" data-i18n="contact_hint">
           ЛКМ — открыть ссылку • ПКМ — мгновенно скопировать контакт в буфер
         </p>
 
@@ -365,7 +382,7 @@
   <footer class="footer-editorial">
     <div class="footer-inner">
       <div class="f-left">
-        <span>© 2026 QWERTY_OZZI. ВСЕ ПРАВА ЗАЩИЩЕНЫ.</span>
+        <span data-i18n="footer_rights">© 2026 QWERTY_OZZI. ВСЕ ПРАВА ЗАЩИЩЕНЫ.</span>
       </div>
       <div class="f-right">
         <span>BUILT WITH GSAP & LENIS</span>
@@ -373,13 +390,13 @@
     </div>
   </footer>
 
-  <!-- Lightbox для зума картинок -->
+  <!-- Lightbox -->
   <div class="lightbox" id="imageModal">
     <button class="lightbox-close" id="modalClose" aria-label="Закрыть">✕</button>
     <img src="" alt="Full preview" class="lightbox-img" id="modalImg">
   </div>
 
-  <!-- Админ-панель (F2 / Тройной клик / admin()) -->
+  <!-- Панель управления (F2 / Тройной клик / admin()) -->
   <div class="admin-modal" id="adminModal">
     <div class="admin-window">
       <div class="admin-header">
