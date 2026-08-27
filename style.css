@@ -1,6 +1,3 @@
-/* ==========================================================================
-   ЦВЕТОВЫЕ ТОКЕНЫ: DARK (ПО УМОЛЧАНИЮ) И LIGHT
-   ========================================================================== */
 :root,
 html[data-theme="dark"] {
   --bg-primary: #0d0f14;
@@ -16,7 +13,8 @@ html[data-theme="dark"] {
   --grid-line: rgba(255, 255, 255, 0.035);
   --nav-bg: rgba(13, 15, 20, 0.85);
   --cursor-color: #ffffff;
-  --cursor-border: rgba(255, 255, 255, 0.4);
+  --cursor-border: rgba(255, 255, 255, 0.3);
+  --cursor-bg-active: rgba(41, 151, 255, 0.7);
 }
 
 html[data-theme="light"] {
@@ -33,7 +31,8 @@ html[data-theme="light"] {
   --grid-line: rgba(17, 18, 21, 0.04);
   --nav-bg: rgba(244, 243, 239, 0.85);
   --cursor-color: #111215;
-  --cursor-border: rgba(17, 18, 21, 0.3);
+  --cursor-border: rgba(17, 18, 21, 0.25);
+  --cursor-bg-active: rgba(29, 78, 216, 0.7);
 }
 
 :root {
@@ -63,7 +62,6 @@ body {
   line-height: 1.6;
 }
 
-/* Сетка */
 .grid-backdrop {
   position: fixed;
   top: 0;
@@ -83,27 +81,29 @@ body {
   background-color: var(--grid-line);
 }
 
-/* Кастомный курсор */
+/* ==========================================================================
+   КОМПАКТНЫЙ И ПОЛУПРОЗРАЧНЫЙ КУРСОР
+   ========================================================================== */
 .cursor-dot {
   position: fixed;
   top: 0;
   left: 0;
-  width: 8px;
-  height: 8px;
+  width: 6px;
+  height: 6px;
   background-color: var(--cursor-color);
   border-radius: 50%;
   pointer-events: none;
   z-index: 9999;
   transform: translate(-50%, -50%);
-  transition: width 0.2s, height 0.2s, background-color 0.2s;
+  transition: opacity 0.2s, background-color 0.2s;
 }
 
 .cursor-follower {
   position: fixed;
   top: 0;
   left: 0;
-  width: 36px;
-  height: 36px;
+  width: 28px;
+  height: 28px;
   border: 1px solid var(--cursor-border);
   border-radius: 50%;
   pointer-events: none;
@@ -112,33 +112,47 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: transform 0.15s ease-out, width 0.25s ease-out, height 0.25s ease-out, background-color 0.25s ease-out, border-color 0.25s ease-out;
+  backdrop-filter: blur(2px);
+  -webkit-backdrop-filter: blur(2px);
+  transition: transform 0.12s ease-out, width 0.22s cubic-bezier(0.16, 1, 0.3, 1), height 0.22s cubic-bezier(0.16, 1, 0.3, 1), background-color 0.22s ease-out, border-color 0.22s ease-out;
 }
 
 .cursor-label {
   font-family: var(--font-mono);
-  font-size: 9px;
+  font-size: 8.5px;
   font-weight: 600;
-  color: #fff;
+  color: #ffffff;
   opacity: 0;
-  letter-spacing: 0.08em;
-  transition: opacity 0.2s;
+  letter-spacing: 0.06em;
+  transition: opacity 0.15s;
+  pointer-events: none;
+  text-transform: uppercase;
 }
 
+/* При наведении на крупные блоки с data-cursor */
 .cursor-follower.is-active {
-  width: 72px;
-  height: 72px;
-  background-color: var(--accent);
-  border-color: var(--accent);
+  width: 52px;
+  height: 52px;
+  background-color: var(--cursor-bg-active);
+  border-color: rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  box-shadow: 0 4px 20px var(--accent-glow);
 }
 
 .cursor-follower.is-active .cursor-label {
   opacity: 1;
 }
 
-/* ==========================================================================
-   НИЖНИЙ ЛЕВЫЙ УГОЛ: ПАНЕЛЬ ТЕМЫ И ЯЗЫКОВ (CORNER DOCK)
-   ========================================================================== */
+/* При наведении на обычные интерактивные мелкие элементы (ссылки/кнопки дока) */
+.cursor-follower.is-subtle-hover {
+  width: 38px;
+  height: 38px;
+  border-color: var(--accent);
+  background-color: rgba(41, 151, 255, 0.12);
+}
+
+/* Панель настроек (Corner Dock) */
 .corner-dock {
   position: fixed;
   bottom: 24px;
@@ -181,19 +195,10 @@ body {
   line-height: 1;
 }
 
-html[data-theme="dark"] .light-icon {
-  display: none;
-}
-html[data-theme="dark"] .dark-icon {
-  display: inline-block;
-}
-
-html[data-theme="light"] .dark-icon {
-  display: none;
-}
-html[data-theme="light"] .light-icon {
-  display: inline-block;
-}
+html[data-theme="dark"] .light-icon { display: none; }
+html[data-theme="dark"] .dark-icon { display: inline-block; }
+html[data-theme="light"] .dark-icon { display: none; }
+html[data-theme="light"] .light-icon { display: inline-block; }
 
 .dock-divider {
   width: 1px;
@@ -298,9 +303,33 @@ html[data-theme="light"] .light-icon {
   user-select: none;
 }
 
-.brand-symbol {
-  color: var(--accent);
-  font-size: 14px;
+.nav-sparkle-logo {
+  width: 22px;
+  height: 22px;
+  filter: drop-shadow(0 0 6px rgba(41, 151, 255, 0.6));
+  overflow: visible;
+}
+
+.star-main {
+  transform-origin: 45px 50px;
+  animation: mainStarFloat 6s ease-in-out infinite;
+}
+
+.star-mini-wrap {
+  transform-origin: 78px 32px;
+  animation: smallStarTwinkle 3.2s ease-in-out infinite;
+}
+
+@keyframes smallStarTwinkle {
+  0% { transform: scale(0.6) rotate(0deg); opacity: 0.4; }
+  30% { transform: scale(1.35) rotate(45deg); opacity: 1; }
+  65% { transform: scale(0.85) rotate(90deg); opacity: 0.7; }
+  100% { transform: scale(0.6) rotate(135deg); opacity: 0.4; }
+}
+
+@keyframes mainStarFloat {
+  0%, 100% { transform: rotate(0deg) scale(1); }
+  50% { transform: rotate(-6deg) scale(1.05); }
 }
 
 .brand-name {
