@@ -1,6 +1,3 @@
-// ==========================================================================
-// СЛОВАРЬ МУЛЬТИЯЗЫЧНОСТИ (RU, UA, EN)
-// ==========================================================================
 const translations = {
   ru: {
     nav_logo: "QWERTY_OZZI",
@@ -139,7 +136,6 @@ const translations = {
   }
 };
 
-// Smooth Scroll (Lenis)
 let lenis;
 try {
   lenis = new Lenis({
@@ -157,7 +153,6 @@ try {
   console.warn("Lenis initialization skipped:", e);
 }
 
-// Глобальный скролл барабана
 window.scrollDrum = function(drumId, direction) {
   const drum = document.getElementById(drumId);
   if (drum) {
@@ -187,9 +182,7 @@ window.switchAdminTab = function(tabName) {
 
 document.addEventListener("DOMContentLoaded", () => {
 
-  // ========================================================================
-  // 1. ПЕРЕКЛЮЧАТЕЛЬ ТЕМЫ (DARK / LIGHT) — ПО УМОЛЧАНИЮ DARK
-  // ========================================================================
+  // 1. Тема
   const savedTheme = localStorage.getItem("portfolio_theme") || "dark";
   document.documentElement.setAttribute("data-theme", savedTheme);
 
@@ -211,9 +204,7 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
-  // ========================================================================
-  // 2. ПЕРЕКЛЮЧАТЕЛЬ ЯЗЫКОВ (RU, UA, EN)
-  // ========================================================================
+  // 2. Языки
   let currentLang = localStorage.getItem("portfolio_lang") || "ru";
 
   function applyLanguage(lang) {
@@ -246,9 +237,7 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   });
 
-  // ========================================================================
-  // 3. КАСТОМНЫЙ КУРСОР С ИНТЕРПОЛЯЦИЕЙ
-  // ========================================================================
+  // 3. Кастомный курсор
   const dot = document.getElementById("cursorDot");
   const follower = document.getElementById("cursorFollower");
   const cursorLabel = document.getElementById("cursorLabel");
@@ -269,8 +258,8 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 
     function animateCursor() {
-      followerX += (mouseX - followerX) * 0.15;
-      followerY += (mouseY - followerY) * 0.15;
+      followerX += (mouseX - followerX) * 0.16;
+      followerY += (mouseY - followerY) * 0.16;
 
       if (follower) {
         follower.style.left = `${followerX}px`;
@@ -280,6 +269,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
     animateCursor();
 
+    // Крупные интерактивные зоны с надписями
     document.querySelectorAll("[data-cursor]").forEach(el => {
       el.addEventListener("mouseenter", () => {
         const label = el.getAttribute("data-cursor");
@@ -290,6 +280,12 @@ document.addEventListener("DOMContentLoaded", () => {
         follower.classList.remove("is-active");
         if (cursorLabel) cursorLabel.innerText = "";
       });
+    });
+
+    // Мелкие кнопки (без надписи, легкое прозрачное кольцо)
+    document.querySelectorAll(".lang-btn, .theme-toggle, .brand-trigger, .nav-item:not([data-cursor])").forEach(el => {
+      el.addEventListener("mouseenter", () => follower.classList.add("is-subtle-hover"));
+      el.addEventListener("mouseleave", () => follower.classList.remove("is-subtle-hover"));
     });
 
     document.querySelectorAll(".magnetic").forEach(btn => {
@@ -305,9 +301,7 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
-  // ========================================================================
-  // 4. GSAP АНИМАЦИИ
-  // ========================================================================
+  // 4. GSAP Анимации
   if (typeof gsap !== "undefined") {
     gsap.registerPlugin(ScrollTrigger);
 
@@ -353,9 +347,7 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
-  // ========================================================================
-  // 5. ЧАСЫ И ДИНАМИЧЕСКИЙ ЗАГОЛОВОК
-  // ========================================================================
+  // 5. Часы и Dynamic Title
   function updateClock() {
     const clockEl = document.getElementById("devClock");
     if (clockEl) {
@@ -371,9 +363,7 @@ document.addEventListener("DOMContentLoaded", () => {
     document.title = document.hidden ? "✦ [WAITING_RESPONSE] | QwertyOzzi" : originalTitle;
   });
 
-  // ========================================================================
-  // 6. TOAST УВЕДОМЛЕНИЕ И КОПИРОВАНИЕ
-  // ========================================================================
+  // 6. Toast & Копирование
   const toast = document.getElementById("toast");
   const toastText = document.getElementById("toastText");
   let toastTimer = null;
@@ -412,9 +402,7 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   });
 
-  // ========================================================================
-  // 7. LIGHTBOX ЗУМ
-  // ========================================================================
+  // 7. Lightbox Zoom
   const modal = document.getElementById("imageModal");
   const modalImg = document.getElementById("modalImg");
   const modalClose = document.getElementById("modalClose");
@@ -458,9 +446,7 @@ document.addEventListener("DOMContentLoaded", () => {
   if (modalClose) modalClose.addEventListener("click", closeModal);
   if (modal) modal.addEventListener("click", (e) => { if (e.target === modal) closeModal(); });
 
-  // ========================================================================
-  // 8. АДМИН-ПАНЕЛЬ (F2 / Тройной клик / admin())
-  // ========================================================================
+  // 8. Панель управления (F2 / Тройной клик / admin())
   const ADMIN_PASS = "1234";
   const adminModal = document.getElementById("adminModal");
   const adminCloseBtn = document.getElementById("adminCloseBtn");
@@ -506,9 +492,7 @@ document.addEventListener("DOMContentLoaded", () => {
     adminCloseBtn.addEventListener("click", () => adminModal.classList.remove("active"));
   }
 
-  // ========================================================================
-  // 9. ЗАГРУЗКА И СОЗДАНИЕ ПРОЕКТОВ (LOCALSTORAGE)
-  // ========================================================================
+  // 9. LocalStorage Проекты
   const savedCards = JSON.parse(localStorage.getItem("portfolio_custom_cards") || "[]");
   const container = document.getElementById("projectsContainer");
 
@@ -602,9 +586,7 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
-  // ========================================================================
-  // 10. АНИМИРОВАННЫЙ ЗВЕЗДНЫЙ FAVICON
-  // ========================================================================
+  // 10. Favicon
   const favicon = document.getElementById("dynamic-favicon");
   const canvas = document.createElement("canvas");
   canvas.width = 32;
@@ -626,7 +608,7 @@ document.addEventListener("DOMContentLoaded", () => {
     ctx.fill();
   }
 
-  function renderFavicon() {
+  function renderDynamicFavicon() {
     ctx.clearRect(0, 0, 32, 32);
 
     ctx.save();
@@ -658,7 +640,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     favicon.href = canvas.toDataURL("image/png");
     t += 0.035;
-    requestAnimationFrame(renderFavicon);
+    requestAnimationFrame(renderDynamicFavicon);
   }
-  renderFavicon();
+  renderDynamicFavicon();
 });
